@@ -281,8 +281,8 @@
               <div style="grid-column:1/-1;">
                 <div style="font:600 12.5px 'Work Sans';color:#4a4438;margin:0 0 10px 2px;">Nebenjob <span style="color:#a99a6f;font-weight:500;">(optional)</span></div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px 18px;align-items:end;">
+                  <div><label>Netto-Einkommen / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ a.nebenjobEinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
                   <div><label>Tätigkeit</label><input value="{{ a.nebenjob }}" placeholder="z. B. Aushilfe" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjob" onChange="{{ onField }}"></div>
-                  <div><label>Einkommen / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ a.nebenjobEinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
                   <div><label>Beschäftigt seit</label><input type="date" value="{{ a.nebenjobSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobSeit" onChange="{{ onField }}"></div>
                 </div>
                 <div style="margin-top:6px;font:400 12px 'Work Sans';color:#a99a6f;">Hinweis: Ein Nebenjob kann nur angerechnet werden, wenn er seit mindestens 6 Monaten besteht.</div>
@@ -425,12 +425,13 @@
         <div style="overflow-x:auto;border:1px solid #EDE7D9;border-radius:14px;">
           <table style="min-width:640px;">
             <thead><tr style="background:#FAF7EF;border-bottom:1px solid #EDE7D9;">
-              <th style="padding-left:14px;">Kredit</th><th>Restschuld in {{ curSymbol }}</th><th>Darlehenshöhe gesamt</th><th>Rate / Monat</th><th style="padding-right:14px;">Restlaufzeit</th>
+              <th style="padding-left:14px;">Kredit</th><th>Kreditnehmer</th><th>Restschuld in {{ curSymbol }}</th><th>Darlehenshöhe gesamt</th><th>Rate / Monat</th><th style="padding-right:14px;">Restlaufzeit</th>
             </tr></thead>
             <tbody>
               <sc-for list="{{ fin.krediteA }}" as="k" hint-placeholder-count="3">
                 <tr style="border-bottom:1px solid #F2EDE1;">
                   <td style="font:600 13px 'Work Sans';color:#7a6f52;padding-left:14px;white-space:nowrap;">Kredit {{ k.num }}</td>
+                  <td><input value="{{ k.name }}" placeholder="Name" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="name" onChange="{{ onField }}"></td>
                   <td><input value="{{ k.restschuld }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="restschuld" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                   <td><input value="{{ k.darlehenshoehe }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="darlehenshoehe" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                   <td><input value="{{ k.rate }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="rate" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
@@ -452,12 +453,13 @@
             <div style="overflow-x:auto;border:1px solid #EDE7D9;border-radius:14px;">
               <table style="min-width:640px;">
                 <thead><tr style="background:#FAF7EF;border-bottom:1px solid #EDE7D9;">
-                  <th style="padding-left:14px;">Kredit</th><th>Restschuld in {{ curSymbol }}</th><th>Darlehenshöhe gesamt</th><th>Rate / Monat</th><th style="padding-right:14px;">Restlaufzeit</th>
+                  <th style="padding-left:14px;">Kredit</th><th>Kreditnehmer</th><th>Restschuld in {{ curSymbol }}</th><th>Darlehenshöhe gesamt</th><th>Rate / Monat</th><th style="padding-right:14px;">Restlaufzeit</th>
                 </tr></thead>
                 <tbody>
                   <sc-for list="{{ fin.krediteM }}" as="k" hint-placeholder-count="3">
                     <tr style="border-bottom:1px solid #F2EDE1;">
                       <td style="font:600 13px 'Work Sans';color:#7a6f52;padding-left:14px;white-space:nowrap;">Kredit {{ k.num }}</td>
+                      <td><input value="{{ k.name }}" placeholder="Name" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="name" onChange="{{ onField }}"></td>
                       <td><input value="{{ k.restschuld }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="restschuld" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input value="{{ k.darlehenshoehe }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="darlehenshoehe" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input value="{{ k.rate }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="rate" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
@@ -525,14 +527,13 @@
             <div style="overflow-x:auto;border:1px solid #EDE7D9;border-radius:14px;">
               <table style="min-width:1180px;">
                 <thead><tr style="background:#FAF7EF;border-bottom:1px solid #EDE7D9;">
-                  <th style="padding-left:14px;">Darlehen</th><th>Kreditgeber</th><th>Lebensvers.-Gesellschaft</th><th>Eingetr. Grundschulden</th><th>Akt. Darlehensstand</th><th>Sollzins %</th><th>Tilgung %</th><th>Zinsbindung bis</th><th style="padding-right:14px;">Rate / Monat</th>
+                  <th style="padding-left:14px;">Darlehen</th><th>Kreditgeber</th><th>Eingetr. Grundschulden</th><th>Akt. Darlehensstand</th><th>Sollzins %</th><th>Tilgung %</th><th>Zinsbindung bis</th><th style="padding-right:14px;">Rate / Monat</th>
                 </tr></thead>
                 <tbody>
                   <sc-for list="{{ p.loanList }}" as="l" hint-placeholder-count="3">
                     <tr style="border-bottom:1px solid #F2EDE1;">
                       <td style="font:600 13px 'Work Sans';color:#7a6f52;padding-left:14px;white-space:nowrap;">{{ l.label }}</td>
                       <td><input value="{{ l.kreditgeber }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="kreditgeber" onChange="{{ onField }}"></td>
-                      <td><input value="{{ l.lvGesellschaft }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="lvGesellschaft" onChange="{{ onField }}"></td>
                       <td><input value="{{ l.grundschulden }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="grundschulden" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input value="{{ l.darlehensstand }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="darlehensstand" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input style="min-width:80px;" value="{{ l.sollzins }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="sollzins" inputmode="decimal" onChange="{{ onField }}"></td>
@@ -543,7 +544,7 @@
                   </sc-for>
                   <tr style="background:#FAF7EF;font-weight:700;">
                     <td style="font:700 13px 'Work Sans';color:#161310;padding-left:14px;">Summe</td>
-                    <td></td><td></td>
+                    <td></td>
                     <td style="font:600 13px 'Work Sans';color:#161310;padding-left:8px;">{{ p.sumGrundschulden }}</td>
                     <td style="font:600 13px 'Work Sans';color:#161310;padding-left:8px;">{{ p.sumDarlehen }}</td>
                     <td></td><td></td><td></td>
@@ -629,9 +630,9 @@ class Component extends DCLogic {
   emptyProtokoll(){return{berater:'',portfolioManager:'',gespraechsnotizen:'',naechsteSchritte:''};}
   emptyApplicant(){return{anrede:'',vorname:'',nachname:'',geburtsdatum:'',geburtsort:'',geburtsland:'Deutschland',telefon:'',email:'',strasse:'',hausnummer:'',plz:'',ort:'',wohnhaftSeit:'',familienstand:'',guterstand:'',nationalitaet1:'Deutschland',aufenthaltstitel:'',beschaeftigungsart:'',nettoeinkommen:'',beschaeftigtSeit:'',gehaelterProJahr:'12',arbeitgeber:'',beruf:'',nebenjob:'',nebenjobEinkommen:'',nebenjobSeit:''};}
   emptyChild(){return{name:'',geburtsdatum:'',kindergeld:false,kindergeldBetrag:'',unterhalt:false,unterhaltBetrag:''};}
-  emptyKredit(){return{restschuld:'',darlehenshoehe:'',rate:'',restlaufzeit:''};}
+  emptyKredit(){return{name:'',restschuld:'',darlehenshoehe:'',rate:'',restlaufzeit:''};}
   emptyFin(){return{eigenkapital:'',bankGuthaben:'',wertpapiere:'',lvRueckkauf:'',lvBeitragMonat:'',bausparWert:'',bausparBeitragMonat:'',sonstEinkommen:'',infoEinkommen:'',miete:'',unterhaltAktiv:null,unterhaltsverpfl:'',pkvAktiv:null,pkv:'',sonstAusgaben:'',infoAusgaben:'',infoMiete:'',kommentar:'',krediteA:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()],mitAktiv:false,krediteM:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()]};}
-  emptyLoan(){return{kreditgeber:'',lvGesellschaft:'',grundschulden:'',darlehensstand:'',sollzins:'',tilgung:'',zinsbindungBis:'',rateMonat:''};}
+  emptyLoan(){return{kreditgeber:'',grundschulden:'',darlehensstand:'',sollzins:'',tilgung:'',zinsbindungBis:'',rateMonat:''};}
   emptyProperty(){return{anschrift:'',types:{},gewerbeart:'',gesamtflaeche:'',vermieteteFlaeche:'',gewerbeflaeche:'',baujahr:'',kaufpreis:'',wertHeute:'',kaltmiete:'',wohneinheiten:'',info:'',besonderheiten:'',loans:[this.emptyLoan(),this.emptyLoan(),this.emptyLoan()]};}
 
   componentDidMount(){
@@ -717,7 +718,7 @@ class Component extends DCLogic {
       finanzen:{
         vermoegenEinkommen:{eigenkapital:num(s.fin.eigenkapital),bankSparguthaben:num(s.fin.bankGuthaben),wertpapiere:num(s.fin.wertpapiere),lebensversicherungRueckkaufswert:num(s.fin.lvRueckkauf),lebensversicherungBeitragMonat:num(s.fin.lvBeitragMonat),bausparAngespart:num(s.fin.bausparWert),bausparBeitragMonat:num(s.fin.bausparBeitragMonat),sonstigeEinkuenfteMonat:num(s.fin.sonstEinkommen),gesamteinnahmenMonat:s.applicants.reduce((x,a)=>x+num(a.nettoeinkommen)+num(a.nebenjobEinkommen),0)+num(s.fin.sonstEinkommen)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.kindergeld?num(c.kindergeldBetrag):0)+(c.unterhalt?num(c.unterhaltBetrag):0),0):0),beschreibungEinkuenfte:s.fin.infoEinkommen},
         ausgaben:{warmmieteMonat:num(s.fin.miete),unterhaltsverpflichtungen:s.fin.unterhaltAktiv===true,unterhaltsverpflichtungenMonat:s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0,privateKrankenversicherung:s.fin.pkvAktiv===true,privateKrankenversicherungMonat:s.fin.pkvAktiv===true?num(s.fin.pkv):0,sonstigeAusgabenMonat:num(s.fin.sonstAusgaben),gesamtausgabenMonat:num(s.fin.miete)+(s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0)+(s.fin.pkvAktiv===true?num(s.fin.pkv):0)+num(s.fin.sonstAusgaben),beschreibungAusgaben:s.fin.infoAusgaben,anmerkungMiete:s.fin.infoMiete},
-        privateKredite:{antragsteller:s.fin.krediteA.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.restlaufzeit).map(k=>({restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),restlaufzeit:k.restlaufzeit})),mitantragsteller:s.fin.mitAktiv?s.fin.krediteM.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.restlaufzeit).map(k=>({restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),restlaufzeit:k.restlaufzeit})):[]},
+        privateKredite:{antragsteller:s.fin.krediteA.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.restlaufzeit).map(k=>({kreditnehmer:k.name,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),restlaufzeit:k.restlaufzeit})),mitantragsteller:s.fin.mitAktiv?s.fin.krediteM.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.restlaufzeit).map(k=>({kreditnehmer:k.name,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),restlaufzeit:k.restlaufzeit})):[]},
         kommentar:s.fin.kommentar
       },
       immobilien:s.properties.map(p=>({
@@ -726,7 +727,7 @@ class Component extends DCLogic {
         gewerbeart:p.types.gewerbe?p.gewerbeart:'',
         gesamtwohnflaecheM2:num(p.gesamtflaeche),vermieteteWohnflaecheM2:num(p.vermieteteFlaeche),gewerblicheNutzflaecheM2:num(p.gewerbeflaeche),baujahr:p.baujahr,
         kaufpreis:num(p.kaufpreis),wertHeute:num(p.wertHeute),kaltmieteMonat:num(p.kaltmiete),anzahlWohneinheiten:num(p.wohneinheiten),
-        verbindlichkeiten:p.loans.map((l,i)=>({darlehen:i+1,kreditgeber:l.kreditgeber,lebensversicherungsgesellschaft:l.lvGesellschaft,eingetrageneGrundschulden:num(l.grundschulden),aktuellerDarlehensstand:num(l.darlehensstand),sollzinsProzent:this.parseNum(l.sollzins),tilgungProzent:this.parseNum(l.tilgung),zinsbindungBis:l.zinsbindungBis,monatlicheRate:num(l.rateMonat)})),
+        verbindlichkeiten:p.loans.map((l,i)=>({darlehen:i+1,kreditgeber:l.kreditgeber,eingetrageneGrundschulden:num(l.grundschulden),aktuellerDarlehensstand:num(l.darlehensstand),sollzinsProzent:this.parseNum(l.sollzins),tilgungProzent:this.parseNum(l.tilgung),zinsbindungBis:l.zinsbindungBis,monatlicheRate:num(l.rateMonat)})),
         summeDarlehensstand:p.loans.reduce((s2,l)=>s2+num(l.darlehensstand),0),
         summeMonatlicheBelastung:p.loans.reduce((s2,l)=>s2+num(l.rateMonat),0),
         beschreibung:p.info,besonderheiten:p.besonderheiten
@@ -782,7 +783,7 @@ class Component extends DCLogic {
       row('Sonstige Einkünfte/Monat',f.vermoegenEinkommen.sonstigeEinkuenfteMonat?eur(f.vermoegenEinkommen.sonstigeEinkuenfteMonat):'')+row('Gesamteinnahmen/Monat',eur(f.vermoegenEinkommen.gesamteinnahmenMonat))+
       row('Warmmiete/Monat',f.ausgaben.warmmieteMonat?eur(f.ausgaben.warmmieteMonat):'')+row('Unterhaltsverpflichtungen',f.ausgaben.unterhaltsverpflichtungen?('Ja'+(f.ausgaben.unterhaltsverpflichtungenMonat?' — '+eur(f.ausgaben.unterhaltsverpflichtungenMonat)+'/Monat':'')):'Nein')+
       row('Private Krankenversicherung',f.ausgaben.privateKrankenversicherung?('Ja'+(f.ausgaben.privateKrankenversicherungMonat?' — '+eur(f.ausgaben.privateKrankenversicherungMonat)+'/Monat':'')):'Nein')+row('Sonstige Ausgaben/Monat',f.ausgaben.sonstigeAusgabenMonat?eur(f.ausgaben.sonstigeAusgabenMonat):'')+row('Gesamtausgaben/Monat',eur(f.ausgaben.gesamtausgabenMonat))+row('Kommentar',f.kommentar)+'</table>';
-    const kredTable=(title,list)=>{if(!list||!list.length)return'';let t='<div style="font:600 11px Arial;color:#161310;margin:8px 0 4px;">'+esc(title)+'</div><table style="font:400 10.5px Arial;border-collapse:collapse;width:100%;"><tr style="background:#FAF3E0;"><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kredit</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Restschuld</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Darlehenshöhe gesamt</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Rate/M</th><th style="padding:4px 6px;border:1px solid #eadfc4;">Restlaufzeit</th></tr>';list.forEach((k,i)=>{t+='<tr><td style="padding:4px 6px;border:1px solid #eadfc4;">'+(i+1)+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.restschuld?eur(k.restschuld):'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.darlehenshoeheGesamt?eur(k.darlehenshoeheGesamt):'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.rateMonat?eur(k.rateMonat):'')+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.restlaufzeit||'')+'</td></tr>';});return t+'</table>';};
+    const kredTable=(title,list)=>{if(!list||!list.length)return'';let t='<div style="font:600 11px Arial;color:#161310;margin:8px 0 4px;">'+esc(title)+'</div><table style="font:400 10.5px Arial;border-collapse:collapse;width:100%;"><tr style="background:#FAF3E0;"><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kredit</th><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kreditnehmer</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Restschuld</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Darlehenshöhe gesamt</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Rate/M</th><th style="padding:4px 6px;border:1px solid #eadfc4;">Restlaufzeit</th></tr>';list.forEach((k,i)=>{t+='<tr><td style="padding:4px 6px;border:1px solid #eadfc4;">'+(i+1)+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.kreditnehmer||'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.restschuld?eur(k.restschuld):'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.darlehenshoeheGesamt?eur(k.darlehenshoeheGesamt):'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.rateMonat?eur(k.rateMonat):'')+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.restlaufzeit||'')+'</td></tr>';});return t+'</table>';};
     if((f.privateKredite.antragsteller&&f.privateKredite.antragsteller.length)||(f.privateKredite.mitantragsteller&&f.privateKredite.mitantragsteller.length)){h+=sec('Private Kredite / Autokredite')+kredTable('Antragsteller',f.privateKredite.antragsteller)+kredTable('Mitantragsteller',f.privateKredite.mitantragsteller);}
     p.immobilien.forEach((im,i)=>{h+=sec('Immobilie '+(i+1))+'<table style="font:400 12px Arial;border-collapse:collapse;">'+
       row('Anschrift',im.anschrift)+row('Objektart',im.objektarten.join(', '))+row('Gewerbeart',im.gewerbeart)+row('Gesamt-/vermietete Fläche',(im.gesamtwohnflaecheM2||'?')+' / '+(im.vermieteteWohnflaecheM2||'?')+' m²')+row('Baujahr',im.baujahr)+
