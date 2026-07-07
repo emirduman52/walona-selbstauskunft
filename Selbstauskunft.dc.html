@@ -45,6 +45,29 @@
   .wln-btn-primary:hover{background:#E2BE14;box-shadow:0 5px 16px rgba(200,167,1,.32);transform:translateY(-1px);}
   .wln-btn-ghost:hover{background:rgba(255,255,255,.07);border-color:#8a8378;transform:translateY(-1px);}
   .wln-btn:active{transform:translateY(0);}
+  /* ===== Mobile / Responsive ===== */
+  @media (max-width:640px){
+    #wln main{padding:20px 13px 72px !important;gap:18px !important;}
+    #wln header{padding-bottom:34px !important;}
+    /* 16px verhindert Auto-Zoom beim Fokussieren auf iOS */
+    #wln input:not([type=checkbox]),#wln select,#wln textarea{font-size:16px;}
+    #wln td input{font-size:16px;min-width:118px;}
+    /* Weiße Karten schmaler bepolstern (Live-DOM normalisiert Styles → Leerzeichen nach Doppelpunkt) */
+    #wln [style*="border-radius: 20px"]{padding-left:16px !important;padding-right:16px !important;}
+    #wln [style*="border-radius: 22px"]{padding:22px 16px !important;}
+    /* Feste Zwei-Spalten-Raster (z. B. LV/Bauspar) auf eine Spalte */
+    #wln [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr !important;}
+    /* Haupt-Feldraster (Persönliche Daten, Beschäftigung, Nebenjob, Kinder) einspaltig */
+    #wln [style*="minmax(190px"]{grid-template-columns:1fr !important;}
+    #wln [style*="minmax(180px"]{grid-template-columns:1fr !important;}
+    /* Breite Tabellen weich horizontal scrollen */
+    #wln [style*="overflow-x: auto"]{-webkit-overflow-scrolling:touch;}
+    #wln h2{font-size:19px !important;}
+  }
+  @media (max-width:380px){
+    #wln main{padding-left:10px !important;padding-right:10px !important;}
+    #wln [style*="border-radius: 20px"]{padding-left:13px !important;padding-right:13px !important;}
+  }
 </style>
 </helmet>
 
