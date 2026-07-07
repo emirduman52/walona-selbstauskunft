@@ -55,11 +55,12 @@
     /* Weiße Karten schmaler bepolstern (Live-DOM normalisiert Styles → Leerzeichen nach Doppelpunkt) */
     #wln [style*="border-radius: 20px"]{padding-left:16px !important;padding-right:16px !important;}
     #wln [style*="border-radius: 22px"]{padding:22px 16px !important;}
-    /* Feste Zwei-Spalten-Raster (z. B. LV/Bauspar) auf eine Spalte */
+    /* Feste Zwei-Spalten-Raster (z. B. LV/Bauspar) auf eine Spalte.
+       Die auto-fit-Raster (minmax 190/180/150px) kollabieren bei Handybreite von selbst
+       auf eine Spalte und behandeln span-2-Zellen korrekt – daher NICHT hart überschreiben. */
     #wln [style*="grid-template-columns: 1fr 1fr"]{grid-template-columns:1fr !important;}
-    /* Haupt-Feldraster (Persönliche Daten, Beschäftigung, Nebenjob, Kinder) einspaltig */
-    #wln [style*="minmax(190px"]{grid-template-columns:1fr !important;}
-    #wln [style*="minmax(180px"]{grid-template-columns:1fr !important;}
+    /* span-2-Zellen (z. B. Straße) erzwingen sonst bei Handybreite eine 2. Spalte → Overflow */
+    #wln [style*="grid-column: span 2"]{grid-column:auto !important;}
     /* Breite Tabellen weich horizontal scrollen */
     #wln [style*="overflow-x: auto"]{-webkit-overflow-scrolling:touch;}
     #wln h2{font-size:19px !important;}
