@@ -45,6 +45,8 @@
   .wln-btn-primary:hover{background:#E2BE14;box-shadow:0 5px 16px rgba(200,167,1,.32);transform:translateY(-1px);}
   .wln-btn-ghost:hover{background:rgba(255,255,255,.07);border-color:#8a8378;transform:translateY(-1px);}
   .wln-btn:active{transform:translateY(0);}
+  /* Absenden-Button vorübergehend inaktiv (Funktion noch nicht in Betrieb) */
+  #wln .wln-submit-soon:hover{background:#d8d2c4 !important;color:#8a8378 !important;box-shadow:none !important;transform:none !important;cursor:not-allowed !important;}
   /* ===== Mobile / Responsive ===== */
   @media (max-width:640px){
     #wln main{padding:20px 13px 72px !important;gap:18px !important;}
@@ -655,7 +657,7 @@
         </sc-if>
 
         <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
-          <button type="button" class="wln-btn wln-btn-primary" onClick="{{ submit }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Work Sans';letter-spacing:.02em;cursor:pointer;">{{ submitLabel }}</button>
+          <button type="button" class="wln-btn wln-submit-soon" title="Diese Funktion ist derzeit noch nicht aktiv." style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Work Sans';letter-spacing:.02em;cursor:not-allowed;">{{ submitLabel }}</button>
           <button type="button" class="wln-btn wln-btn-ghost" onClick="{{ downloadPdf }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:transparent;color:#fff;border:1.5px solid #55504a;font:600 14px 'Work Sans';cursor:pointer;">Als PDF herunterladen</button>
         </div>
       </div>
