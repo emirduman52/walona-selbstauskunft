@@ -333,12 +333,23 @@
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 16px;align-items:end;">
                   <div><label>Geburtsdatum</label><input type="date" value="{{ c.geburtsdatum }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="geburtsdatum" onChange="{{ onField }}"></div>
                   <div>
+                    <label>Lebt im Haushalt?</label>
+                    <div style="display:flex;gap:9px;">
+                      <button data-toggle type="button" aria-pressed="{{ c.imHaushaltJa }}" onClick="{{ c.setImHaushaltJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
+                      <button data-toggle type="button" aria-pressed="{{ c.imHaushaltNein }}" onClick="{{ c.setImHaushaltNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+                    </div>
+                  </div>
+                  <div>
                     <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.kindergeld }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="kindergeld" onChange="{{ onField }}"> Kindergeld</label>
                     <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.kindergeldBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="kindergeldBetrag" data-num="cur" onChange="{{ onField }}"></div>
                   </div>
                   <div>
-                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.unterhalt }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhalt" onChange="{{ onField }}"> Unterhaltseinkommen</label>
+                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.unterhalt }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhalt" onChange="{{ onField }}"> Unterhaltseinnahmen</label>
                     <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.unterhaltBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltBetrag" data-num="cur" onChange="{{ onField }}"></div>
+                  </div>
+                  <div>
+                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.unterhaltAusgabe }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltAusgabe" onChange="{{ onField }}"> Unterhaltsausgaben</label>
+                    <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.unterhaltAusgabeBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltAusgabeBetrag" data-num="cur" onChange="{{ onField }}"></div>
                   </div>
                 </div>
               </div>
@@ -379,7 +390,7 @@
               <span style="font:600 13px 'Work Sans';color:#C9A700;text-transform:uppercase;letter-spacing:.04em;">Gesamteinnahmen / Monat</span>
               <span style="font:700 20px 'Oswald';color:#fff;">{{ fin.gesamteinnahmenFmt }}</span>
             </div>
-            <div style="font:400 11.5px 'Work Sans';color:#a99a6f;margin-top:-4px;">Enthält Nettoeinkommen &amp; Nebenjob aller Antragsteller, sonstige Einkünfte sowie Kindergeld/Unterhalt.</div>
+            <div style="font:400 11.5px 'Work Sans';color:#a99a6f;margin-top:-4px;">Enthält Nettoeinkommen &amp; Nebenjob aller Antragsteller, sonstige Einkünfte sowie Kindergeld/Unterhaltseinnahmen.</div>
           </div>
         </div>
 
@@ -417,6 +428,45 @@
               <span style="font:600 13px 'Work Sans';color:#C9A700;text-transform:uppercase;letter-spacing:.04em;">Gesamtausgaben / Monat</span>
               <span style="font:700 20px 'Oswald';color:#fff;">{{ fin.gesamtausgabenFmt }}</span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
+        <div style="font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 16px;">Bonität &amp; weitere Verbindlichkeiten</div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <label>Gab es in den letzten 90 Tagen Rücklastschriften oder Schufa-Einträge?</label>
+            <div style="display:flex;gap:9px;">
+              <button data-toggle type="button" aria-pressed="{{ fin.ruecklastJa }}" onClick="{{ fin.setRuecklastJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
+              <button data-toggle type="button" aria-pressed="{{ fin.ruecklastNein }}" onClick="{{ fin.setRuecklastNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+            </div>
+            <sc-if value="{{ fin.ruecklastJa }}" hint-placeholder-val="{{ false }}">
+              <div class="wln-reveal" style="margin-top:10px;"><textarea value="{{ fin.ruecklastInfo }}" data-sec="fin" data-key="ruecklastInfo" onChange="{{ onField }}" placeholder="Kurze Erläuterung (Grund, Höhe, Zeitpunkt …)"></textarea></div>
+            </sc-if>
+          </div>
+          <div>
+            <label>Haben Sie Kreditkarten?</label>
+            <div style="display:flex;gap:9px;">
+              <button data-toggle type="button" aria-pressed="{{ fin.kkJa }}" onClick="{{ fin.setKkJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
+              <button data-toggle type="button" aria-pressed="{{ fin.kkNein }}" onClick="{{ fin.setKkNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+            </div>
+            <sc-if value="{{ fin.kkJa }}" hint-placeholder-val="{{ false }}">
+              <div class="wln-reveal" style="margin-top:10px;">
+                <label>Aktuell ausgeschöpfter Betrag</label>
+                <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag" value="{{ fin.kkBetrag }}" inputmode="numeric" data-sec="fin" data-key="kkBetrag" data-num="cur" onChange="{{ onField }}"></div>
+              </div>
+            </sc-if>
+          </div>
+          <div>
+            <label>Nutzen Sie Ratenzahlungsmöglichkeiten (Klarna, PayPal, Amazon, Otto o. Ä.)?</label>
+            <div style="display:flex;gap:9px;">
+              <button data-toggle type="button" aria-pressed="{{ fin.ratenJa }}" onClick="{{ fin.setRatenJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
+              <button data-toggle type="button" aria-pressed="{{ fin.ratenNein }}" onClick="{{ fin.setRatenNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+            </div>
+            <sc-if value="{{ fin.ratenJa }}" hint-placeholder-val="{{ false }}">
+              <div class="wln-reveal" style="margin-top:10px;"><textarea value="{{ fin.ratenInfo }}" data-sec="fin" data-key="ratenInfo" onChange="{{ onField }}" placeholder="Welche Anbieter (Klarna, PayPal, Amazon, Otto …) und ungefähre monatliche Belastung?"></textarea></div>
+            </sc-if>
           </div>
         </div>
       </div>
@@ -639,9 +689,9 @@ class Component extends DCLogic {
   }
   emptyProtokoll(){return{berater:'',portfolioManager:'',gespraechsnotizen:'',naechsteSchritte:''};}
   emptyApplicant(){return{anrede:'',vorname:'',nachname:'',geburtsdatum:'',geburtsort:'',geburtsland:'Deutschland',telefon:'',email:'',strasse:'',hausnummer:'',plz:'',ort:'',wohnhaftSeit:'',familienstand:'',guterstand:'',nationalitaet1:'Deutschland',aufenthaltstitel:'',beschaeftigungsart:'',nettoeinkommen:'',beschaeftigtSeit:'',gehaelterProJahr:'12',arbeitgeber:'',beruf:'',nebenjob:'',nebenjobEinkommen:'',nebenjobSeit:''};}
-  emptyChild(){return{name:'',geburtsdatum:'',kindergeld:false,kindergeldBetrag:'',unterhalt:false,unterhaltBetrag:''};}
+  emptyChild(){return{name:'',geburtsdatum:'',imHaushalt:null,kindergeld:false,kindergeldBetrag:'',unterhalt:false,unterhaltBetrag:'',unterhaltAusgabe:false,unterhaltAusgabeBetrag:''};}
   emptyKredit(){return{name:'',kreditgeber:'',restschuld:'',darlehenshoehe:'',rate:'',gesamtlaufzeit:'',ablaufdatum:''};}
-  emptyFin(){return{eigenkapital:'',bankGuthaben:'',wertpapiere:'',lvRueckkauf:'',lvBeitragMonat:'',bausparWert:'',bausparBeitragMonat:'',sonstEinkommen:'',infoEinkommen:'',miete:'',unterhaltAktiv:null,unterhaltsverpfl:'',pkvAktiv:null,pkv:'',sonstAusgaben:'',infoAusgaben:'',infoMiete:'',kommentar:'',krediteA:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()],mitAktiv:false,krediteM:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()]};}
+  emptyFin(){return{eigenkapital:'',bankGuthaben:'',wertpapiere:'',lvRueckkauf:'',lvBeitragMonat:'',bausparWert:'',bausparBeitragMonat:'',sonstEinkommen:'',infoEinkommen:'',miete:'',unterhaltAktiv:null,unterhaltsverpfl:'',pkvAktiv:null,pkv:'',sonstAusgaben:'',infoAusgaben:'',infoMiete:'',ruecklastAktiv:null,ruecklastInfo:'',kkAktiv:null,kkBetrag:'',ratenAktiv:null,ratenInfo:'',kommentar:'',krediteA:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()],mitAktiv:false,krediteM:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()]};}
   emptyLoan(){return{kreditgeber:'',kreditnehmer:'',grundschulden:'',darlehensstand:'',sollzins:'',tilgung:'',zinsbindungBis:'',gesamtlaufzeit:'',rateMonat:''};}
   emptyProperty(){return{anschrift:'',types:{},gewerbeart:'',gesamtflaeche:'',vermieteteFlaeche:'',gewerbeflaeche:'',baujahr:'',kaufpreis:'',wertHeute:'',kaltmiete:'',wohneinheiten:'',info:'',besonderheiten:'',loans:[this.emptyLoan(),this.emptyLoan(),this.emptyLoan()]};}
 
@@ -693,6 +743,7 @@ class Component extends DCLogic {
   setAppField=(i,key,val)=>this.setState(p=>({applicants:p.applicants.map((a,j)=>j===i?{...a,[key]:val}:a)}));
   pickFamilienstand=(i,val)=>this.setState(p=>({applicants:p.applicants.map((a,j)=>j===i?{...a,familienstand:val,guterstand:val==='Verheiratet'?a.guterstand:''}:a)}));
   setFinFlag=(key,val)=>this.setState(p=>({fin:{...p.fin,[key]:val}}));
+  setChildFlag=(idx,key,val)=>this.setState(p=>({children:p.children.map((c,i)=>i==idx?{...c,[key]:val}:c)}));
   addKredit=(person)=>this.setState(p=>{const lk=person==='M'?'krediteM':'krediteA';return{fin:{...p.fin,[lk]:[...p.fin[lk],this.emptyKredit()]}};});
   toggleMit=()=>this.setState(p=>({fin:{...p.fin,mitAktiv:!p.fin.mitAktiv}}));
   addProperty=()=>this.setState(p=>({properties:[...p.properties,this.emptyProperty()]}));
@@ -724,10 +775,11 @@ class Component extends DCLogic {
         aufenthaltstitel:a.aufenthaltstitel,
         beschaeftigung:{art:a.beschaeftigungsart,nettoeinkommenMonat:num(a.nettoeinkommen),beschaeftigtSeit:a.beschaeftigtSeit,gehaelterProJahr:num(a.gehaelterProJahr),arbeitgeber:a.arbeitgeber,beruf:a.beruf,nebenjob:a.nebenjob,nebenjobEinkommenMonat:num(a.nebenjobEinkommen),nebenjobBeschaeftigtSeit:a.nebenjobSeit}
       })),
-      kinder:{vorhanden:!!s.hasChildren,beschreibung:s.hasChildren?s.childrenInfo:'',anzahl:s.hasChildren?s.children.length:0,liste:s.hasChildren?s.children.map(c=>({geburtsdatum:c.geburtsdatum,kindergeld:c.kindergeld,kindergeldBetragMonat:c.kindergeld?num(c.kindergeldBetrag):0,unterhalt:c.unterhalt,unterhaltBetragMonat:c.unterhalt?num(c.unterhaltBetrag):0})):[]},
+      kinder:{vorhanden:!!s.hasChildren,beschreibung:s.hasChildren?s.childrenInfo:'',anzahl:s.hasChildren?s.children.length:0,liste:s.hasChildren?s.children.map(c=>({geburtsdatum:c.geburtsdatum,imHaushalt:c.imHaushalt===true,kindergeld:c.kindergeld,kindergeldBetragMonat:c.kindergeld?num(c.kindergeldBetrag):0,unterhaltseinnahmen:c.unterhalt,unterhaltseinnahmenMonat:c.unterhalt?num(c.unterhaltBetrag):0,unterhaltsausgabe:c.unterhaltAusgabe,unterhaltsausgabeMonat:c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0})):[]},
       finanzen:{
         vermoegenEinkommen:{eigenkapital:num(s.fin.eigenkapital),bankSparguthaben:num(s.fin.bankGuthaben),wertpapiere:num(s.fin.wertpapiere),lebensversicherungRueckkaufswert:num(s.fin.lvRueckkauf),lebensversicherungBeitragMonat:num(s.fin.lvBeitragMonat),bausparAngespart:num(s.fin.bausparWert),bausparBeitragMonat:num(s.fin.bausparBeitragMonat),sonstigeEinkuenfteMonat:num(s.fin.sonstEinkommen),gesamteinnahmenMonat:s.applicants.reduce((x,a)=>x+num(a.nettoeinkommen)+num(a.nebenjobEinkommen),0)+num(s.fin.sonstEinkommen)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.kindergeld?num(c.kindergeldBetrag):0)+(c.unterhalt?num(c.unterhaltBetrag):0),0):0),beschreibungEinkuenfte:s.fin.infoEinkommen},
-        ausgaben:{warmmieteMonat:num(s.fin.miete),unterhaltsverpflichtungen:s.fin.unterhaltAktiv===true,unterhaltsverpflichtungenMonat:s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0,privateKrankenversicherung:s.fin.pkvAktiv===true,privateKrankenversicherungMonat:s.fin.pkvAktiv===true?num(s.fin.pkv):0,sonstigeAusgabenMonat:num(s.fin.sonstAusgaben),gesamtausgabenMonat:num(s.fin.miete)+(s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0)+(s.fin.pkvAktiv===true?num(s.fin.pkv):0)+num(s.fin.sonstAusgaben),beschreibungAusgaben:s.fin.infoAusgaben,anmerkungMiete:s.fin.infoMiete},
+        ausgaben:{warmmieteMonat:num(s.fin.miete),unterhaltsverpflichtungen:s.fin.unterhaltAktiv===true,unterhaltsverpflichtungenMonat:s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0,privateKrankenversicherung:s.fin.pkvAktiv===true,privateKrankenversicherungMonat:s.fin.pkvAktiv===true?num(s.fin.pkv):0,sonstigeAusgabenMonat:num(s.fin.sonstAusgaben),kinderUnterhaltsausgabenMonat:s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0,gesamtausgabenMonat:num(s.fin.miete)+(s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0)+(s.fin.pkvAktiv===true?num(s.fin.pkv):0)+num(s.fin.sonstAusgaben)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0),beschreibungAusgaben:s.fin.infoAusgaben,anmerkungMiete:s.fin.infoMiete},
+        bonitaet:{ruecklastschriftenOderSchufa90Tage:s.fin.ruecklastAktiv===true,ruecklastschriftenInfo:s.fin.ruecklastAktiv===true?s.fin.ruecklastInfo:'',kreditkarten:s.fin.kkAktiv===true,kreditkartenAusgeschoepfterBetrag:s.fin.kkAktiv===true?num(s.fin.kkBetrag):0,ratenzahlungen:s.fin.ratenAktiv===true,ratenzahlungenInfo:s.fin.ratenAktiv===true?s.fin.ratenInfo:''},
         privateKredite:{antragsteller:s.fin.krediteA.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:k.ablaufdatum})),mitantragsteller:s.fin.mitAktiv?s.fin.krediteM.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:k.ablaufdatum})):[]},
         kommentar:s.fin.kommentar
       },
@@ -787,13 +839,13 @@ class Component extends DCLogic {
       row('Meldeadresse',[a.adresse.strasse,a.adresse.hausnummer].filter(Boolean).join(' ')+', '+[a.adresse.plz,a.adresse.ort].filter(Boolean).join(' '))+row('Wohnhaft seit',a.adresse.wohnhaftSeit)+
       row('Familienstand',a.familienstand+(a.guterstand?' ('+a.guterstand+')':''))+row('Staatsangehörigkeit',a.nationalitaeten.join(', '))+row('Aufenthaltstitel',a.aufenthaltstitel)+
       row('Beschäftigung',a.beschaeftigung.art)+row('Nettoeinkommen/Monat',a.beschaeftigung.nettoeinkommenMonat?eur(a.beschaeftigung.nettoeinkommenMonat):'')+row('Beschäftigt seit',a.beschaeftigung.beschaeftigtSeit)+row('Arbeitgeber',a.beschaeftigung.arbeitgeber)+row('Beruf',a.beschaeftigung.beruf)+row('Nebenjob',a.beschaeftigung.nebenjob)+row('Nebenjob Einkommen/Monat',a.beschaeftigung.nebenjobEinkommenMonat?eur(a.beschaeftigung.nebenjobEinkommenMonat):'')+row('Nebenjob beschäftigt seit',a.beschaeftigung.nebenjobBeschaeftigtSeit)+'</table>';});
-    if(p.kinder.vorhanden&&p.kinder.liste.length){h+=sec('Kinder ('+p.kinder.liste.length+')');p.kinder.liste.forEach((c,i)=>{h+='<table style="font:400 12px Arial;border-collapse:collapse;margin-bottom:6px;">'+row('Kind '+(i+1)+' — Geburtsdatum',c.geburtsdatum)+row('Kindergeld',c.kindergeld?eur(c.kindergeldBetragMonat)+'/Monat':'')+row('Unterhalt',c.unterhalt?eur(c.unterhaltBetragMonat)+'/Monat':'')+'</table>';});if(p.kinder.beschreibung)h+=`<div style="font:400 11px Arial;color:#5a5340;">${esc(p.kinder.beschreibung)}</div>`;}
+    if(p.kinder.vorhanden&&p.kinder.liste.length){h+=sec('Kinder ('+p.kinder.liste.length+')');p.kinder.liste.forEach((c,i)=>{h+='<table style="font:400 12px Arial;border-collapse:collapse;margin-bottom:6px;">'+row('Kind '+(i+1)+' — Geburtsdatum',c.geburtsdatum)+row('Lebt im Haushalt',c.imHaushalt?'Ja':'Nein')+row('Kindergeld',c.kindergeld?eur(c.kindergeldBetragMonat)+'/Monat':'')+row('Unterhaltseinnahmen',c.unterhaltseinnahmen?eur(c.unterhaltseinnahmenMonat)+'/Monat':'')+row('Unterhaltsausgaben',c.unterhaltsausgabe?eur(c.unterhaltsausgabeMonat)+'/Monat':'')+'</table>';});if(p.kinder.beschreibung)h+=`<div style="font:400 11px Arial;color:#5a5340;">${esc(p.kinder.beschreibung)}</div>`;}
     const f=p.finanzen;h+=sec('Finanzielle Situation')+'<table style="font:400 12px Arial;border-collapse:collapse;">'+
       row('Vorhandenes Eigenkapital',f.vermoegenEinkommen.eigenkapital?eur(f.vermoegenEinkommen.eigenkapital):'')+row('Bank- & Sparguthaben',f.vermoegenEinkommen.bankSparguthaben?eur(f.vermoegenEinkommen.bankSparguthaben):'')+row('Wertpapiere/Aktien',f.vermoegenEinkommen.wertpapiere?eur(f.vermoegenEinkommen.wertpapiere):'')+
       row('LV Rückkaufswert',f.vermoegenEinkommen.lebensversicherungRueckkaufswert?eur(f.vermoegenEinkommen.lebensversicherungRueckkaufswert):'')+row('Bausparen angespart',f.vermoegenEinkommen.bausparAngespart?eur(f.vermoegenEinkommen.bausparAngespart):'')+
       row('Sonstige Einkünfte/Monat',f.vermoegenEinkommen.sonstigeEinkuenfteMonat?eur(f.vermoegenEinkommen.sonstigeEinkuenfteMonat):'')+row('Gesamteinnahmen/Monat',eur(f.vermoegenEinkommen.gesamteinnahmenMonat))+
       row('Warmmiete/Monat',f.ausgaben.warmmieteMonat?eur(f.ausgaben.warmmieteMonat):'')+row('Unterhaltsverpflichtungen',f.ausgaben.unterhaltsverpflichtungen?('Ja'+(f.ausgaben.unterhaltsverpflichtungenMonat?' — '+eur(f.ausgaben.unterhaltsverpflichtungenMonat)+'/Monat':'')):'Nein')+
-      row('Private Krankenversicherung',f.ausgaben.privateKrankenversicherung?('Ja'+(f.ausgaben.privateKrankenversicherungMonat?' — '+eur(f.ausgaben.privateKrankenversicherungMonat)+'/Monat':'')):'Nein')+row('Sonstige Ausgaben/Monat',f.ausgaben.sonstigeAusgabenMonat?eur(f.ausgaben.sonstigeAusgabenMonat):'')+row('Gesamtausgaben/Monat',eur(f.ausgaben.gesamtausgabenMonat))+row('Kommentar',f.kommentar)+'</table>';
+      row('Private Krankenversicherung',f.ausgaben.privateKrankenversicherung?('Ja'+(f.ausgaben.privateKrankenversicherungMonat?' — '+eur(f.ausgaben.privateKrankenversicherungMonat)+'/Monat':'')):'Nein')+row('Sonstige Ausgaben/Monat',f.ausgaben.sonstigeAusgabenMonat?eur(f.ausgaben.sonstigeAusgabenMonat):'')+row('Unterhaltsausgaben Kinder/Monat',f.ausgaben.kinderUnterhaltsausgabenMonat?eur(f.ausgaben.kinderUnterhaltsausgabenMonat):'')+row('Gesamtausgaben/Monat',eur(f.ausgaben.gesamtausgabenMonat))+row('Kommentar',f.kommentar)+'</table>';const b=f.bonitaet;h+=sec('Bonität &amp; weitere Verbindlichkeiten')+'<table style="font:400 12px Arial;border-collapse:collapse;">'+row('Rücklastschriften/Schufa (90 Tage)',b.ruecklastschriftenOderSchufa90Tage?('Ja'+(b.ruecklastschriftenInfo?' — '+b.ruecklastschriftenInfo:'')):'Nein')+row('Kreditkarten',b.kreditkarten?('Ja'+(b.kreditkartenAusgeschoepfterBetrag?' — ausgeschöpft: '+eur(b.kreditkartenAusgeschoepfterBetrag):'')):'Nein')+row('Ratenzahlungen',b.ratenzahlungen?('Ja'+(b.ratenzahlungenInfo?' — '+b.ratenzahlungenInfo:'')):'Nein')+'</table>';
     const kredTable=(title,list)=>{if(!list||!list.length)return'';let t='<div style="font:600 11px Arial;color:#161310;margin:8px 0 4px;">'+esc(title)+'</div><table style="font:400 10.5px Arial;border-collapse:collapse;width:100%;"><tr style="background:#FAF3E0;"><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kredit</th><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kreditnehmer</th><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kreditgeber</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Restschuld</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Darlehenshöhe gesamt</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Rate/M</th><th style="padding:4px 6px;border:1px solid #eadfc4;">Gesamtlaufzeit</th><th style="padding:4px 6px;border:1px solid #eadfc4;">Ablaufdatum</th></tr>';list.forEach((k,i)=>{t+='<tr><td style="padding:4px 6px;border:1px solid #eadfc4;">'+(i+1)+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.kreditnehmer||'')+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.kreditgeber||'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.restschuld?eur(k.restschuld):'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.darlehenshoeheGesamt?eur(k.darlehenshoeheGesamt):'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.rateMonat?eur(k.rateMonat):'')+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.gesamtlaufzeit||'')+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.ablaufdatum||'')+'</td></tr>';});return t+'</table>';};
     if((f.privateKredite.antragsteller&&f.privateKredite.antragsteller.length)||(f.privateKredite.mitantragsteller&&f.privateKredite.mitantragsteller.length)){h+=sec('Private Kredite / Autokredite')+kredTable('Antragsteller',f.privateKredite.antragsteller)+kredTable('Mitantragsteller',f.privateKredite.mitantragsteller);}
     p.immobilien.forEach((im,i)=>{h+=sec('Immobilie '+(i+1))+'<table style="font:400 12px Arial;border-collapse:collapse;">'+
@@ -853,10 +905,13 @@ class Component extends DCLogic {
       return vm;
     });
 
-    const children=s.children.map((c,i)=>({...c,cIndex:i,num:String(i+1),remove:()=>this.removeChild(i)}));
+    const children=s.children.map((c,i)=>({...c,cIndex:i,num:String(i+1),remove:()=>this.removeChild(i),
+      imHaushaltJa:c.imHaushalt===true,imHaushaltNein:c.imHaushalt===false,
+      setImHaushaltJa:()=>this.setChildFlag(i,'imHaushalt',true),setImHaushaltNein:()=>this.setChildFlag(i,'imHaushalt',false)}));
 
     const num=(v)=>this.parseNum(v);
-    const gesAusgaben=num(s.fin.miete)+(s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0)+(s.fin.pkvAktiv===true?num(s.fin.pkv):0)+num(s.fin.sonstAusgaben);
+    const kinderAusgaben=s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0;
+    const gesAusgaben=num(s.fin.miete)+(s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0)+(s.fin.pkvAktiv===true?num(s.fin.pkv):0)+num(s.fin.sonstAusgaben)+kinderAusgaben;
     const nettoSumme=s.applicants.reduce((x,a)=>x+num(a.nettoeinkommen),0);
     const nebenSumme=s.applicants.reduce((x,a)=>x+num(a.nebenjobEinkommen),0);
     const kinderEinkommen=s.hasChildren?s.children.reduce((x,c)=>x+(c.kindergeld?num(c.kindergeldBetrag):0)+(c.unterhalt?num(c.unterhaltBetrag):0),0):0;
@@ -873,6 +928,12 @@ class Component extends DCLogic {
       setUnterhaltJa:()=>this.setFinFlag('unterhaltAktiv',true),setUnterhaltNein:()=>this.setFinFlag('unterhaltAktiv',false),
       pkvJa:s.fin.pkvAktiv===true,pkvNein:s.fin.pkvAktiv===false,
       setPkvJa:()=>this.setFinFlag('pkvAktiv',true),setPkvNein:()=>this.setFinFlag('pkvAktiv',false),
+      ruecklastJa:s.fin.ruecklastAktiv===true,ruecklastNein:s.fin.ruecklastAktiv===false,
+      setRuecklastJa:()=>this.setFinFlag('ruecklastAktiv',true),setRuecklastNein:()=>this.setFinFlag('ruecklastAktiv',false),
+      kkJa:s.fin.kkAktiv===true,kkNein:s.fin.kkAktiv===false,
+      setKkJa:()=>this.setFinFlag('kkAktiv',true),setKkNein:()=>this.setFinFlag('kkAktiv',false),
+      ratenJa:s.fin.ratenAktiv===true,ratenNein:s.fin.ratenAktiv===false,
+      setRatenJa:()=>this.setFinFlag('ratenAktiv',true),setRatenNein:()=>this.setFinFlag('ratenAktiv',false),
       gesamtausgabenFmt:this.eur(gesAusgaben)};
 
     const properties=s.properties.map((p,i)=>{
