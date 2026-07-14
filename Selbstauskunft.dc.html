@@ -870,7 +870,7 @@ class Component extends DCLogic {
     // Ausgabe ueber den nativen Druck-Dialog. Aufbau ausschliesslich per DOM-API — es
     // duerfen keine Dokument-Struktur-Tags (doctype/html/head/body) als Textliteral im
     // Quelltext stehen, da die Vorschau-Umgebung diese sonst als echtes Tag interpretiert.
-    const css='@page{size:A4;margin:12mm;}*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}table{page-break-inside:avoid;}h2{page-break-after:avoid;}';
+    const css='@page{size:A4;margin:12mm;}*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}tr,td,th,img{break-inside:avoid;page-break-inside:avoid;}table{break-inside:auto;}h2{break-inside:avoid;break-after:avoid;page-break-after:avoid;}';
     const d=win.document;
     try{d.title=name;}catch(e){}
     const st=d.createElement('style');st.textContent=css;(d.head||d.documentElement).appendChild(st);
