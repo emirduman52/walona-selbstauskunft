@@ -719,7 +719,7 @@ class Component extends DCLogic {
     if(d.num==='cur' && typeof val==='string') val=this.fmtCur(val);
     const sec=d.sec;
     this.setState(prev=>{
-      if(sec==='app'){const arr=prev.applicants.map((x,i)=>i==d.idx?{...x,[d.key]:val}:x);return{applicants:arr};}
+      if(sec==='app'){const arr=prev.applicants.map((x,i)=>{if(i!=d.idx)return x;const nx={...x,[d.key]:val};if(d.key==='nationalitaet1'){const needsPermit=!!(val&&val.trim()&&!/deutsch|german|germany/i.test(val.trim()));if(!needsPermit)nx.aufenthaltstitel='';}return nx;});return{applicants:arr};}
       if(sec==='child'){const arr=prev.children.map((x,i)=>i==d.idx?{...x,[d.key]:val}:x);return{children:arr};}
       if(sec==='prot'){return{prot:{...prev.prot,[d.key]:val}};}
       if(sec==='fin'){return{fin:{...prev.fin,[d.key]:val}};}
