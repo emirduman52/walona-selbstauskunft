@@ -860,7 +860,9 @@ class Component extends DCLogic {
       if(im.beschreibung)h+=`<div style="font:400 11px Arial;color:#5a5340;margin-top:5px;">${esc(im.beschreibung)}</div>`;
       if(im.besonderheiten)h+=`<div style="font:400 11px Arial;color:#5a5340;margin-top:5px;"><b>Besonderheiten:</b> ${esc(im.besonderheiten)}</div>`;});
     h+=`<div style="margin-top:24px;font:400 9px Arial;color:#a49a80;border-top:1px solid #eee;padding-top:8px;">Walona Group · Vertraulich · Erstellt am ${new Date().toLocaleString('de-DE')}</div></div>`;
-    const name=(p.applicants[0].nachname||'Selbstauskunft').replace(/[^a-z0-9]/gi,'_');
+    const tl=(s)=>String(s||'').replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/Ä/g,'Ae').replace(/Ö/g,'Oe').replace(/Ü/g,'Ue').replace(/ß/g,'ss');
+    const kunde=[tl(p.applicants[0].vorname),tl(p.applicants[0].nachname)].filter(Boolean).join('_').replace(/[^a-z0-9_]/gi,'_').replace(/_+/g,'_').replace(/^_+|_+$/g,'');
+    const name='Selbstauskunft'+(kunde?'_'+kunde:'');
     // Robuste, offline-fähige Ausgabe über den nativen Druck-Dialog (kein html2canvas —
     // dieser erzeugte je nach Umgebung/Datenmenge eine leere weiße Seite).
     const win=window.open('','_blank');
@@ -870,7 +872,7 @@ class Component extends DCLogic {
     // Quelltext stehen, da die Vorschau-Umgebung diese sonst als echtes Tag interpretiert.
     const css='@page{size:A4;margin:12mm;}*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}table{page-break-inside:avoid;}h2{page-break-after:avoid;}';
     const d=win.document;
-    try{d.title='Selbstauskunft_'+name;}catch(e){}
+    try{d.title=name;}catch(e){}
     const st=d.createElement('style');st.textContent=css;(d.head||d.documentElement).appendChild(st);
     if(!d.body){d.documentElement.appendChild(d.createElement('body'));}
     d.body.innerHTML=h;
