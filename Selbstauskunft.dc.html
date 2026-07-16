@@ -45,8 +45,6 @@
   .wln-btn-primary:hover{background:#E2BE14;box-shadow:0 5px 16px rgba(200,167,1,.32);transform:translateY(-1px);}
   .wln-btn-ghost:hover{background:rgba(255,255,255,.07);border-color:#8a8378;transform:translateY(-1px);}
   .wln-btn:active{transform:translateY(0);}
-  /* Absenden-Button vorübergehend inaktiv (Funktion noch nicht in Betrieb) */
-  #wln .wln-submit-soon:hover{background:#d8d2c4 !important;color:#8a8378 !important;box-shadow:none !important;transform:none !important;cursor:not-allowed !important;}
   /* ===== Mobile / Responsive ===== */
   @media (max-width:640px){
     #wln main{padding:20px 13px 72px !important;gap:18px !important;}
@@ -656,8 +654,13 @@
           <div class="wln-reveal" style="background:#3a1418;border:1px solid #6b2530;border-radius:14px;padding:16px 18px;margin-bottom:20px;font:500 13.5px 'Work Sans';color:#ffb3bd;">Übermittlung fehlgeschlagen: {{ submitErrorMsg }}</div>
         </sc-if>
 
+        <div style="margin-bottom:14px;">
+          <label style="display:block;font:600 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:7px;">E-Mail-Empfänger der Selbstauskunft</label>
+          <input type="email" value="{{ empfaengerEmail }}" onChange="{{ setEmpfaengerEmail }}" placeholder="name@beispiel.de" autocomplete="email" style="width:100%;max-width:380px;padding:13px 15px;border-radius:12px;background:#221f1a;border:1.5px solid #3a352e;color:#fff;font:400 14.5px 'Work Sans';outline:none;" />
+          <div style="font:400 12px 'Work Sans';color:#a49a80;margin-top:6px;">An diese Adresse wird die Selbstauskunft nach dem Absenden gesendet.</div>
+        </div>
         <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
-          <button type="button" class="wln-btn wln-submit-soon" title="Diese Funktion ist derzeit noch nicht aktiv." style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Work Sans';letter-spacing:.02em;cursor:not-allowed;">{{ submitLabel }}</button>
+          <button type="button" class="wln-btn" onClick="{{ submit }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Work Sans';letter-spacing:.02em;cursor:pointer;">{{ submitLabel }}</button>
           <button type="button" class="wln-btn wln-btn-ghost" onClick="{{ downloadPdf }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:transparent;color:#fff;border:1.5px solid #55504a;font:600 14px 'Work Sans';cursor:pointer;">Als PDF herunterladen</button>
         </div>
       </div>
@@ -686,7 +689,8 @@ class Component extends DCLogic {
       errorKeys:{},
       submitStatus:'idle',
       submitErrorMsg:'',
-      successDetail:''
+      successDetail:'',
+      empfaengerEmail:''
     };
   }
   emptyProtokoll(){return{berater:'',portfolioManager:'',gespraechsnotizen:'',naechsteSchritte:''};}
@@ -712,6 +716,7 @@ class Component extends DCLogic {
   parseNum(str){if(str==null||str==='')return 0;return Number(String(str).replace(/\./g,'').replace(/,/g,'.').replace(/[^\d.-]/g,''))||0;}
   eur(n){const chf=this.state&&this.state.herkunft==='CH';return (Number(n)||0).toLocaleString(chf?'de-CH':'de-DE')+(chf?' CHF':' €');}
   setHerkunft=(v)=>this.setState({herkunft:v});
+  setEmpfaengerEmail=(e)=>this.setState({empfaengerEmail:e.target.value});
 
   onField=(e)=>{
     const t=e.target, d=t.dataset;
@@ -766,6 +771,7 @@ class Component extends DCLogic {
     const num=(v)=>this.parseNum(v);
     return {
       meta:{formVersion:'1.0',submittedAt:new Date().toISOString(),brand:'Walona Group'},
+      versand:{empfaengerEmail:(this.state.empfaengerEmail||'').trim()},
       herkunft:s.herkunft,
       waehrung:s.herkunft==='CH'?'CHF':'EUR',
       kundenprotokoll:{berater:s.prot.berater,portfolioManager:s.prot.portfolioManager,gespraechsnotizen:s.prot.gespraechsnotizen,naechsteSchritte:s.prot.naechsteSchritte},
@@ -802,6 +808,8 @@ class Component extends DCLogic {
   submit=async()=>{
     const errs=this.validate();
     if(Object.keys(errs).length){this.setState({errorKeys:errs,submitStatus:'validate'});this.goSection('sec5');return;}
+    const empf=(this.state.empfaengerEmail||'').trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(empf)){this.setState({submitStatus:'error',submitErrorMsg:'Bitte geben Sie eine gültige E-Mail-Adresse an, an welche die Selbstauskunft gesendet werden soll.'});return;}
     this.setState({errorKeys:{},submitStatus:'submitting'});
     const payload=this.buildPayload();
     const url=this.props.webhookUrl||'';
@@ -970,6 +978,7 @@ class Component extends DCLogic {
       isSuccess:s.submitStatus==='success', successDetail:s.successDetail,
       isSubmitError:s.submitStatus==='error', submitErrorMsg:s.submitErrorMsg,
       submitLabel:s.submitStatus==='submitting'?'Wird übermittelt…':'Selbstauskunft absenden',
+      empfaengerEmail:s.empfaengerEmail, setEmpfaengerEmail:this.setEmpfaengerEmail,
       submit:this.submit, downloadPdf:this.downloadPdf
     };
   }
