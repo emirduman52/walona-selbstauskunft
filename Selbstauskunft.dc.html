@@ -79,17 +79,17 @@
 <div id="wln" style="min-height:100vh;background:#F3EEE3;">
 
   <!-- HERO / BRAND HEADER -->
-  <header style="max-width:1080px;margin:0 auto;padding:24px 24px 0;line-height:0;">
-    <img src="https://emirduman52.github.io/walona-selbstauskunft/hero.jpg" alt="Walona Group – Selbstauskunft" style="display:block;width:100%;height:auto;border-radius:18px;">
+  <header style="padding:14px clamp(16px,2.4vw,28px) 0;line-height:0;">
+    <img src="https://emirduman52.github.io/walona-selbstauskunft/hero.jpg" alt="Walona Group – Selbstauskunft" style="display:block;width:100%;height:auto;border-radius:16px;">
   </header>
 
   <!-- STICKY PROGRESS / STEP BAR -->
   <div style="position:sticky;top:0;z-index:40;background:rgba(243,238,227,.86);backdrop-filter:blur(10px);border-bottom:1px solid #E4DDCC;">
     <div style="max-width:1080px;margin:0 auto;padding:12px 24px 0;">
-      <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none;">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;padding-bottom:12px;">
         <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
           <button data-step type="button" aria-current="{{ s.active }}" onClick="{{ s.go }}"
-            style="flex:none;display:inline-flex;align-items:center;gap:8px;padding:8px 15px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#5a5340;font:600 12.5px 'Work Sans';cursor:pointer;white-space:nowrap;transition:all .15s;">
+            style="flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 15px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#5a5340;font:600 12.5px 'Work Sans';cursor:pointer;white-space:nowrap;transition:all .15s;">
             <span style="font-variant-numeric:tabular-nums;opacity:.65;">{{ s.num }}</span>{{ s.label }}
           </button>
         </sc-for>
