@@ -10,15 +10,17 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;background:#F3EEE3;}
   *{-webkit-tap-highlight-color:transparent;}
-  #wln{font-family:'Work Sans',system-ui,sans-serif;color:#1a1712;}
-  #wln label{display:block;font:600 12.5px 'Work Sans';color:#4a4438;margin:0 0 6px 2px;letter-spacing:.01em;}
+  #wln{font-family:'Inter',system-ui,sans-serif;color:#1a1712;font-weight:500;letter-spacing:.02em;}
+  /* Typo-System: Fließtext = Inter Medium 2% Tracking; größere Überschriften = Inter Bold 7% Tracking */
+  #wln h1,#wln h2{font-family:'Inter',system-ui,sans-serif !important;font-weight:700 !important;letter-spacing:.07em !important;}
+  #wln label{display:block;font:600 12.5px 'Inter';color:#4a4438;margin:0 0 6px 2px;letter-spacing:.01em;}
   #wln input:not([type=checkbox]),#wln select,#wln textarea{
     width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #E4DED0;border-radius:12px;
-    font:400 15px 'Work Sans';background:#fff;color:#1a1712;outline:none;transition:border-color .15s,box-shadow .15s;}
+    font:500 15px 'Inter';background:#fff;color:#1a1712;outline:none;transition:border-color .15s,box-shadow .15s;}
   #wln textarea{min-height:84px;resize:vertical;line-height:1.5;}
   #wln select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23161310' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;-webkit-appearance:none;appearance:none;padding-right:34px;}
   #wln input:focus,#wln select:focus,#wln textarea:focus{border-color:#C9A700;box-shadow:0 0 0 3px rgba(200,167,1,.20);}
@@ -27,7 +29,7 @@
   #wln button[data-step][aria-current="true"]{background:#161310 !important;color:#fff !important;border-color:#161310 !important;}
   #wln button[data-toggle][aria-pressed="true"]{background:#161310 !important;color:#fff !important;border-color:#161310 !important;}
   #wln table{border-collapse:collapse;width:100%;}
-  #wln th{font:600 11px 'Work Sans';color:#6a6350;text-transform:uppercase;letter-spacing:.03em;text-align:left;padding:8px 8px;white-space:nowrap;vertical-align:bottom;}
+  #wln th{font:600 11px 'Inter';color:#6a6350;text-transform:uppercase;letter-spacing:.03em;text-align:left;padding:8px 8px;white-space:nowrap;vertical-align:bottom;}
   #wln td{padding:5px 6px;vertical-align:middle;}
   #wln td input{padding:9px 10px;font-size:13.5px;min-width:120px;}
   #wln ::placeholder{color:#b3ab98;}
@@ -38,7 +40,7 @@
   .wln-marq-track{display:flex;gap:18px;width:max-content;animation:wln-marquee 42s linear infinite;}
   .wln-marq:hover .wln-marq-track{animation-play-state:paused;}
   .wln-bank{flex:none;height:62px;padding:0 28px;background:#fff;border:1px solid #E7E0D0;border-radius:14px;display:flex;align-items:center;gap:9px;box-shadow:0 1px 2px rgba(0,0,0,.03);}
-  .wln-bank b{font:700 17px 'Oswald';letter-spacing:.02em;color:#20232a;white-space:nowrap;text-transform:uppercase;}
+  .wln-bank b{font:700 17px 'Inter';letter-spacing:.02em;color:#20232a;white-space:nowrap;text-transform:uppercase;}
   .wln-bank i{width:7px;height:7px;border-radius:50%;background:#C9A700;flex:none;}
   @media (prefers-reduced-motion:reduce){.wln-marq-track{animation:none;}}
   .wln-btn{transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease,border-color .15s ease;}
@@ -89,7 +91,7 @@
       <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;padding-bottom:12px;">
         <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
           <button data-step type="button" aria-current="{{ s.active }}" onClick="{{ s.go }}"
-            style="flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 15px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#5a5340;font:600 12.5px 'Work Sans';cursor:pointer;white-space:nowrap;transition:all .15s;">
+            style="flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 15px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#5a5340;font:600 12.5px 'Inter';cursor:pointer;white-space:nowrap;transition:all .15s;">
             <span style="font-variant-numeric:tabular-nums;opacity:.65;">{{ s.num }}</span>{{ s.label }}
           </button>
         </sc-for>
@@ -103,7 +105,7 @@
   <!-- PARTNER BANKS · AUTO-SLIDER -->
   <section aria-label="Partnerbanken und Versicherer" style="display:none;background:#EDE7DA;border-bottom:1px solid #E4DDCC;">
     <div style="max-width:1080px;margin:0 auto;padding:22px 0 24px;">
-      <div style="text-align:center;font:600 11px 'Work Sans';letter-spacing:.2em;text-transform:uppercase;color:#9a8f70;margin:0 24px 16px;">Unsere Partnerbanken &amp; Versicherer</div>
+      <div style="text-align:center;font:600 11px 'Inter';letter-spacing:.2em;text-transform:uppercase;color:#9a8f70;margin:0 24px 16px;">Unsere Partnerbanken &amp; Versicherer</div>
       <div class="wln-marq">
         <div class="wln-marq-track">
           <div class="wln-bank"><i></i><b>DKB</b></div>
@@ -136,22 +138,22 @@
     <!-- ===== SECTION 0 · KUNDENPROTOKOLL (VERTRIEB) ===== -->
     <section id="sec0" style="scroll-margin-top:90px;">
       <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 16px;">
-        <div style="font:700 13px 'Oswald';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">01</div>
-        <h2 style="margin:0;font:600 21px 'Oswald';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Kundenprotokoll</h2>
+        <div style="font:700 13px 'Inter';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">01</div>
+        <h2 style="margin:0;font:600 21px 'Inter';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Kundenprotokoll</h2>
       </div>
       <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:26px 26px 30px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
-        <div style="display:flex;align-items:center;gap:10px;background:#FBF4E2;border:1px solid #F0E2BC;border-radius:12px;padding:12px 16px;margin:0 0 22px;font:500 13px 'Work Sans';color:#7a6f52;">
+        <div style="display:flex;align-items:center;gap:10px;background:#FBF4E2;border:1px solid #F0E2BC;border-radius:12px;padding:12px 16px;margin:0 0 22px;font:500 13px 'Inter';color:#7a6f52;">
           <span style="flex:none;font-size:15px;">✎</span>
           Interner Bereich für den Vertrieb — hier werden Gesprächs- und Bedarfsinformationen zum Kunden festgehalten.
         </div>
 
-        <div style="font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 12px;">Zuständigkeit</div>
+        <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 12px;">Zuständigkeit</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px 18px;align-items:end;">
           <div><label>Berater</label><input value="{{ prot.berater }}" data-sec="prot" data-key="berater" onChange="{{ onField }}"></div>
           <div><label>Portfolio Manager</label><input value="{{ prot.portfolioManager }}" data-sec="prot" data-key="portfolioManager" onChange="{{ onField }}"></div>
         </div>
 
-        <div style="font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:26px 0 12px;">Notizen</div>
+        <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:26px 0 12px;">Notizen</div>
         <div style="display:flex;flex-direction:column;gap:14px;">
           <div><label>Gesprächsnotizen</label><textarea value="{{ prot.gespraechsnotizen }}" data-sec="prot" data-key="gespraechsnotizen" onChange="{{ onField }}" placeholder="Situation des Kunden, Wünsche, Besonderheiten …"></textarea></div>
           <div><label>Vereinbarte nächste Schritte</label><textarea value="{{ prot.naechsteSchritte }}" data-sec="prot" data-key="naechsteSchritte" onChange="{{ onField }}" placeholder="z. B. Unterlagen anfordern, Rückruf, Termin"></textarea></div>
@@ -162,24 +164,24 @@
     <!-- ===== SECTION 1 · ANTRAGSTELLER ===== -->
     <section id="sec1" style="scroll-margin-top:90px;">
       <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 16px;">
-        <div style="font:700 13px 'Oswald';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">02</div>
-        <h2 style="margin:0;font:600 21px 'Oswald';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Antragsteller</h2>
+        <div style="font:700 13px 'Inter';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">02</div>
+        <h2 style="margin:0;font:600 21px 'Inter';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Antragsteller</h2>
       </div>
 
       <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:20px 24px;box-shadow:0 1px 2px rgba(0,0,0,.03);margin:0 0 20px;">
         <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px 20px;">
           <div>
-            <div style="font:600 15px 'Work Sans';color:#161310;">Herkunft des Kunden</div>
-            <div style="font:400 12px 'Work Sans';color:#a99a6f;margin-top:2px;">Bestimmt die Währung aller Beträge.</div>
+            <div style="font:600 15px 'Inter';color:#161310;">Herkunft des Kunden</div>
+            <div style="font:500 12px 'Inter';color:#a99a6f;margin-top:2px;">Bestimmt die Währung aller Beträge.</div>
           </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             <sc-for list="{{ herkunftOptions }}" as="o" hint-placeholder-count="3">
-              <button data-toggle type="button" aria-pressed="{{ o.active }}" onClick="{{ o.pick }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">{{ o.label }}</button>
+              <button data-toggle type="button" aria-pressed="{{ o.active }}" onClick="{{ o.pick }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">{{ o.label }}</button>
             </sc-for>
           </div>
           <div style="margin-left:auto;display:flex;align-items:center;gap:9px;background:#F6F1E6;border:1.5px solid #E4DED0;border-radius:999px;padding:7px 16px;">
-            <span style="font:600 11px 'Work Sans';letter-spacing:.06em;text-transform:uppercase;color:#a99a6f;">Währung</span>
-            <span style="font:700 15px 'Oswald';color:#161310;">{{ curCode }}</span>
+            <span style="font:600 11px 'Inter';letter-spacing:.06em;text-transform:uppercase;color:#a99a6f;">Währung</span>
+            <span style="font:700 15px 'Inter';color:#161310;">{{ curCode }}</span>
           </div>
         </div>
       </div>
@@ -188,16 +190,16 @@
         <sc-for list="{{ applicants }}" as="a" hint-placeholder-count="1">
           <div class="wln-reveal" style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:26px 26px 30px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
             <div style="display:flex;align-items:center;justify-content:space-between;margin:0 0 20px;">
-              <div style="font:600 15px 'Work Sans';color:#161310;display:flex;align-items:center;gap:10px;">
-                <span style="width:26px;height:26px;border-radius:50%;background:#161310;color:#fff;display:inline-flex;align-items:center;justify-content:center;font:600 13px 'Work Sans';">{{ a.num }}</span>
+              <div style="font:600 15px 'Inter';color:#161310;display:flex;align-items:center;gap:10px;">
+                <span style="width:26px;height:26px;border-radius:50%;background:#161310;color:#fff;display:inline-flex;align-items:center;justify-content:center;font:600 13px 'Inter';">{{ a.num }}</span>
                 Antragsteller {{ a.num }}
               </div>
               <sc-if value="{{ a.canRemove }}" hint-placeholder-val="{{ false }}">
-                <button type="button" onClick="{{ a.remove }}" style="background:none;border:none;color:#a23b47;font:600 13px 'Work Sans';cursor:pointer;">Entfernen</button>
+                <button type="button" onClick="{{ a.remove }}" style="background:none;border:none;color:#a23b47;font:600 13px 'Inter';cursor:pointer;">Entfernen</button>
               </sc-if>
             </div>
 
-            <div style="font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 12px;">Persönliche Daten</div>
+            <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 12px;">Persönliche Daten</div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px 18px;align-items:end;">
               <div style="max-width:160px;">
                 <label>Anrede</label>
@@ -221,7 +223,7 @@
                 <label>Familienstand</label>
                 <div style="display:flex;flex-wrap:wrap;gap:10px 22px;">
                   <sc-for list="{{ a.famOptions }}" as="o" hint-placeholder-count="6">
-                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin:0;"><input type="checkbox" checked="{{ o.active }}" onChange="{{ o.pick }}"> {{ o.label }}</label>
+                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Inter';color:#3a352c;cursor:pointer;margin:0;"><input type="checkbox" checked="{{ o.active }}" onChange="{{ o.pick }}"> {{ o.label }}</label>
                   </sc-for>
                 </div>
               </div>
@@ -230,7 +232,7 @@
                   <label>Güterstand</label>
                   <div style="display:flex;flex-wrap:wrap;gap:10px 22px;">
                     <sc-for list="{{ a.guterOptions }}" as="o" hint-placeholder-count="2">
-                      <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin:0;"><input type="checkbox" checked="{{ o.active }}" onChange="{{ o.pick }}"> {{ o.label }}</label>
+                      <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Inter';color:#3a352c;cursor:pointer;margin:0;"><input type="checkbox" checked="{{ o.active }}" onChange="{{ o.pick }}"> {{ o.label }}</label>
                     </sc-for>
                   </div>
                 </div>
@@ -250,13 +252,13 @@
               </sc-if>
             </div>
 
-            <div style="font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:26px 0 12px;">Beschäftigung</div>
+            <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:26px 0 12px;">Beschäftigung</div>
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px 18px;align-items:end;">
               <div style="grid-column:1/-1;">
                 <label>Art der Beschäftigung</label>
                 <div style="display:flex;flex-wrap:wrap;gap:10px 22px;">
                   <sc-for list="{{ a.beschOptions }}" as="o" hint-placeholder-count="5">
-                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin:0;"><input type="checkbox" checked="{{ o.active }}" onChange="{{ o.pick }}"> {{ o.label }}</label>
+                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Inter';color:#3a352c;cursor:pointer;margin:0;"><input type="checkbox" checked="{{ o.active }}" onChange="{{ o.pick }}"> {{ o.label }}</label>
                   </sc-for>
                 </div>
               </div>
@@ -269,20 +271,20 @@
               <div><label>Arbeitgeber</label><input value="{{ a.arbeitgeber }}" aria-invalid="{{ a.err_arbeitgeber }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="arbeitgeber" onChange="{{ onField }}"></div>
               <div><label>Beruf</label><input value="{{ a.beruf }}" aria-invalid="{{ a.err_beruf }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beruf" onChange="{{ onField }}"></div>
               <div style="grid-column:1/-1;">
-                <div style="font:600 12.5px 'Work Sans';color:#4a4438;margin:0 0 10px 2px;">Nebenjob <span style="color:#a99a6f;font-weight:500;">(optional)</span></div>
+                <div style="font:600 12.5px 'Inter';color:#4a4438;margin:0 0 10px 2px;">Nebenjob <span style="color:#a99a6f;font-weight:500;">(optional)</span></div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px 18px;align-items:end;">
                   <div><label>Netto-Einkommen / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ a.nebenjobEinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
                   <div><label>Tätigkeit</label><input value="{{ a.nebenjob }}" placeholder="z. B. Aushilfe" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjob" onChange="{{ onField }}"></div>
                   <div><label>Beschäftigt seit</label><input type="date" value="{{ a.nebenjobSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobSeit" onChange="{{ onField }}"></div>
                 </div>
-                <div style="margin-top:6px;font:400 12px 'Work Sans';color:#a99a6f;">Hinweis: Ein Nebenjob kann nur angerechnet werden, wenn er seit mindestens 6 Monaten besteht.</div>
+                <div style="margin-top:6px;font:500 12px 'Inter';color:#a99a6f;">Hinweis: Ein Nebenjob kann nur angerechnet werden, wenn er seit mindestens 6 Monaten besteht.</div>
               </div>
             </div>
           </div>
         </sc-for>
 
         <sc-if value="{{ canAddApplicant }}" hint-placeholder-val="{{ true }}">
-          <button type="button" onClick="{{ addApplicant }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #161310;font:600 13.5px 'Work Sans';cursor:pointer;">+ Zweiten Antragsteller hinzufügen</button>
+          <button type="button" onClick="{{ addApplicant }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #161310;font:600 13.5px 'Inter';cursor:pointer;">+ Zweiten Antragsteller hinzufügen</button>
         </sc-if>
       </div>
     </section>
@@ -290,20 +292,20 @@
     <!-- ===== SECTION 2 · KINDER ===== -->
     <section id="sec2" style="scroll-margin-top:90px;">
       <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 16px;">
-        <div style="font:700 13px 'Oswald';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">03</div>
-        <h2 style="margin:0;font:600 21px 'Oswald';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Kinder</h2>
+        <div style="font:700 13px 'Inter';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">03</div>
+        <h2 style="margin:0;font:600 21px 'Inter';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Kinder</h2>
       </div>
       <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
         <div style="display:flex;align-items:center;flex-wrap:wrap;gap:16px;">
-          <div style="font:600 15px 'Work Sans';color:#161310;">Kinder im Haushalt?</div>
+          <div style="font:600 15px 'Inter';color:#161310;">Kinder im Haushalt?</div>
           <div style="display:flex;gap:10px;">
-            <button data-toggle type="button" aria-pressed="{{ childrenYes }}" onClick="{{ setChildrenYes }}" style="padding:9px 24px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
-            <button data-toggle type="button" aria-pressed="{{ childrenNo }}" onClick="{{ setChildrenNo }}" style="padding:9px 24px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+            <button data-toggle type="button" aria-pressed="{{ childrenYes }}" onClick="{{ setChildrenYes }}" style="padding:9px 24px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Ja</button>
+            <button data-toggle type="button" aria-pressed="{{ childrenNo }}" onClick="{{ setChildrenNo }}" style="padding:9px 24px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
           </div>
           <sc-if value="{{ childrenYes }}" hint-placeholder-val="{{ false }}">
             <div class="wln-reveal" style="display:flex;align-items:center;gap:12px;margin-left:auto;">
-              <span style="font:600 12.5px 'Work Sans';color:#7a6f52;">Anzahl Kinder</span>
-              <span style="min-width:38px;text-align:center;background:#F6F1E6;border:1.5px solid #E4DED0;border-radius:999px;padding:6px 14px;font:700 17px 'Oswald';color:#161310;">{{ childCount }}</span>
+              <span style="font:600 12.5px 'Inter';color:#7a6f52;">Anzahl Kinder</span>
+              <span style="min-width:38px;text-align:center;background:#F6F1E6;border:1.5px solid #E4DED0;border-radius:999px;padding:6px 14px;font:700 17px 'Inter';color:#161310;">{{ childCount }}</span>
             </div>
           </sc-if>
         </div>
@@ -313,34 +315,34 @@
             <sc-for list="{{ children }}" as="c" hint-placeholder-count="1">
               <div style="border:1px solid #EDE7D9;border-radius:16px;padding:18px;background:#FCFAF4;">
                 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-                  <div style="font:600 13px 'Work Sans';color:#7a6f52;">Kind {{ c.num }}</div>
-                  <button type="button" onClick="{{ c.remove }}" style="background:none;border:none;color:#a23b47;font:600 12.5px 'Work Sans';cursor:pointer;">Entfernen</button>
+                  <div style="font:600 13px 'Inter';color:#7a6f52;">Kind {{ c.num }}</div>
+                  <button type="button" onClick="{{ c.remove }}" style="background:none;border:none;color:#a23b47;font:600 12.5px 'Inter';cursor:pointer;">Entfernen</button>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 16px;align-items:end;">
                   <div><label>Geburtsdatum</label><input type="date" value="{{ c.geburtsdatum }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="geburtsdatum" onChange="{{ onField }}"></div>
                   <div>
                     <label>Lebt im Haushalt?</label>
                     <div style="display:flex;gap:9px;">
-                      <button data-toggle type="button" aria-pressed="{{ c.imHaushaltJa }}" onClick="{{ c.setImHaushaltJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
-                      <button data-toggle type="button" aria-pressed="{{ c.imHaushaltNein }}" onClick="{{ c.setImHaushaltNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+                      <button data-toggle type="button" aria-pressed="{{ c.imHaushaltJa }}" onClick="{{ c.setImHaushaltJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Ja</button>
+                      <button data-toggle type="button" aria-pressed="{{ c.imHaushaltNein }}" onClick="{{ c.setImHaushaltNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
                     </div>
                   </div>
                   <div>
-                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.kindergeld }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="kindergeld" onChange="{{ onField }}"> Kindergeld</label>
+                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Inter';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.kindergeld }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="kindergeld" onChange="{{ onField }}"> Kindergeld</label>
                     <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.kindergeldBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="kindergeldBetrag" data-num="cur" onChange="{{ onField }}"></div>
                   </div>
                   <div>
-                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.unterhalt }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhalt" onChange="{{ onField }}"> Unterhaltseinnahmen</label>
+                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Inter';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.unterhalt }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhalt" onChange="{{ onField }}"> Unterhaltseinnahmen</label>
                     <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.unterhaltBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltBetrag" data-num="cur" onChange="{{ onField }}"></div>
                   </div>
                   <div>
-                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Work Sans';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.unterhaltAusgabe }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltAusgabe" onChange="{{ onField }}"> Unterhaltsausgaben</label>
+                    <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Inter';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.unterhaltAusgabe }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltAusgabe" onChange="{{ onField }}"> Unterhaltsausgaben</label>
                     <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.unterhaltAusgabeBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltAusgabeBetrag" data-num="cur" onChange="{{ onField }}"></div>
                   </div>
                 </div>
               </div>
             </sc-for>
-            <button type="button" onClick="{{ addChild }}" style="align-self:flex-start;padding:11px 20px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #161310;font:600 13px 'Work Sans';cursor:pointer;">+ Kind hinzufügen</button>
+            <button type="button" onClick="{{ addChild }}" style="align-self:flex-start;padding:11px 20px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #161310;font:600 13px 'Inter';cursor:pointer;">+ Kind hinzufügen</button>
             <div><label>Beschreiben Sie die Situation der Kinder.</label><textarea value="{{ childrenInfo }}" data-sec="root" data-key="childrenInfo" onChange="{{ onField }}" placeholder="Optional"></textarea></div>
           </div>
         </sc-if>
@@ -350,14 +352,14 @@
     <!-- ===== SECTION 3 · FINANZIELLE SITUATION ===== -->
     <section id="sec3" style="scroll-margin-top:90px;">
       <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 8px;">
-        <div style="font:700 13px 'Oswald';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">04</div>
-        <h2 style="margin:0;font:600 21px 'Oswald';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Finanzielle Situation</h2>
+        <div style="font:700 13px 'Inter';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">04</div>
+        <h2 style="margin:0;font:600 21px 'Inter';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Finanzielle Situation</h2>
       </div>
-      <p style="margin:0 0 16px 2px;font:400 13.5px 'Work Sans';color:#8a8168;">Ohne Immobilien-Darlehen — diese werden separat in Abschnitt 04 erfasst.</p>
+      <p style="margin:0 0 16px 2px;font:500 13.5px 'Inter';color:#8a8168;">Ohne Immobilien-Darlehen — diese werden separat in Abschnitt 04 erfasst.</p>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;">
         <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:24px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
-          <div style="font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 16px;">Vermögen &amp; Einkommen</div>
+          <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 16px;">Vermögen &amp; Einkommen</div>
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div><label>Vorhandenes Eigenkapital</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.eigenkapital }}" inputmode="numeric" data-sec="fin" data-key="eigenkapital" data-num="cur" onChange="{{ onField }}"></div></div>
             <div><label>Bank- &amp; Sparguthaben — Guthaben</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bankGuthaben }}" inputmode="numeric" data-sec="fin" data-key="bankGuthaben" data-num="cur" onChange="{{ onField }}"></div></div>
@@ -373,15 +375,15 @@
             <div><label>Sonstige Einkünfte — Betrag / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.sonstEinkommen }}" inputmode="numeric" data-sec="fin" data-key="sonstEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
             <div><label>Beschreibung sonstige Einkünfte</label><textarea value="{{ fin.infoEinkommen }}" data-sec="fin" data-key="infoEinkommen" onChange="{{ onField }}" placeholder="Optional"></textarea></div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#161310;border-radius:14px;padding:14px 18px;margin-top:4px;">
-              <span style="font:600 13px 'Work Sans';color:#C9A700;text-transform:uppercase;letter-spacing:.04em;">Gesamteinnahmen / Monat</span>
-              <span style="font:700 20px 'Oswald';color:#fff;">{{ fin.gesamteinnahmenFmt }}</span>
+              <span style="font:600 13px 'Inter';color:#C9A700;text-transform:uppercase;letter-spacing:.04em;">Gesamteinnahmen / Monat</span>
+              <span style="font:700 20px 'Inter';color:#fff;">{{ fin.gesamteinnahmenFmt }}</span>
             </div>
-            <div style="font:400 11.5px 'Work Sans';color:#a99a6f;margin-top:-4px;">Enthält Nettoeinkommen &amp; Nebenjob aller Antragsteller, sonstige Einkünfte sowie Kindergeld/Unterhaltseinnahmen.</div>
+            <div style="font:500 11.5px 'Inter';color:#a99a6f;margin-top:-4px;">Enthält Nettoeinkommen &amp; Nebenjob aller Antragsteller, sonstige Einkünfte sowie Kindergeld/Unterhaltseinnahmen.</div>
           </div>
         </div>
 
         <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:24px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
-          <div style="font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 16px;">Ausgaben</div>
+          <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 16px;">Ausgaben</div>
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div>
               <label>Warmmiete — Betrag / Monat</label>
@@ -390,8 +392,8 @@
             <div>
               <label>Unterhaltsverpflichtungen?</label>
               <div style="display:flex;gap:9px;">
-                <button data-toggle type="button" aria-pressed="{{ fin.unterhaltJa }}" onClick="{{ fin.setUnterhaltJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
-                <button data-toggle type="button" aria-pressed="{{ fin.unterhaltNein }}" onClick="{{ fin.setUnterhaltNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+                <button data-toggle type="button" aria-pressed="{{ fin.unterhaltJa }}" onClick="{{ fin.setUnterhaltJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Ja</button>
+                <button data-toggle type="button" aria-pressed="{{ fin.unterhaltNein }}" onClick="{{ fin.setUnterhaltNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
               </div>
               <sc-if value="{{ fin.unterhaltJa }}" hint-placeholder-val="{{ false }}">
                 <div class="wln-reveal" style="margin-top:10px;position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ fin.unterhaltsverpfl }}" inputmode="numeric" data-sec="fin" data-key="unterhaltsverpfl" data-num="cur" onChange="{{ onField }}"></div>
@@ -400,8 +402,8 @@
             <div>
               <label>Private Krankenversicherung?</label>
               <div style="display:flex;gap:9px;">
-                <button data-toggle type="button" aria-pressed="{{ fin.pkvJa }}" onClick="{{ fin.setPkvJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
-                <button data-toggle type="button" aria-pressed="{{ fin.pkvNein }}" onClick="{{ fin.setPkvNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+                <button data-toggle type="button" aria-pressed="{{ fin.pkvJa }}" onClick="{{ fin.setPkvJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Ja</button>
+                <button data-toggle type="button" aria-pressed="{{ fin.pkvNein }}" onClick="{{ fin.setPkvNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
               </div>
               <sc-if value="{{ fin.pkvJa }}" hint-placeholder-val="{{ false }}">
                 <div class="wln-reveal" style="margin-top:10px;position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ fin.pkv }}" inputmode="numeric" data-sec="fin" data-key="pkv" data-num="cur" onChange="{{ onField }}"></div>
@@ -411,21 +413,21 @@
             <div><label>Beschreibung sonstige Ausgaben</label><textarea value="{{ fin.infoAusgaben }}" data-sec="fin" data-key="infoAusgaben" onChange="{{ onField }}" placeholder="Optional"></textarea></div>
             <div><label>Anmerkung zur Mietsituation</label><textarea value="{{ fin.infoMiete }}" data-sec="fin" data-key="infoMiete" onChange="{{ onField }}" placeholder="Optional"></textarea></div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#161310;border-radius:14px;padding:14px 18px;margin-top:4px;">
-              <span style="font:600 13px 'Work Sans';color:#C9A700;text-transform:uppercase;letter-spacing:.04em;">Gesamtausgaben / Monat</span>
-              <span style="font:700 20px 'Oswald';color:#fff;">{{ fin.gesamtausgabenFmt }}</span>
+              <span style="font:600 13px 'Inter';color:#C9A700;text-transform:uppercase;letter-spacing:.04em;">Gesamtausgaben / Monat</span>
+              <span style="font:700 20px 'Inter';color:#fff;">{{ fin.gesamtausgabenFmt }}</span>
             </div>
           </div>
         </div>
       </div>
 
       <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
-        <div style="font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 16px;">Bonität &amp; weitere Verbindlichkeiten</div>
+        <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 16px;">Bonität &amp; weitere Verbindlichkeiten</div>
         <div style="display:flex;flex-direction:column;gap:16px;">
           <div>
             <label>Gab es in den letzten 90 Tagen Rücklastschriften oder gibt es Schufa-Einträge?</label>
             <div style="display:flex;gap:9px;">
-              <button data-toggle type="button" aria-pressed="{{ fin.ruecklastJa }}" onClick="{{ fin.setRuecklastJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
-              <button data-toggle type="button" aria-pressed="{{ fin.ruecklastNein }}" onClick="{{ fin.setRuecklastNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+              <button data-toggle type="button" aria-pressed="{{ fin.ruecklastJa }}" onClick="{{ fin.setRuecklastJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Ja</button>
+              <button data-toggle type="button" aria-pressed="{{ fin.ruecklastNein }}" onClick="{{ fin.setRuecklastNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
             </div>
             <sc-if value="{{ fin.ruecklastJa }}" hint-placeholder-val="{{ false }}">
               <div class="wln-reveal" style="margin-top:10px;"><textarea value="{{ fin.ruecklastInfo }}" data-sec="fin" data-key="ruecklastInfo" onChange="{{ onField }}" placeholder="Kurze Erläuterung (Grund, Höhe, Zeitpunkt …)"></textarea></div>
@@ -434,8 +436,8 @@
           <div>
             <label>Haben Sie Kreditkarten?</label>
             <div style="display:flex;gap:9px;">
-              <button data-toggle type="button" aria-pressed="{{ fin.kkJa }}" onClick="{{ fin.setKkJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
-              <button data-toggle type="button" aria-pressed="{{ fin.kkNein }}" onClick="{{ fin.setKkNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+              <button data-toggle type="button" aria-pressed="{{ fin.kkJa }}" onClick="{{ fin.setKkJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Ja</button>
+              <button data-toggle type="button" aria-pressed="{{ fin.kkNein }}" onClick="{{ fin.setKkNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
             </div>
             <sc-if value="{{ fin.kkJa }}" hint-placeholder-val="{{ false }}">
               <div class="wln-reveal" style="margin-top:10px;">
@@ -447,8 +449,8 @@
           <div>
             <label>Nutzen Sie Ratenzahlungsmöglichkeiten (Klarna, PayPal, Amazon, Otto o. Ä.)?</label>
             <div style="display:flex;gap:9px;">
-              <button data-toggle type="button" aria-pressed="{{ fin.ratenJa }}" onClick="{{ fin.setRatenJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Ja</button>
-              <button data-toggle type="button" aria-pressed="{{ fin.ratenNein }}" onClick="{{ fin.setRatenNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Work Sans';cursor:pointer;">Nein</button>
+              <button data-toggle type="button" aria-pressed="{{ fin.ratenJa }}" onClick="{{ fin.setRatenJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Ja</button>
+              <button data-toggle type="button" aria-pressed="{{ fin.ratenNein }}" onClick="{{ fin.setRatenNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
             </div>
             <sc-if value="{{ fin.ratenJa }}" hint-placeholder-val="{{ false }}">
               <div class="wln-reveal" style="margin-top:10px;"><textarea value="{{ fin.ratenInfo }}" data-sec="fin" data-key="ratenInfo" onChange="{{ onField }}" placeholder="Welche Anbieter (Klarna, PayPal, Amazon, Otto …) und ungefähre monatliche Belastung?"></textarea></div>
@@ -458,10 +460,10 @@
       </div>
 
       <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:24px;margin-top:18px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
-        <div style="font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 6px;">Private Kredite / Autokredite</div>
-        <p style="margin:0 0 18px;font:400 13px 'Work Sans';color:#8a8168;">Bestehende Konsumenten- oder Autokredite (ohne Immobiliendarlehen).</p>
+        <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 6px;">Private Kredite / Autokredite</div>
+        <p style="margin:0 0 18px;font:500 13px 'Inter';color:#8a8168;">Bestehende Konsumenten- oder Autokredite (ohne Immobiliendarlehen).</p>
 
-        <div style="font:600 13.5px 'Work Sans';color:#161310;margin:0 0 10px;">Antragsteller</div>
+        <div style="font:600 13.5px 'Inter';color:#161310;margin:0 0 10px;">Antragsteller</div>
         <div style="overflow-x:auto;border:1px solid #EDE7D9;border-radius:14px;">
           <table style="min-width:640px;">
             <thead><tr style="background:#FAF7EF;border-bottom:1px solid #EDE7D9;">
@@ -470,7 +472,7 @@
             <tbody>
               <sc-for list="{{ fin.krediteA }}" as="k" hint-placeholder-count="3">
                 <tr style="border-bottom:1px solid #F2EDE1;">
-                  <td style="font:600 13px 'Work Sans';color:#7a6f52;padding-left:14px;white-space:nowrap;">Kredit {{ k.num }}</td>
+                  <td style="font:600 13px 'Inter';color:#7a6f52;padding-left:14px;white-space:nowrap;">Kredit {{ k.num }}</td>
                   <td><input value="{{ k.name }}" placeholder="Name" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="name" onChange="{{ onField }}"></td>
                   <td><input value="{{ k.kreditgeber }}" placeholder="z. B. Bank" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="kreditgeber" onChange="{{ onField }}"></td>
                   <td><input value="{{ k.restschuld }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="restschuld" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
@@ -483,15 +485,15 @@
             </tbody>
           </table>
         </div>
-        <button type="button" onClick="{{ fin.addKreditA }}" style="margin-top:12px;padding:9px 18px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #Dcd4c2;font:600 13px 'Work Sans';cursor:pointer;">+ Weitere Zeile</button>
+        <button type="button" onClick="{{ fin.addKreditA }}" style="margin-top:12px;padding:9px 18px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #Dcd4c2;font:600 13px 'Inter';cursor:pointer;">+ Weitere Zeile</button>
 
         <div style="margin-top:20px;">
-          <button type="button" onClick="{{ fin.toggleMit }}" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;background:#161310;color:#fff;border:1.5px solid #161310;font:600 13px 'Work Sans';cursor:pointer;">{{ fin.mitLabel }}</button>
+          <button type="button" onClick="{{ fin.toggleMit }}" style="display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;background:#161310;color:#fff;border:1.5px solid #161310;font:600 13px 'Inter';cursor:pointer;">{{ fin.mitLabel }}</button>
         </div>
 
         <sc-if value="{{ fin.mitAktiv }}" hint-placeholder-val="{{ false }}">
           <div class="wln-reveal" style="margin-top:20px;">
-            <div style="font:600 13.5px 'Work Sans';color:#161310;margin:0 0 10px;">Mitantragsteller</div>
+            <div style="font:600 13.5px 'Inter';color:#161310;margin:0 0 10px;">Mitantragsteller</div>
             <div style="overflow-x:auto;border:1px solid #EDE7D9;border-radius:14px;">
               <table style="min-width:640px;">
                 <thead><tr style="background:#FAF7EF;border-bottom:1px solid #EDE7D9;">
@@ -500,7 +502,7 @@
                 <tbody>
                   <sc-for list="{{ fin.krediteM }}" as="k" hint-placeholder-count="3">
                     <tr style="border-bottom:1px solid #F2EDE1;">
-                      <td style="font:600 13px 'Work Sans';color:#7a6f52;padding-left:14px;white-space:nowrap;">Kredit {{ k.num }}</td>
+                      <td style="font:600 13px 'Inter';color:#7a6f52;padding-left:14px;white-space:nowrap;">Kredit {{ k.num }}</td>
                       <td><input value="{{ k.name }}" placeholder="Name" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="name" onChange="{{ onField }}"></td>
                       <td><input value="{{ k.kreditgeber }}" placeholder="z. B. Bank" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="kreditgeber" onChange="{{ onField }}"></td>
                       <td><input value="{{ k.restschuld }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="restschuld" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
@@ -513,7 +515,7 @@
                 </tbody>
               </table>
             </div>
-            <button type="button" onClick="{{ fin.addKreditM }}" style="margin-top:12px;padding:9px 18px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #Dcd4c2;font:600 13px 'Work Sans';cursor:pointer;">+ Weitere Zeile</button>
+            <button type="button" onClick="{{ fin.addKreditM }}" style="margin-top:12px;padding:9px 18px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #Dcd4c2;font:600 13px 'Inter';cursor:pointer;">+ Weitere Zeile</button>
           </div>
         </sc-if>
       </div>
@@ -526,16 +528,16 @@
     <!-- ===== SECTION 4 · IMMOBILIEN ===== -->
     <section id="sec4" style="scroll-margin-top:90px;">
       <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 16px;">
-        <div style="font:700 13px 'Oswald';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">05</div>
-        <h2 style="margin:0;font:600 21px 'Oswald';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Immobilien</h2>
+        <div style="font:700 13px 'Inter';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">05</div>
+        <h2 style="margin:0;font:600 21px 'Inter';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Immobilien</h2>
       </div>
       <div style="display:flex;flex-direction:column;gap:20px;">
         <sc-for list="{{ properties }}" as="p" hint-placeholder-count="1">
           <div class="wln-reveal" style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
-              <div style="font:600 15px 'Work Sans';color:#161310;display:flex;align-items:center;gap:10px;"><span style="width:26px;height:26px;border-radius:8px;background:#C9A700;color:#161310;display:inline-flex;align-items:center;justify-content:center;font:700 13px 'Oswald';">{{ p.num }}</span> Immobilie {{ p.num }}</div>
+              <div style="font:600 15px 'Inter';color:#161310;display:flex;align-items:center;gap:10px;"><span style="width:26px;height:26px;border-radius:8px;background:#C9A700;color:#161310;display:inline-flex;align-items:center;justify-content:center;font:700 13px 'Inter';">{{ p.num }}</span> Immobilie {{ p.num }}</div>
               <sc-if value="{{ p.canRemove }}" hint-placeholder-val="{{ false }}">
-                <button type="button" onClick="{{ p.remove }}" style="background:none;border:none;color:#a23b47;font:600 13px 'Work Sans';cursor:pointer;">Entfernen</button>
+                <button type="button" onClick="{{ p.remove }}" style="background:none;border:none;color:#a23b47;font:600 13px 'Inter';cursor:pointer;">Entfernen</button>
               </sc-if>
             </div>
 
@@ -544,7 +546,7 @@
             <label>Objektart</label>
             <div style="display:flex;flex-wrap:wrap;gap:9px;margin:8px 0 18px;">
               <sc-for list="{{ p.typeList }}" as="t" hint-placeholder-count="9">
-                <label style="display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1.5px solid #E4DED0;border-radius:999px;font:500 13px 'Work Sans';color:#3a352c;cursor:pointer;background:#FCFAF4;">
+                <label style="display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1.5px solid #E4DED0;border-radius:999px;font:500 13px 'Inter';color:#3a352c;cursor:pointer;background:#FCFAF4;">
                   <input type="checkbox" checked="{{ t.checked }}" data-sec="propType" data-pidx="{{ t.pIndex }}" data-key="{{ t.key }}" onChange="{{ onPropType }}">{{ t.label }}
                 </label>
               </sc-for>
@@ -564,8 +566,8 @@
               <div><label>Anzahl Wohneinheiten</label><input inputmode="numeric" value="{{ p.wohneinheiten }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="wohneinheiten" onChange="{{ onField }}"></div>
             </div>
 
-            <div style="margin:24px 0 10px;font:700 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;">Verbindlichkeiten</div>
-            <div style="background:#FBF4E2;border:1px solid #F0E2BC;border-radius:12px;padding:12px 16px;margin-bottom:14px;font:500 13px 'Work Sans';color:#7a5c05;display:flex;gap:10px;align-items:flex-start;">
+            <div style="margin:24px 0 10px;font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;">Verbindlichkeiten</div>
+            <div style="background:#FBF4E2;border:1px solid #F0E2BC;border-radius:12px;padding:12px 16px;margin-bottom:14px;font:500 13px 'Inter';color:#7a5c05;display:flex;gap:10px;align-items:flex-start;">
               <span style="font-size:16px;line-height:1;">⚠</span><span>Diese Angaben sind für die Haushaltsrechnung essenziell und müssen berücksichtigt werden.</span>
             </div>
             <div style="overflow-x:auto;border:1px solid #EDE7D9;border-radius:14px;">
@@ -576,7 +578,7 @@
                 <tbody>
                   <sc-for list="{{ p.loanList }}" as="l" hint-placeholder-count="3">
                     <tr style="border-bottom:1px solid #F2EDE1;">
-                      <td style="font:600 13px 'Work Sans';color:#7a6f52;padding-left:14px;white-space:nowrap;">{{ l.label }}</td>
+                      <td style="font:600 13px 'Inter';color:#7a6f52;padding-left:14px;white-space:nowrap;">{{ l.label }}</td>
                       <td><input value="{{ l.kreditgeber }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="kreditgeber" onChange="{{ onField }}"></td>
                       <td><input value="{{ l.kreditnehmer }}" placeholder="Name" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="kreditnehmer" onChange="{{ onField }}"></td>
                       <td><input value="{{ l.grundschulden }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="grundschulden" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
@@ -589,12 +591,12 @@
                     </tr>
                   </sc-for>
                   <tr style="background:#FAF7EF;font-weight:700;">
-                    <td style="font:700 13px 'Work Sans';color:#161310;padding-left:14px;">Summe</td>
+                    <td style="font:700 13px 'Inter';color:#161310;padding-left:14px;">Summe</td>
                     <td></td><td></td>
-                    <td style="font:600 13px 'Work Sans';color:#161310;padding-left:8px;">{{ p.sumGrundschulden }}</td>
-                    <td style="font:600 13px 'Work Sans';color:#161310;padding-left:8px;">{{ p.sumDarlehen }}</td>
+                    <td style="font:600 13px 'Inter';color:#161310;padding-left:8px;">{{ p.sumGrundschulden }}</td>
+                    <td style="font:600 13px 'Inter';color:#161310;padding-left:8px;">{{ p.sumDarlehen }}</td>
                     <td></td><td></td><td></td><td></td>
-                    <td style="font:600 13px 'Work Sans';color:#161310;padding:0 14px 0 8px;">{{ p.sumRate }}</td>
+                    <td style="font:600 13px 'Inter';color:#161310;padding:0 14px 0 8px;">{{ p.sumRate }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -603,54 +605,57 @@
             <div style="margin-top:14px;"><label>Besonderheiten des Objekts <span style="color:#a99a6f;font-weight:500;">(falls außergewöhnlich)</span></label><textarea value="{{ p.besonderheiten }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="besonderheiten" onChange="{{ onField }}" placeholder="z. B. Denkmalschutz, besondere Lage, Sanierungsbedarf, ungewöhnliche Nutzung …"></textarea></div>
           </div>
         </sc-for>
-        <button type="button" onClick="{{ addProperty }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #161310;font:600 13.5px 'Work Sans';cursor:pointer;">+ Weitere Immobilie hinzufügen</button>
+        <button type="button" onClick="{{ addProperty }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #161310;font:600 13.5px 'Inter';cursor:pointer;">+ Weitere Immobilie hinzufügen</button>
       </div>
     </section>
 
     <!-- ===== SECTION 5 · ZUSAMMENFASSUNG & ABSENDEN ===== -->
     <section id="sec5" style="scroll-margin-top:90px;">
       <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 16px;">
-        <div style="font:700 13px 'Oswald';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">06</div>
-        <h2 style="margin:0;font:600 21px 'Oswald';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Zusammenfassung &amp; Absenden</h2>
+        <div style="font:700 13px 'Inter';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">06</div>
+        <h2 style="margin:0;font:600 21px 'Inter';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Zusammenfassung &amp; Absenden</h2>
       </div>
 
       <div style="background:#161310;border-radius:22px;padding:30px;color:#fff;">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;margin-bottom:24px;align-items:end;">
-          <div><div style="font:600 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Antragsteller</div><div style="font:600 26px 'Oswald';">{{ sumAppCount }}</div></div>
-          <div><div style="font:600 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Kinder</div><div style="font:600 26px 'Oswald';">{{ sumChildCount }}</div></div>
-          <div><div style="font:600 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Immobilien</div><div style="font:600 26px 'Oswald';">{{ sumPropCount }}</div></div>
-          <div><div style="font:600 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Monatliche Gesamteinnahmen</div><div style="font:600 26px 'Oswald';">{{ sumEinnahmenTotal }}</div></div>
-          <div><div style="font:600 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Monatliche Gesamtausgaben</div><div style="font:600 26px 'Oswald';">{{ sumAusgabenTotal }}</div></div>
+          <div><div style="font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Antragsteller</div><div style="font:600 26px 'Inter';">{{ sumAppCount }}</div></div>
+          <div><div style="font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Kinder</div><div style="font:600 26px 'Inter';">{{ sumChildCount }}</div></div>
+          <div><div style="font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Immobilien</div><div style="font:600 26px 'Inter';">{{ sumPropCount }}</div></div>
+          <div><div style="font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Monatliche Gesamteinnahmen</div><div style="font:600 26px 'Inter';">{{ sumEinnahmenTotal }}</div></div>
+          <div><div style="font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:6px;">Monatliche Gesamtausgaben</div><div style="font:600 26px 'Inter';">{{ sumAusgabenTotal }}</div></div>
         </div>
 
         <sc-if value="{{ hasErrors }}" hint-placeholder-val="{{ false }}">
           <div class="wln-reveal" style="background:#3a1418;border:1px solid #6b2530;border-radius:14px;padding:16px 18px;margin-bottom:20px;">
-            <div style="font:600 14px 'Work Sans';color:#ffb3bd;margin-bottom:8px;">Bitte prüfen Sie folgende Pflichtfelder:</div>
-            <div style="font:400 13.5px 'Work Sans';color:#f0c9ce;line-height:1.6;">{{ errorSummary }}</div>
+            <div style="font:600 14px 'Inter';color:#ffb3bd;margin-bottom:8px;">Bitte prüfen Sie folgende Pflichtfelder:</div>
+            <div style="font:500 13.5px 'Inter';color:#f0c9ce;line-height:1.6;">{{ errorSummary }}</div>
           </div>
         </sc-if>
 
         <sc-if value="{{ isSuccess }}" hint-placeholder-val="{{ false }}">
           <div class="wln-reveal" style="background:#13301f;border:1px solid #24593a;border-radius:14px;padding:18px 20px;margin-bottom:20px;display:flex;gap:12px;align-items:center;">
             <div style="width:32px;height:32px;border-radius:50%;background:#3ec27a;color:#062a15;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;">✓</div>
-            <div><div style="font:600 15px 'Work Sans';color:#a8f0c6;">Selbstauskunft erfolgreich übermittelt.</div><div style="font:400 13px 'Work Sans';color:#7fce9f;">{{ successDetail }}</div></div>
+            <div><div style="font:600 15px 'Inter';color:#a8f0c6;">Selbstauskunft erfolgreich übermittelt.</div><div style="font:500 13px 'Inter';color:#7fce9f;">{{ successDetail }}</div></div>
           </div>
         </sc-if>
         <sc-if value="{{ isSubmitError }}" hint-placeholder-val="{{ false }}">
-          <div class="wln-reveal" style="background:#3a1418;border:1px solid #6b2530;border-radius:14px;padding:16px 18px;margin-bottom:20px;font:500 13.5px 'Work Sans';color:#ffb3bd;">Übermittlung fehlgeschlagen: {{ submitErrorMsg }}</div>
+          <div class="wln-reveal" style="background:#3a1418;border:1px solid #6b2530;border-radius:14px;padding:16px 18px;margin-bottom:20px;font:500 13.5px 'Inter';color:#ffb3bd;">Übermittlung fehlgeschlagen: {{ submitErrorMsg }}</div>
         </sc-if>
 
         <div style="margin-bottom:14px;">
-          <label style="display:block;font:600 11px 'Work Sans';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:7px;">E-Mail-Empfänger der Selbstauskunft</label>
-          <input type="email" value="{{ empfaengerEmail }}" onChange="{{ setEmpfaengerEmail }}" placeholder="name@beispiel.de" autocomplete="email" style="width:100%;max-width:380px;padding:13px 15px;border-radius:12px;background:#221f1a;border:1.5px solid #3a352e;color:#fff;font:400 14.5px 'Work Sans';outline:none;" />
-          <div style="font:400 12px 'Work Sans';color:#a49a80;margin-top:6px;">An diese Adresse wird die Selbstauskunft nach dem Absenden gesendet.</div>
+          <label style="display:block;font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:7px;">E-Mail-Empfänger der Selbstauskunft</label>
+          <input type="email" value="{{ empfaengerEmail }}" onChange="{{ setEmpfaengerEmail }}" placeholder="name@beispiel.de" autocomplete="email" style="width:100%;max-width:380px;padding:13px 15px;border-radius:12px;background:#221f1a;border:1.5px solid #3a352e;color:#fff;font:500 14.5px 'Inter';outline:none;" />
+          <div style="font:500 12px 'Inter';color:#a49a80;margin-top:6px;">An diese Adresse wird die Selbstauskunft nach dem Absenden gesendet.</div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
-          <button type="button" class="wln-btn" onClick="{{ submit }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Work Sans';letter-spacing:.02em;cursor:pointer;">{{ submitLabel }}</button>
-          <button type="button" class="wln-btn wln-btn-ghost" onClick="{{ downloadPdf }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:transparent;color:#fff;border:1.5px solid #55504a;font:600 14px 'Work Sans';cursor:pointer;">Als PDF herunterladen</button>
+          <button type="button" class="wln-btn" onClick="{{ submit }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Inter';letter-spacing:.02em;cursor:pointer;">{{ submitLabel }}</button>
+          <button type="button" class="wln-btn wln-btn-ghost" onClick="{{ downloadPdf }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:transparent;color:#fff;border:1.5px solid #55504a;font:600 14px 'Inter';cursor:pointer;">Als PDF herunterladen</button>
         </div>
       </div>
-      <p id="kontakt" style="text-align:center;margin:26px 0 0;font:400 12.5px 'Work Sans';color:#a49a80;">Walona Group · Ihre Angaben werden vertraulich behandelt und ausschließlich zur Bonitätsprüfung verwendet.</p>
+      <div style="text-align:center;margin:28px 0 0;">
+        <img src="https://emirduman52.github.io/walona-selbstauskunft/siegel-footer.png" alt="TÜV Rheinland zertifiziert – Walona Group" style="display:inline-block;width:100%;max-width:640px;height:auto;">
+      </div>
+      <p id="kontakt" style="text-align:center;margin:22px 0 0;font:500 12.5px 'Inter';color:#a49a80;">Walona Group · Ihre Angaben werden vertraulich behandelt und ausschließlich zur Bonitätsprüfung verwendet.</p>
     </section>
 
   </main>
