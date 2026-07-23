@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp \"uploads/Vector5.png\" logo-w.png)",
+      "Bash(sips -Z 1600 -s format jpeg -s formatOptions 72 \"uploads/Walona_Header_IMG-Luis.jpg\" --out hero.jpg)",
+      "Bash(awk '{print $9, $5}')",
+      "Bash(sips -g pixelWidth -g pixelHeight hero.jpg)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --allow-file-access-from-files --hide-scrollbars --window-size=1200,1400 --virtual-time-budget=8000 --screenshot=\"/private/tmp/claude-501/-Users-emirduman-Desktop-Walona-Group-Financial-Disclosure/22811a56-e34e-46dd-9745-5e60d1c416db/scratchpad/hero.png\" \"file:///Users/emirduman/Desktop/Walona%20Group%20Financial%20Disclosure/Selbstauskunft.dc.html\")",
+      "Bash(awk '{print $5}')",
+      "Bash(grep -n \"let h=\\\\`<div style=\\\\\"font-family:Arial\\\\|WALONA GROUP\\\\|Selbstauskunft · \\\\|win.focus\\(\\);win.print\\(\\)\\\\|const win=window.open\\\\|setTimeout\\(\\(\\)=>{try{if\\(win\" Selbstauskunft.dc.html)",
+      "Bash(awk 'NR>=777 && NR<=782{printf \"%d: %s\\\\n\",NR,substr\\($0,1,130\\)}' Selbstauskunft.dc.html)",
+      "Bash(sed -E 's#base64,[A-Za-z0-9+/=]+#base64,<CUT>#g')",
+      "Bash(awk 'NR>=816 && NR<=828{printf \"%d: %s\\\\n\",NR,$0}' Selbstauskunft.dc.html)",
+      "Bash(awk 'NR==779{print}' Selbstauskunft.dc.html)",
+      "Bash(awk 'NR==782{print}' Selbstauskunft.dc.html)",
+      "Bash(awk 'NR>=82 && NR<=104{printf \"%d: %s\\\\n\",NR,$0}' Selbstauskunft.dc.html)",
+      "Bash(awk 'NR>=89 && NR<=102' Selbstauskunft.dc.html)",
+      "Bash(sed 's/\\\\$$//')",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --allow-file-access-from-files --hide-scrollbars --window-size=1200,1350 --virtual-time-budget=8000 --screenshot=\"/private/tmp/claude-501/-Users-emirduman-Desktop-Walona-Group-Financial-Disclosure/22811a56-e34e-46dd-9745-5e60d1c416db/scratchpad/hero2.png\" \"file:///Users/emirduman/Desktop/Walona%20Group%20Financial%20Disclosure/Selbstauskunft.dc.html\")",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --allow-file-access-from-files --hide-scrollbars --window-size=1200,1250 --virtual-time-budget=8000 --screenshot=\"/private/tmp/claude-501/-Users-emirduman-Desktop-Walona-Group-Financial-Disclosure/22811a56-e34e-46dd-9745-5e60d1c416db/scratchpad/hero3.png\" \"file:///Users/emirduman/Desktop/Walona%20Group%20Financial%20Disclosure/Selbstauskunft.dc.html\")",
+      "Bash(awk 'NR>=336 && NR<=341' Selbstauskunft.dc.html)",
+      "Bash(awk 'NR>=400 && NR<=425' Selbstauskunft.dc.html)",
+      "Bash(awk 'NR>=865 && NR<=900' Selbstauskunft.dc.html)",
+      "Bash(\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new --disable-gpu --allow-file-access-from-files --remote-debugging-port=9333 --window-size=1200,1600 \"file:///Users/emirduman/Desktop/Walona%20Group%20Financial%20Disclosure/Selbstauskunft.dc.html\")",
+      "Bash(which pdftoppm *)",
+      "Read(//opt/homebrew/bin/**)"
+    ]
+  }
+}
