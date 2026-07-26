@@ -70,6 +70,13 @@
     /* Breite Tabellen weich horizontal scrollen */
     #wln [style*="overflow-x: auto"]{-webkit-overflow-scrolling:touch;}
     #wln h2{font-size:19px !important;}
+    /* Step-Bar: statt umbrechen (krummes Stapeln) in EINER Reihe horizontal scrollen */
+    #wln .wln-stepbar{flex-wrap:nowrap !important;justify-content:flex-start !important;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+      /* dezenter Fade an beiden Rändern als Scroll-Hinweis */
+      -webkit-mask-image:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 16px),transparent);
+              mask-image:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 16px),transparent);}
+    #wln .wln-stepbar::-webkit-scrollbar{display:none;}
+    #wln .wln-stepbar > button{flex:0 0 auto !important;scroll-snap-align:start;}
   }
   @media (max-width:380px){
     #wln main{padding-left:10px !important;padding-right:10px !important;}
@@ -88,7 +95,7 @@
   <!-- STICKY PROGRESS / STEP BAR -->
   <div style="position:sticky;top:0;z-index:40;background:rgba(243,238,227,.86);backdrop-filter:blur(10px);border-bottom:1px solid #E4DDCC;">
     <div style="max-width:1080px;margin:0 auto;padding:12px 24px 0;">
-      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;padding-bottom:12px;">
+      <div class="wln-stepbar" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;padding-bottom:12px;">
         <sc-for list="{{ steps }}" as="s" hint-placeholder-count="6">
           <button data-step type="button" aria-current="{{ s.active }}" onClick="{{ s.go }}"
             style="flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 15px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#5a5340;font:600 12.5px 'Inter';cursor:pointer;white-space:nowrap;transition:all .15s;">
@@ -697,11 +704,24 @@ class Component extends DCLogic {
     const root=document.getElementById('wln');
     if(!root||!('IntersectionObserver' in window))return;
     this._io=new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{if(e.isIntersecting)this.setState({activeSection:e.target.id});});
+      entries.forEach(e=>{if(e.isIntersecting){this.setState({activeSection:e.target.id});this.scrollStepIntoView(e.target.id);}});
     },{rootMargin:'-45% 0px -50% 0px',threshold:0});
     this.sections.forEach(id=>{const el=document.getElementById(id);if(el)this._io.observe(el);});
   }
   componentWillUnmount(){if(this._io)this._io.disconnect();}
+
+  // Aktive Step-Pill im horizontalen Streifen mittig halten (nur wenn der Streifen überläuft = Mobile)
+  scrollStepIntoView(id){
+    const idx=this.sections?this.sections.indexOf(id):-1;
+    if(idx<0)return;
+    const bar=document.querySelector('#wln .wln-stepbar');
+    if(!bar||bar.scrollWidth<=bar.clientWidth+2)return;
+    const btn=bar.querySelectorAll('[data-step]')[idx];
+    if(!btn)return;
+    const barRect=bar.getBoundingClientRect(),btnRect=btn.getBoundingClientRect();
+    const delta=(btnRect.left-barRect.left)-(bar.clientWidth-btnRect.width)/2;
+    bar.scrollTo({left:bar.scrollLeft+delta,behavior:'smooth'});
+  }
 
   fmtCur(str){const digits=String(str).replace(/[^\d]/g,'');if(!digits)return'';return Number(digits).toLocaleString('de-DE');}
   parseNum(str){if(str==null||str==='')return 0;return Number(String(str).replace(/\./g,'').replace(/,/g,'.').replace(/[^\d.-]/g,''))||0;}
