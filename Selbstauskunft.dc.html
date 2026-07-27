@@ -654,10 +654,21 @@
           <input type="email" value="{{ empfaengerEmail }}" onChange="{{ setEmpfaengerEmail }}" placeholder="name@beispiel.de" autocomplete="email" style="width:100%;max-width:380px;padding:13px 15px;border-radius:12px;background:#221f1a;border:1.5px solid #3a352e;color:#fff;font:500 14.5px 'Inter';outline:none;" />
           <div style="font:500 12px 'Inter';color:#a49a80;margin-top:6px;">An diese Adresse wird die Selbstauskunft nach dem Absenden gesendet.</div>
         </div>
+        <sc-if value="{{ quotaExhausted }}" hint-placeholder-val="{{ false }}">
+          <div class="wln-reveal" style="background:#3a2a14;border:1px solid #6b5225;border-radius:14px;padding:16px 18px;margin-bottom:20px;font:600 13.5px 'Inter';color:#f0d9a8;">{{ quotaMsg }}</div>
+        </sc-if>
         <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
-          <button type="button" class="wln-btn" onClick="{{ submit }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Inter';letter-spacing:.02em;cursor:pointer;">{{ submitLabel }}</button>
+          <sc-if value="{{ submitEnabled }}" hint-placeholder-val="{{ true }}">
+            <button type="button" class="wln-btn" onClick="{{ submit }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Inter';letter-spacing:.02em;cursor:pointer;">{{ submitLabel }}</button>
+          </sc-if>
+          <sc-if value="{{ submitDisabled }}" hint-placeholder-val="{{ false }}">
+            <button type="button" class="wln-btn" disabled style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#3a352e;color:#8a8378;border:none;font:700 14.5px 'Inter';letter-spacing:.02em;cursor:not-allowed;opacity:.75;">{{ submitLabel }}</button>
+          </sc-if>
           <button type="button" class="wln-btn wln-btn-ghost" onClick="{{ downloadPdf }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:transparent;color:#fff;border:1.5px solid #55504a;font:600 14px 'Inter';cursor:pointer;">Als PDF herunterladen</button>
         </div>
+        <sc-if value="{{ quotaInfoShow }}" hint-placeholder-val="{{ false }}">
+          <div style="font:500 12px 'Inter';color:#a49a80;margin-top:10px;">{{ quotaInfo }}</div>
+        </sc-if>
       </div>
       <div style="text-align:center;margin:28px 0 0;">
         <img src="./siegel-footer.png" alt="TÜV Rheinland zertifiziert – Walona Group" style="display:inline-block;width:100%;max-width:640px;height:auto;">
@@ -675,6 +686,8 @@ class Component extends DCLogic {
     this.OBJ_TYPES = [['grundstueck','Grundstück'],['etw','Eigentumswohnung'],['efh','Einfamilienhaus'],['zfh','Zweifamilienhaus'],['dhh','Doppelhaushälfte'],['reh','Reihenendhaus'],['rmh','Reihenmittelhaus'],['mfh','Mehrfamilienhaus'],['gewerbe','Gewerbeimmobilie']];
     this.LOAN_LABELS = ['Darlehen 1','Darlehen 2','Darlehen 3'];
     this.REQ_APP = ['anrede','vorname','nachname','geburtsdatum','geburtsort','email','strasse','hausnummer','plz','ort','familienstand','nationalitaet1','beschaeftigungsart','nettoeinkommen','beschaeftigtSeit','arbeitgeber','beruf'];
+    // Meldung, wenn das monatliche Kontingent ausgeschöpft ist (leicht anpassbar)
+    this.QUOTA_MSG = 'Das monatliche Kontingent an Selbstauskünften ist ausgeschöpft. Bitte im nächsten Monat erneut versuchen.';
     this.state = {
       prot:this.emptyProtokoll(),
       applicants:[this.emptyApplicant()],
@@ -688,7 +701,12 @@ class Component extends DCLogic {
       submitStatus:'idle',
       submitErrorMsg:'',
       successDetail:'',
-      empfaengerEmail:''
+      empfaengerEmail:'',
+      quotaChecked:false,
+      quotaAvailable:true,
+      quotaUsed:0,
+      quotaLimit:0,
+      quotaRemaining:0
     };
   }
   emptyProtokoll(){return{berater:'',portfolioManager:'',gespraechsnotizen:'',naechsteSchritte:''};}
@@ -701,6 +719,7 @@ class Component extends DCLogic {
 
   componentDidMount(){
     this.sections=['sec0','sec1','sec2','sec3','sec4','sec5'];
+    this.checkQuota();
     const root=document.getElementById('wln');
     if(!root||!('IntersectionObserver' in window))return;
     this._io=new IntersectionObserver((entries)=>{
@@ -709,6 +728,26 @@ class Component extends DCLogic {
     this.sections.forEach(id=>{const el=document.getElementById(id);if(el)this._io.observe(el);});
   }
   componentWillUnmount(){if(this._io)this._io.disconnect();}
+
+  // Kontingent beim Laden einmal prüfen. Nur sperren, wenn der Endpoint explizit available:false liefert.
+  // Bei Fehler/Timeout NICHT sperren (der Workflow blockt serverseitig ohnehin) – nur warnen.
+  checkQuota(){
+    const base=this.props.webhookUrl||'';
+    if(!base)return; // Demo-Modus ohne Webhook: nicht prüfen, nicht sperren
+    fetch(base+'-status')
+      .then(r=>r.json())
+      .then(d=>{
+        if(!d||typeof d!=='object')return;
+        this.setState({
+          quotaChecked:true,
+          quotaAvailable:d.available!==false, // nur bei explizitem false sperren
+          quotaUsed:Number(d.used)||0,
+          quotaLimit:Number(d.limit)||0,
+          quotaRemaining:Number(d.remaining)||0
+        });
+      })
+      .catch(err=>{console.warn('Kontingent-Status konnte nicht geladen werden – Formular bleibt nutzbar:',err);});
+  }
 
   // Aktive Step-Pill im horizontalen Streifen mittig halten (nur wenn der Streifen überläuft = Mobile)
   scrollStepIntoView(id){
@@ -817,6 +856,7 @@ class Component extends DCLogic {
   }
 
   submit=async()=>{
+    if(!this.state.quotaAvailable){this.setState({submitStatus:'error',submitErrorMsg:this.QUOTA_MSG});return;}
     const errs=this.validate();
     if(Object.keys(errs).length){this.setState({errorKeys:errs,submitStatus:'validate'});this.goSection('sec5');return;}
     const empf=(this.state.empfaengerEmail||'').trim();
@@ -827,7 +867,16 @@ class Component extends DCLogic {
     try{
       if(url){
         const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-        if(!res.ok)throw new Error('HTTP '+res.status);
+        let body=null; try{body=await res.json();}catch(_){}
+        if(!res.ok){
+          const code=body&&body.error&&body.error.code;
+          if(code==='QUOTA_EXCEEDED'){
+            // Kontingent serverseitig ausgeschöpft: Server-Meldung zeigen und Button sperren
+            this.setState({submitStatus:'error',submitErrorMsg:(body.error.message)||this.QUOTA_MSG,quotaAvailable:false});
+            return;
+          }
+          throw new Error('HTTP '+res.status); // VALIDATION u.a. wie bisher (generische Fehlermeldung)
+        }
         this.setState({submitStatus:'success',successDetail:'Ihre Daten wurden an die Walona Group übermittelt.'});
       }else{
         await new Promise(r=>setTimeout(r,600));
@@ -990,6 +1039,10 @@ class Component extends DCLogic {
       isSuccess:s.submitStatus==='success', successDetail:s.successDetail,
       isSubmitError:s.submitStatus==='error', submitErrorMsg:s.submitErrorMsg,
       submitLabel:s.submitStatus==='submitting'?'Wird übermittelt…':'Selbstauskunft absenden',
+      quotaExhausted:!s.quotaAvailable, quotaMsg:this.QUOTA_MSG,
+      submitEnabled:s.quotaAvailable, submitDisabled:!s.quotaAvailable,
+      quotaInfoShow:s.quotaChecked&&s.quotaAvailable&&s.quotaLimit>0,
+      quotaInfo:'Noch '+s.quotaRemaining+' von '+s.quotaLimit+' Auskünften verfügbar.',
       empfaengerEmail:s.empfaengerEmail, setEmpfaengerEmail:this.setEmpfaengerEmail,
       submit:this.submit, downloadPdf:this.downloadPdf
     };
