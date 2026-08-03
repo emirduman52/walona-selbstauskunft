@@ -654,26 +654,9 @@
           <div class="wln-reveal" style="background:#3a1418;border:1px solid #6b2530;border-radius:14px;padding:16px 18px;margin-bottom:20px;font:500 13.5px 'Inter';color:#ffb3bd;">Übermittlung fehlgeschlagen: {{ submitErrorMsg }}</div>
         </sc-if>
 
-        <div style="margin-bottom:14px;">
-          <label style="display:block;font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#C9A700;margin-bottom:7px;">E-Mail-Empfänger der Selbstauskunft</label>
-          <input type="email" value="{{ empfaengerEmail }}" onChange="{{ setEmpfaengerEmail }}" placeholder="name@beispiel.de" autocomplete="email" style="width:100%;max-width:380px;padding:13px 15px;border-radius:12px;background:#221f1a;border:1.5px solid #3a352e;color:#fff;font:500 14.5px 'Inter';outline:none;" />
-          <div style="font:500 12px 'Inter';color:#a49a80;margin-top:6px;">An diese Adresse wird die Selbstauskunft nach dem Absenden gesendet.</div>
-        </div>
-        <sc-if value="{{ quotaExhausted }}" hint-placeholder-val="{{ false }}">
-          <div class="wln-reveal" style="background:#3a2a14;border:1px solid #6b5225;border-radius:14px;padding:16px 18px;margin-bottom:20px;font:600 13.5px 'Inter';color:#f0d9a8;">{{ quotaMsg }}</div>
-        </sc-if>
         <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
-          <sc-if value="{{ submitEnabled }}" hint-placeholder-val="{{ true }}">
-            <button type="button" class="wln-btn" onClick="{{ submit }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Inter';letter-spacing:.02em;cursor:pointer;">{{ submitLabel }}</button>
-          </sc-if>
-          <sc-if value="{{ submitDisabled }}" hint-placeholder-val="{{ false }}">
-            <button type="button" class="wln-btn" disabled style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#3a352e;color:#8a8378;border:none;font:700 14.5px 'Inter';letter-spacing:.02em;cursor:not-allowed;opacity:.75;">{{ submitLabel }}</button>
-          </sc-if>
-          <button type="button" class="wln-btn wln-btn-ghost" onClick="{{ downloadPdf }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;background:transparent;color:#fff;border:1.5px solid #55504a;font:600 14px 'Inter';cursor:pointer;">Als PDF herunterladen</button>
+          <button type="button" class="wln-btn" onClick="{{ downloadPdf }}" style="display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border-radius:999px;background:#C9A700;color:#161310;border:none;font:700 14.5px 'Inter';letter-spacing:.02em;cursor:pointer;">Als PDF herunterladen</button>
         </div>
-        <sc-if value="{{ quotaInfoShow }}" hint-placeholder-val="{{ false }}">
-          <div style="font:500 12px 'Inter';color:#a49a80;margin-top:10px;">{{ quotaInfo }}</div>
-        </sc-if>
       </div>
       <div style="text-align:center;margin:28px 0 0;">
         <img src="./siegel-footer.png" alt="TÜV Rheinland zertifiziert – Walona Group" style="display:inline-block;width:100%;max-width:640px;height:auto;">
