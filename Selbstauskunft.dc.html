@@ -411,7 +411,7 @@
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div>
               <label>Warmmiete — Betrag / Monat</label>
-              <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.miete }}" inputmode="numeric" data-sec="fin" data-key="miete" data-num="cur" onChange="{{ onField }}"></div>
+              <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.miete }}" aria-invalid="{{ fin.err_miete }}" inputmode="numeric" data-sec="fin" data-key="miete" data-num="cur" onChange="{{ onField }}"></div>
             </div>
             <div>
               <label>Unterhaltsverpflichtungen?</label>
@@ -433,7 +433,7 @@
                 <div class="wln-reveal" style="margin-top:10px;position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ fin.pkv }}" aria-invalid="{{ fin.err_pkv }}" inputmode="numeric" data-sec="fin" data-key="pkv" data-num="cur" onChange="{{ onField }}"></div>
               </sc-if>
             </div>
-            <div><label>Sonstige Ausgaben — Betrag / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.sonstAusgaben }}" inputmode="numeric" data-sec="fin" data-key="sonstAusgaben" data-num="cur" onChange="{{ onField }}"></div></div>
+            <div><label>Sonstige Ausgaben — Betrag / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.sonstAusgaben }}" aria-invalid="{{ fin.err_sonstAusgaben }}" inputmode="numeric" data-sec="fin" data-key="sonstAusgaben" data-num="cur" onChange="{{ onField }}"></div></div>
             <div><label>Beschreibung sonstige Ausgaben</label><textarea value="{{ fin.infoAusgaben }}" data-sec="fin" data-key="infoAusgaben" onChange="{{ onField }}" placeholder="Optional"></textarea></div>
             <div><label>Anmerkung zur Mietsituation</label><textarea value="{{ fin.infoMiete }}" data-sec="fin" data-key="infoMiete" onChange="{{ onField }}" placeholder="Optional"></textarea></div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#161310;border-radius:14px;padding:14px 18px;margin-top:4px;">
