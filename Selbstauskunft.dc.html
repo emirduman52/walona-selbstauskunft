@@ -142,6 +142,11 @@
 
   <main style="max-width:1080px;margin:0 auto;padding:34px 24px 90px;display:flex;flex-direction:column;gap:26px;">
 
+    <div style="display:flex;align-items:flex-start;gap:11px;background:#FBF4E2;border:1px solid #F0E2BC;border-radius:14px;padding:14px 18px;font:500 13px 'Inter';color:#7a6f52;line-height:1.55;">
+      <span style="flex:none;font-size:16px;line-height:1.3;">ℹ️</span>
+      <span><b style="color:#5f5640;">Bitte alle Felder ausfüllen — nichts leer lassen.</b> Trifft etwas nicht zu: bei Text- und Datumsfeldern ein „<b>–</b>" eintragen, bei Betragsfeldern eine „<b>0</b>". Erst dann lässt sich das PDF erstellen.</span>
+    </div>
+
     <!-- ===== SECTION 0 · KUNDENPROTOKOLL (VERTRIEB) ===== -->
     <section id="sec0" style="scroll-margin-top:90px;">
       <div style="display:flex;align-items:baseline;gap:14px;margin:0 0 16px;">
@@ -217,15 +222,15 @@
               <div><label>Vorname</label><input value="{{ a.vorname }}" aria-invalid="{{ a.err_vorname }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="vorname" onChange="{{ onField }}"></div>
               <div><label>Nachname</label><input value="{{ a.nachname }}" aria-invalid="{{ a.err_nachname }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nachname" onChange="{{ onField }}"></div>
               <div><label>Geburtsdatum</label><input type="date" value="{{ a.geburtsdatum }}" aria-invalid="{{ a.err_geburtsdatum }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsdatum" onChange="{{ onField }}"></div>
-              <div><label>Geburtsort</label><input value="{{ a.geburtsort }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsort" onChange="{{ onField }}"></div>
-              <div><label>Geburtsland</label><input value="{{ a.geburtsland }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsland" onChange="{{ onField }}"></div>
-              <div><label>Telefon</label><input type="tel" value="{{ a.telefon }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="telefon" onChange="{{ onField }}"></div>
+              <div><label>Geburtsort</label><input value="{{ a.geburtsort }}" aria-invalid="{{ a.err_geburtsort }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsort" onChange="{{ onField }}"></div>
+              <div><label>Geburtsland</label><input value="{{ a.geburtsland }}" aria-invalid="{{ a.err_geburtsland }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsland" onChange="{{ onField }}"></div>
+              <div><label>Telefon</label><input type="tel" value="{{ a.telefon }}" aria-invalid="{{ a.err_telefon }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="telefon" onChange="{{ onField }}"></div>
               <div><label>E-Mail</label><input type="email" value="{{ a.email }}" aria-invalid="{{ a.err_email }}" placeholder="name@beispiel.de" data-sec="app" data-idx="{{ a.aIndex }}" data-key="email" onChange="{{ onField }}"></div>
               <div style="grid-column:span 2;min-width:180px;"><label>Straße <span style="color:#a99a6f;font-weight:500;">(Meldeadresse)</span></label><input value="{{ a.strasse }}" aria-invalid="{{ a.err_strasse }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="strasse" onChange="{{ onField }}"></div>
               <div style="max-width:140px;"><label>Hausnummer</label><input value="{{ a.hausnummer }}" aria-invalid="{{ a.err_hausnummer }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="hausnummer" onChange="{{ onField }}"></div>
               <div style="max-width:150px;"><label>PLZ</label><input value="{{ a.plz }}" aria-invalid="{{ a.err_plz }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="plz" onChange="{{ onField }}"></div>
               <div><label>Ort</label><input value="{{ a.ort }}" aria-invalid="{{ a.err_ort }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="ort" onChange="{{ onField }}"></div>
-              <div><label>Wohnhaft dort seit</label><input type="date" value="{{ a.wohnhaftSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="wohnhaftSeit" onChange="{{ onField }}"></div>
+              <div><label>Wohnhaft dort seit</label><input type="date" value="{{ a.wohnhaftSeit }}" aria-invalid="{{ a.err_wohnhaftSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="wohnhaftSeit" onChange="{{ onField }}"></div>
               <div style="grid-column:1/-1;">
                 <label>Familienstand</label>
                 <div style="display:flex;flex-wrap:wrap;gap:10px 22px;">
@@ -248,7 +253,7 @@
               <sc-if value="{{ a.needsPermit }}" hint-placeholder-val="{{ false }}">
                 <div class="wln-reveal" style="grid-column:1/-1;background:#FBF4E2;border:1px solid #F0E2BC;border-radius:12px;padding:14px 16px;">
                   <label>Aufenthaltstitel / Status</label>
-                  <select value="{{ a.aufenthaltstitel }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="aufenthaltstitel" onChange="{{ onField }}">
+                  <select value="{{ a.aufenthaltstitel }}" aria-invalid="{{ a.err_aufenthaltstitel }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="aufenthaltstitel" onChange="{{ onField }}">
                     <option value="">– bitte wählen –</option>
                     <option value="Niederlassungserlaubnis">Niederlassungserlaubnis</option>
                     <option value="Erlaubnis zum Daueraufenthalt EU">Erlaubnis zum Daueraufenthalt in der EU</option>
@@ -274,7 +279,7 @@
                 <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ a.nettoeinkommen }}" aria-invalid="{{ a.err_nettoeinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nettoeinkommen" data-num="cur" onChange="{{ onField }}"></div>
               </div>
               <div><label>Beschäftigt seit</label><input type="date" value="{{ a.beschaeftigtSeit }}" aria-invalid="{{ a.err_beschaeftigtSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beschaeftigtSeit" onChange="{{ onField }}"></div>
-              <div style="max-width:150px;"><label>Gehälter / Jahr</label><input type="number" min="12" max="14" value="{{ a.gehaelterProJahr }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="gehaelterProJahr" onChange="{{ onField }}"></div>
+              <div style="max-width:150px;"><label>Gehälter / Jahr</label><input type="number" min="12" max="14" value="{{ a.gehaelterProJahr }}" aria-invalid="{{ a.err_gehaelterProJahr }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="gehaelterProJahr" onChange="{{ onField }}"></div>
               <div><label>Arbeitgeber</label><input value="{{ a.arbeitgeber }}" aria-invalid="{{ a.err_arbeitgeber }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="arbeitgeber" onChange="{{ onField }}"></div>
               <div><label>Beruf</label><input value="{{ a.beruf }}" aria-invalid="{{ a.err_beruf }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beruf" onChange="{{ onField }}"></div>
               <div style="grid-column:1/-1;">
@@ -298,6 +303,15 @@
         <sc-if value="{{ canAddApplicant }}" hint-placeholder-val="{{ true }}">
           <button type="button" onClick="{{ addApplicant }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #161310;font:600 13.5px 'Inter';cursor:pointer;">+ Zweiten Antragsteller hinzufügen</button>
         </sc-if>
+
+        <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:24px 26px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
+          <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 4px;">Weitere Einkünfte (Haushalt)</div>
+          <div style="font:500 12px 'Inter';color:#a99a6f;margin:0 0 16px;">z. B. Renten, Mieteinnahmen, Kapitalerträge — zusätzlich zu Gehalt und Nebenjob.</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px 18px;align-items:start;">
+            <div><label>Sonstige Einkünfte — Betrag / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.sonstEinkommen }}" aria-invalid="{{ fin.err_sonstEinkommen }}" inputmode="numeric" data-sec="fin" data-key="sonstEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
+            <div><label>Beschreibung sonstige Einkünfte</label><input value="{{ fin.infoEinkommen }}" data-sec="fin" data-key="infoEinkommen" placeholder="Optional" onChange="{{ onField }}"></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -331,7 +345,7 @@
                   <button type="button" onClick="{{ c.remove }}" style="background:none;border:none;color:#a23b47;font:600 12.5px 'Inter';cursor:pointer;">Entfernen</button>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 16px;align-items:end;">
-                  <div><label>Geburtsdatum</label><input type="date" value="{{ c.geburtsdatum }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="geburtsdatum" onChange="{{ onField }}"></div>
+                  <div><label>Geburtsdatum</label><input type="date" value="{{ c.geburtsdatum }}" aria-invalid="{{ c.err_geburtsdatum }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="geburtsdatum" onChange="{{ onField }}"></div>
                   <div>
                     <label>Lebt im Haushalt?</label>
                     <div style="display:flex;gap:9px;">
@@ -341,15 +355,15 @@
                   </div>
                   <div>
                     <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Inter';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.kindergeld }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="kindergeld" onChange="{{ onField }}"> Kindergeld</label>
-                    <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.kindergeldBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="kindergeldBetrag" data-num="cur" onChange="{{ onField }}"></div>
+                    <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.kindergeldBetrag }}" aria-invalid="{{ c.err_kindergeldBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="kindergeldBetrag" data-num="cur" onChange="{{ onField }}"></div>
                   </div>
                   <div>
                     <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Inter';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.unterhalt }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhalt" onChange="{{ onField }}"> Unterhaltseinnahmen</label>
-                    <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.unterhaltBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltBetrag" data-num="cur" onChange="{{ onField }}"></div>
+                    <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.unterhaltBetrag }}" aria-invalid="{{ c.err_unterhaltBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltBetrag" data-num="cur" onChange="{{ onField }}"></div>
                   </div>
                   <div>
                     <label style="display:flex;align-items:center;gap:9px;font:500 14px 'Inter';color:#3a352c;cursor:pointer;margin-bottom:8px;"><input type="checkbox" checked="{{ c.unterhaltAusgabe }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltAusgabe" onChange="{{ onField }}"> Unterhaltsausgaben</label>
-                    <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.unterhaltAusgabeBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltAusgabeBetrag" data-num="cur" onChange="{{ onField }}"></div>
+                    <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ c.unterhaltAusgabeBetrag }}" aria-invalid="{{ c.err_unterhaltAusgabeBetrag }}" inputmode="numeric" data-sec="child" data-idx="{{ c.cIndex }}" data-key="unterhaltAusgabeBetrag" data-num="cur" onChange="{{ onField }}"></div>
                   </div>
                 </div>
               </div>
@@ -373,19 +387,17 @@
         <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:24px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
           <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 16px;">Vermögen &amp; Einkommen</div>
           <div style="display:flex;flex-direction:column;gap:14px;">
-            <div><label>Vorhandenes Eigenkapital</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.eigenkapital }}" inputmode="numeric" data-sec="fin" data-key="eigenkapital" data-num="cur" onChange="{{ onField }}"></div></div>
-            <div><label>Bank- &amp; Sparguthaben — Guthaben</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bankGuthaben }}" inputmode="numeric" data-sec="fin" data-key="bankGuthaben" data-num="cur" onChange="{{ onField }}"></div></div>
-            <div><label>Wertpapiere / Aktien — Gesamtwert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.wertpapiere }}" inputmode="numeric" data-sec="fin" data-key="wertpapiere" data-num="cur" onChange="{{ onField }}"></div></div>
+            <div><label>Vorhandenes Eigenkapital / Bank &amp; Sparguthaben</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.eigenkapital }}" aria-invalid="{{ fin.err_eigenkapital }}" inputmode="numeric" data-sec="fin" data-key="eigenkapital" data-num="cur" onChange="{{ onField }}"></div></div>
+            <div><label>Wertpapiere / Aktien — Gesamtwert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.wertpapiere }}" aria-invalid="{{ fin.err_wertpapiere }}" inputmode="numeric" data-sec="fin" data-key="wertpapiere" data-num="cur" onChange="{{ onField }}"></div></div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;">
-              <div><label>Lebens-/Rentenvers. — Rückkaufswert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.lvRueckkauf }}" inputmode="numeric" data-sec="fin" data-key="lvRueckkauf" data-num="cur" onChange="{{ onField }}"></div></div>
-              <div><label>— Monatlicher Beitrag</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.lvBeitragMonat }}" inputmode="numeric" data-sec="fin" data-key="lvBeitragMonat" data-num="cur" onChange="{{ onField }}"></div></div>
+              <div><label>Lebens-/Rentenvers. — Rückkaufswert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.lvRueckkauf }}" aria-invalid="{{ fin.err_lvRueckkauf }}" inputmode="numeric" data-sec="fin" data-key="lvRueckkauf" data-num="cur" onChange="{{ onField }}"></div></div>
+              <div><label>— Monatlicher Beitrag</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.lvBeitragMonat }}" aria-invalid="{{ fin.err_lvBeitragMonat }}" inputmode="numeric" data-sec="fin" data-key="lvBeitragMonat" data-num="cur" onChange="{{ onField }}"></div></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;">
-              <div><label>Bausparvertrag — Angesparter Wert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bausparWert }}" inputmode="numeric" data-sec="fin" data-key="bausparWert" data-num="cur" onChange="{{ onField }}"></div></div>
-              <div><label>— Monatlicher Beitrag</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bausparBeitragMonat }}" inputmode="numeric" data-sec="fin" data-key="bausparBeitragMonat" data-num="cur" onChange="{{ onField }}"></div></div>
+              <div><label>Bausparvertrag — Angesparter Wert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bausparWert }}" aria-invalid="{{ fin.err_bausparWert }}" inputmode="numeric" data-sec="fin" data-key="bausparWert" data-num="cur" onChange="{{ onField }}"></div></div>
+              <div><label>— Monatlicher Beitrag</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bausparBeitragMonat }}" aria-invalid="{{ fin.err_bausparBeitragMonat }}" inputmode="numeric" data-sec="fin" data-key="bausparBeitragMonat" data-num="cur" onChange="{{ onField }}"></div></div>
             </div>
-            <div><label>Sonstige Einkünfte — Betrag / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.sonstEinkommen }}" inputmode="numeric" data-sec="fin" data-key="sonstEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
-            <div><label>Beschreibung sonstige Einkünfte</label><textarea value="{{ fin.infoEinkommen }}" data-sec="fin" data-key="infoEinkommen" onChange="{{ onField }}" placeholder="Optional"></textarea></div>
+            <div><label>Sonstige Vermögenswerte (Crypto, Gold) — Gesamtwert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.sonstVermoegen }}" aria-invalid="{{ fin.err_sonstVermoegen }}" inputmode="numeric" data-sec="fin" data-key="sonstVermoegen" data-num="cur" onChange="{{ onField }}"></div></div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#161310;border-radius:14px;padding:14px 18px;margin-top:4px;">
               <span style="font:600 13px 'Inter';color:#C9A700;text-transform:uppercase;letter-spacing:.04em;">Gesamteinnahmen / Monat</span>
               <span style="font:700 20px 'Inter';color:#fff;">{{ fin.gesamteinnahmenFmt }}</span>
@@ -408,7 +420,7 @@
                 <button data-toggle type="button" aria-pressed="{{ fin.unterhaltNein }}" onClick="{{ fin.setUnterhaltNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
               </div>
               <sc-if value="{{ fin.unterhaltJa }}" hint-placeholder-val="{{ false }}">
-                <div class="wln-reveal" style="margin-top:10px;position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ fin.unterhaltsverpfl }}" inputmode="numeric" data-sec="fin" data-key="unterhaltsverpfl" data-num="cur" onChange="{{ onField }}"></div>
+                <div class="wln-reveal" style="margin-top:10px;position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ fin.unterhaltsverpfl }}" aria-invalid="{{ fin.err_unterhaltsverpfl }}" inputmode="numeric" data-sec="fin" data-key="unterhaltsverpfl" data-num="cur" onChange="{{ onField }}"></div>
               </sc-if>
             </div>
             <div>
@@ -418,7 +430,7 @@
                 <button data-toggle type="button" aria-pressed="{{ fin.pkvNein }}" onClick="{{ fin.setPkvNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
               </div>
               <sc-if value="{{ fin.pkvJa }}" hint-placeholder-val="{{ false }}">
-                <div class="wln-reveal" style="margin-top:10px;position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ fin.pkv }}" inputmode="numeric" data-sec="fin" data-key="pkv" data-num="cur" onChange="{{ onField }}"></div>
+                <div class="wln-reveal" style="margin-top:10px;position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag / Monat" value="{{ fin.pkv }}" aria-invalid="{{ fin.err_pkv }}" inputmode="numeric" data-sec="fin" data-key="pkv" data-num="cur" onChange="{{ onField }}"></div>
               </sc-if>
             </div>
             <div><label>Sonstige Ausgaben — Betrag / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.sonstAusgaben }}" inputmode="numeric" data-sec="fin" data-key="sonstAusgaben" data-num="cur" onChange="{{ onField }}"></div></div>
@@ -454,7 +466,7 @@
             <sc-if value="{{ fin.kkJa }}" hint-placeholder-val="{{ false }}">
               <div class="wln-reveal" style="margin-top:10px;">
                 <label>Aktuell ausgeschöpfter Betrag</label>
-                <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag" value="{{ fin.kkBetrag }}" inputmode="numeric" data-sec="fin" data-key="kkBetrag" data-num="cur" onChange="{{ onField }}"></div>
+                <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" placeholder="Betrag" value="{{ fin.kkBetrag }}" aria-invalid="{{ fin.err_kkBetrag }}" inputmode="numeric" data-sec="fin" data-key="kkBetrag" data-num="cur" onChange="{{ onField }}"></div>
               </div>
             </sc-if>
           </div>
@@ -553,7 +565,7 @@
               </sc-if>
             </div>
 
-            <div style="grid-column:1/-1;margin-bottom:16px;"><label>Anschrift der Immobilie</label><input value="{{ p.anschrift }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="anschrift" onChange="{{ onField }}"></div>
+            <div style="grid-column:1/-1;margin-bottom:16px;"><label>Anschrift der Immobilie</label><input value="{{ p.anschrift }}" aria-invalid="{{ p.err_anschrift }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="anschrift" onChange="{{ onField }}"></div>
 
             <label>Objektart</label>
             <div style="display:flex;flex-wrap:wrap;gap:9px;margin:8px 0 18px;">
@@ -564,18 +576,18 @@
               </sc-for>
             </div>
             <sc-if value="{{ p.gewerbeSelected }}" hint-placeholder-val="{{ false }}">
-              <div class="wln-reveal" style="margin-bottom:18px;max-width:340px;"><label>Gewerbeart</label><input value="{{ p.gewerbeart }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="gewerbeart" onChange="{{ onField }}"></div>
+              <div class="wln-reveal" style="margin-bottom:18px;max-width:340px;"><label>Gewerbeart</label><input value="{{ p.gewerbeart }}" aria-invalid="{{ p.err_gewerbeart }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="gewerbeart" onChange="{{ onField }}"></div>
             </sc-if>
 
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 16px;align-items:end;">
-              <div><label>Gesamtwohnfläche (m²)</label><input inputmode="decimal" value="{{ p.gesamtflaeche }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="gesamtflaeche" onChange="{{ onField }}"></div>
-              <div><label>Vermietete Wohnfläche (m²)</label><input inputmode="decimal" value="{{ p.vermieteteFlaeche }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="vermieteteFlaeche" onChange="{{ onField }}"></div>
-              <div><label>Gewerbliche Nutzfläche (m²)</label><input inputmode="decimal" value="{{ p.gewerbeflaeche }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="gewerbeflaeche" onChange="{{ onField }}"></div>
-              <div><label>Baujahr</label><input inputmode="numeric" value="{{ p.baujahr }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="baujahr" onChange="{{ onField }}"></div>
-              <div><label>Kaufpreis ({{ curSymbol }})</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ p.kaufpreis }}" inputmode="numeric" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="kaufpreis" data-num="cur" onChange="{{ onField }}"></div></div>
-              <div><label>Geschätzter Wert heute ({{ curSymbol }})</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ p.wertHeute }}" inputmode="numeric" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="wertHeute" data-num="cur" onChange="{{ onField }}"></div></div>
-              <div><label>Kaltmiete ({{ curSymbol }}/Monat)</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ p.kaltmiete }}" inputmode="numeric" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="kaltmiete" data-num="cur" onChange="{{ onField }}"></div></div>
-              <div><label>Anzahl Wohneinheiten</label><input inputmode="numeric" value="{{ p.wohneinheiten }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="wohneinheiten" onChange="{{ onField }}"></div>
+              <div><label>Gesamtwohnfläche (m²)</label><input inputmode="decimal" value="{{ p.gesamtflaeche }}" aria-invalid="{{ p.err_gesamtflaeche }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="gesamtflaeche" onChange="{{ onField }}"></div>
+              <div><label>Vermietete Wohnfläche (m²)</label><input inputmode="decimal" value="{{ p.vermieteteFlaeche }}" aria-invalid="{{ p.err_vermieteteFlaeche }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="vermieteteFlaeche" onChange="{{ onField }}"></div>
+              <div><label>Gewerbliche Nutzfläche (m²)</label><input inputmode="decimal" value="{{ p.gewerbeflaeche }}" aria-invalid="{{ p.err_gewerbeflaeche }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="gewerbeflaeche" onChange="{{ onField }}"></div>
+              <div><label>Baujahr</label><input inputmode="numeric" value="{{ p.baujahr }}" aria-invalid="{{ p.err_baujahr }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="baujahr" onChange="{{ onField }}"></div>
+              <div><label>Kaufpreis ({{ curSymbol }})</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ p.kaufpreis }}" aria-invalid="{{ p.err_kaufpreis }}" inputmode="numeric" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="kaufpreis" data-num="cur" onChange="{{ onField }}"></div></div>
+              <div><label>Geschätzter Wert heute ({{ curSymbol }})</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ p.wertHeute }}" aria-invalid="{{ p.err_wertHeute }}" inputmode="numeric" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="wertHeute" data-num="cur" onChange="{{ onField }}"></div></div>
+              <div><label>Kaltmiete ({{ curSymbol }}/Monat)</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ p.kaltmiete }}" aria-invalid="{{ p.err_kaltmiete }}" inputmode="numeric" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="kaltmiete" data-num="cur" onChange="{{ onField }}"></div></div>
+              <div><label>Anzahl Wohneinheiten</label><input inputmode="numeric" value="{{ p.wohneinheiten }}" aria-invalid="{{ p.err_wohneinheiten }}" data-sec="prop" data-idx="{{ p.pIndex }}" data-key="wohneinheiten" onChange="{{ onField }}"></div>
             </div>
 
             <div style="margin:24px 0 10px;font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;">Verbindlichkeiten</div>
@@ -673,7 +685,11 @@ class Component extends DCLogic {
     super(props);
     this.OBJ_TYPES = [['grundstueck','Grundstück'],['etw','Eigentumswohnung'],['efh','Einfamilienhaus'],['zfh','Zweifamilienhaus'],['dhh','Doppelhaushälfte'],['reh','Reihenendhaus'],['rmh','Reihenmittelhaus'],['mfh','Mehrfamilienhaus'],['gewerbe','Gewerbeimmobilie']];
     this.LOAN_LABELS = ['Darlehen 1','Darlehen 2','Darlehen 3'];
-    this.REQ_APP = ['anrede','vorname','nachname','geburtsdatum','geburtsort','email','strasse','hausnummer','plz','ort','familienstand','nationalitaet1','beschaeftigungsart','nettoeinkommen','beschaeftigtSeit','arbeitgeber','beruf'];
+    this.REQ_APP = ['anrede','vorname','nachname','geburtsdatum','geburtsort','geburtsland','telefon','email','strasse','hausnummer','plz','ort','wohnhaftSeit','familienstand','nationalitaet1','beschaeftigungsart','nettoeinkommen','beschaeftigtSeit','gehaelterProJahr','arbeitgeber','beruf'];
+    // Weitere Pflichtfeld-Gruppen (Betragsfelder: 0 eintragen wenn nicht zutreffend). Kommentar-/Beschreibungsfelder bleiben freiwillig.
+    this.REQ_FIN_NUM = ['eigenkapital','wertpapiere','lvRueckkauf','lvBeitragMonat','bausparWert','bausparBeitragMonat','sonstVermoegen','sonstEinkommen','miete','sonstAusgaben'];
+    this.REQ_FIN_TOGGLE = ['unterhaltAktiv','pkvAktiv','ruecklastAktiv','kkAktiv','ratenAktiv'];
+    this.REQ_PROP = ['anschrift','gesamtflaeche','vermieteteFlaeche','gewerbeflaeche','baujahr','kaufpreis','wertHeute','kaltmiete','wohneinheiten'];
     // Meldung, wenn das monatliche Kontingent ausgeschöpft ist (leicht anpassbar)
     this.QUOTA_MSG = 'Das monatliche Kontingent an Selbstauskünften ist ausgeschöpft. Bitte im nächsten Monat erneut versuchen.';
     this.state = {
@@ -701,7 +717,7 @@ class Component extends DCLogic {
   emptyApplicant(){return{anrede:'',vorname:'',nachname:'',geburtsdatum:'',geburtsort:'',geburtsland:'Deutschland',telefon:'',email:'',strasse:'',hausnummer:'',plz:'',ort:'',wohnhaftSeit:'',familienstand:'',guterstand:'',nationalitaet1:'Deutschland',aufenthaltstitel:'',beschaeftigungsart:'',nettoeinkommen:'',beschaeftigtSeit:'',gehaelterProJahr:'12',arbeitgeber:'',beruf:'',nebenjob:'',nebenjobEinkommen:'',nebenjobSeit:''};}
   emptyChild(){return{name:'',geburtsdatum:'',imHaushalt:null,kindergeld:false,kindergeldBetrag:'',unterhalt:false,unterhaltBetrag:'',unterhaltAusgabe:false,unterhaltAusgabeBetrag:''};}
   emptyKredit(){return{name:'',kreditgeber:'',restschuld:'',darlehenshoehe:'',rate:'',gesamtlaufzeit:'',ablaufdatum:''};}
-  emptyFin(){return{eigenkapital:'',bankGuthaben:'',wertpapiere:'',lvRueckkauf:'',lvBeitragMonat:'',bausparWert:'',bausparBeitragMonat:'',sonstEinkommen:'',infoEinkommen:'',miete:'',unterhaltAktiv:null,unterhaltsverpfl:'',pkvAktiv:null,pkv:'',sonstAusgaben:'',infoAusgaben:'',infoMiete:'',ruecklastAktiv:null,ruecklastInfo:'',kkAktiv:null,kkBetrag:'',ratenAktiv:null,ratenInfo:'',kommentar:'',krediteA:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()],mitAktiv:false,krediteM:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()]};}
+  emptyFin(){return{eigenkapital:'',wertpapiere:'',lvRueckkauf:'',lvBeitragMonat:'',bausparWert:'',bausparBeitragMonat:'',sonstVermoegen:'',sonstEinkommen:'',infoEinkommen:'',miete:'',unterhaltAktiv:null,unterhaltsverpfl:'',pkvAktiv:null,pkv:'',sonstAusgaben:'',infoAusgaben:'',infoMiete:'',ruecklastAktiv:null,ruecklastInfo:'',kkAktiv:null,kkBetrag:'',ratenAktiv:null,ratenInfo:'',kommentar:'',krediteA:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()],mitAktiv:false,krediteM:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()]};}
   emptyLoan(){return{kreditgeber:'',kreditnehmer:'',grundschulden:'',darlehensstand:'',sollzins:'',tilgung:'',zinsbindungBis:'',gesamtlaufzeit:'',rateMonat:''};}
   emptyProperty(){return{anschrift:'',types:{},gewerbeart:'',gesamtflaeche:'',vermieteteFlaeche:'',gewerbeflaeche:'',baujahr:'',kaufpreis:'',wertHeute:'',kaltmiete:'',wohneinheiten:'',info:'',besonderheiten:'',loans:[this.emptyLoan(),this.emptyLoan(),this.emptyLoan()]};}
 
@@ -797,11 +813,45 @@ class Component extends DCLogic {
   goSection=(id)=>{const el=document.getElementById(id);if(el){const y=el.getBoundingClientRect().top+window.pageYOffset-78;window.scrollTo({top:y,behavior:'smooth'});}};
 
   validate(){
-    const errs={};
-    const a=this.state.applicants[0]||{};
-    this.REQ_APP.forEach(k=>{if(!String(a[k]||'').trim())errs['app0.'+k]=true;});
-    const email=String(a.email||'');
-    if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))errs['app0.email']=true;
+    const s=this.state, errs={};
+    const empty=(v)=>!String(v==null?'':v).trim();
+    // Kundenprotokoll
+    ['berater','portfolioManager'].forEach(k=>{if(empty(s.prot[k]))errs['prot.'+k]=true;});
+    // Antragsteller (jeder hinzugefügte)
+    s.applicants.forEach((a,i)=>{
+      this.REQ_APP.forEach(k=>{if(empty(a[k]))errs['app'+i+'.'+k]=true;});
+      const email=String(a.email||'');
+      if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))errs['app'+i+'.email']=true;
+      if(a.familienstand==='Verheiratet' && empty(a.guterstand))errs['app'+i+'.guterstand']=true;
+      const notDE=a.nationalitaet1 && a.nationalitaet1.trim() && !/deutsch|german|germany/i.test(a.nationalitaet1.trim());
+      if(notDE && empty(a.aufenthaltstitel))errs['app'+i+'.aufenthaltstitel']=true;
+    });
+    // Weitere Einkünfte (Haushalt) – Betrag
+    if(empty(s.fin.sonstEinkommen))errs['fin.sonstEinkommen']=true;
+    // Kinder: Ja/Nein muss beantwortet sein
+    if(s.hasChildren!==true && s.hasChildren!==false)errs['root.hasChildren']=true;
+    if(s.hasChildren===true){
+      s.children.forEach((c,i)=>{
+        if(empty(c.geburtsdatum))errs['child'+i+'.geburtsdatum']=true;
+        if(c.imHaushalt!==true && c.imHaushalt!==false)errs['child'+i+'.imHaushalt']=true;
+        if(c.kindergeld && empty(c.kindergeldBetrag))errs['child'+i+'.kindergeldBetrag']=true;
+        if(c.unterhalt && empty(c.unterhaltBetrag))errs['child'+i+'.unterhaltBetrag']=true;
+        if(c.unterhaltAusgabe && empty(c.unterhaltAusgabeBetrag))errs['child'+i+'.unterhaltAusgabeBetrag']=true;
+      });
+    }
+    // Finanzielle Situation – Betragsfelder
+    this.REQ_FIN_NUM.forEach(k=>{if(empty(s.fin[k]))errs['fin.'+k]=true;});
+    // Ja/Nein-Angaben müssen beantwortet sein
+    this.REQ_FIN_TOGGLE.forEach(k=>{if(s.fin[k]!==true && s.fin[k]!==false)errs['fin.'+k]=true;});
+    if(s.fin.unterhaltAktiv===true && empty(s.fin.unterhaltsverpfl))errs['fin.unterhaltsverpfl']=true;
+    if(s.fin.pkvAktiv===true && empty(s.fin.pkv))errs['fin.pkv']=true;
+    if(s.fin.kkAktiv===true && empty(s.fin.kkBetrag))errs['fin.kkBetrag']=true;
+    // Immobilien (jede hinzugefügte)
+    s.properties.forEach((p,i)=>{
+      this.REQ_PROP.forEach(k=>{if(empty(p[k]))errs['prop'+i+'.'+k]=true;});
+      if(!Object.keys(p.types||{}).some(k=>p.types[k]))errs['prop'+i+'.types']=true;
+      if(p.types&&p.types.gewerbe&&empty(p.gewerbeart))errs['prop'+i+'.gewerbeart']=true;
+    });
     return errs;
   }
 
@@ -824,7 +874,7 @@ class Component extends DCLogic {
       })),
       kinder:{vorhanden:!!s.hasChildren,beschreibung:s.hasChildren?s.childrenInfo:'',anzahl:s.hasChildren?s.children.length:0,liste:s.hasChildren?s.children.map(c=>({geburtsdatum:c.geburtsdatum,imHaushalt:c.imHaushalt===true,kindergeld:c.kindergeld,kindergeldBetragMonat:c.kindergeld?num(c.kindergeldBetrag):0,unterhaltseinnahmen:c.unterhalt,unterhaltseinnahmenMonat:c.unterhalt?num(c.unterhaltBetrag):0,unterhaltsausgabe:c.unterhaltAusgabe,unterhaltsausgabeMonat:c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0})):[]},
       finanzen:{
-        vermoegenEinkommen:{eigenkapital:num(s.fin.eigenkapital),bankSparguthaben:num(s.fin.bankGuthaben),wertpapiere:num(s.fin.wertpapiere),lebensversicherungRueckkaufswert:num(s.fin.lvRueckkauf),lebensversicherungBeitragMonat:num(s.fin.lvBeitragMonat),bausparAngespart:num(s.fin.bausparWert),bausparBeitragMonat:num(s.fin.bausparBeitragMonat),sonstigeEinkuenfteMonat:num(s.fin.sonstEinkommen),gesamteinnahmenMonat:s.applicants.reduce((x,a)=>x+num(a.nettoeinkommen)+num(a.nebenjobEinkommen),0)+num(s.fin.sonstEinkommen)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.kindergeld?num(c.kindergeldBetrag):0)+(c.unterhalt?num(c.unterhaltBetrag):0),0):0),beschreibungEinkuenfte:s.fin.infoEinkommen},
+        vermoegenEinkommen:{eigenkapitalBankSparguthaben:num(s.fin.eigenkapital),wertpapiere:num(s.fin.wertpapiere),lebensversicherungRueckkaufswert:num(s.fin.lvRueckkauf),lebensversicherungBeitragMonat:num(s.fin.lvBeitragMonat),bausparAngespart:num(s.fin.bausparWert),bausparBeitragMonat:num(s.fin.bausparBeitragMonat),sonstigeVermoegenswerte:num(s.fin.sonstVermoegen),sonstigeEinkuenfteMonat:num(s.fin.sonstEinkommen),gesamteinnahmenMonat:s.applicants.reduce((x,a)=>x+num(a.nettoeinkommen)+num(a.nebenjobEinkommen),0)+num(s.fin.sonstEinkommen)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.kindergeld?num(c.kindergeldBetrag):0)+(c.unterhalt?num(c.unterhaltBetrag):0),0):0),beschreibungEinkuenfte:s.fin.infoEinkommen},
         ausgaben:{warmmieteMonat:num(s.fin.miete),unterhaltsverpflichtungen:s.fin.unterhaltAktiv===true,unterhaltsverpflichtungenMonat:s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0,privateKrankenversicherung:s.fin.pkvAktiv===true,privateKrankenversicherungMonat:s.fin.pkvAktiv===true?num(s.fin.pkv):0,sonstigeAusgabenMonat:num(s.fin.sonstAusgaben),kinderUnterhaltsausgabenMonat:s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0,gesamtausgabenMonat:num(s.fin.miete)+(s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0)+(s.fin.pkvAktiv===true?num(s.fin.pkv):0)+num(s.fin.sonstAusgaben)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0),beschreibungAusgaben:s.fin.infoAusgaben,anmerkungMiete:s.fin.infoMiete},
         bonitaet:{ruecklastschriftenOderSchufa90Tage:s.fin.ruecklastAktiv===true,ruecklastschriftenInfo:s.fin.ruecklastAktiv===true?s.fin.ruecklastInfo:'',kreditkarten:s.fin.kkAktiv===true,kreditkartenAusgeschoepfterBetrag:s.fin.kkAktiv===true?num(s.fin.kkBetrag):0,ratenzahlungen:s.fin.ratenAktiv===true,ratenzahlungenInfo:s.fin.ratenAktiv===true?s.fin.ratenInfo:''},
         privateKredite:{antragsteller:s.fin.krediteA.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:k.ablaufdatum})),mitantragsteller:s.fin.mitAktiv?s.fin.krediteM.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:k.ablaufdatum})):[]},
@@ -877,6 +927,17 @@ class Component extends DCLogic {
   };
 
   downloadPdf=()=>{
+    const errs=this.validate();
+    if(Object.keys(errs).length){
+      this.setState({errorKeys:errs,submitStatus:'validate'});
+      const rank={sec0:0,sec1:1,sec2:2,sec3:3,sec4:4};
+      const secOf=(g)=>g.indexOf('app')===0?'sec1':(g.indexOf('child')===0||g==='root')?'sec2':g==='fin'?'sec3':g.indexOf('prop')===0?'sec4':'sec0';
+      let target='sec0',best=99;
+      Object.keys(errs).forEach(key=>{const sc=secOf(key.split('.')[0]);if(rank[sc]<best){best=rank[sc];target=sc;}});
+      this.goSection(target);
+      return;
+    }
+    this.setState({errorKeys:{},submitStatus:'idle'});
     const p=this.buildPayload(); const eur=(n)=>this.eur(n); const esc=(s)=>String(s==null?'':s).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
     const deDate=(s)=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s||'').trim());return m?m[3]+'.'+m[2]+'.'+m[1]:(s||'');};
     const row=(k,v)=>v?`<tr><td style="color:#8a8168;padding:3px 12px 3px 0;white-space:nowrap;vertical-align:top;">${esc(k)}</td><td style="padding:3px 0;font-weight:500;">${esc(v)}</td></tr>`:'';
@@ -902,8 +963,8 @@ class Component extends DCLogic {
       row('Beschäftigung',a.beschaeftigung.art)+row('Nettoeinkommen/Monat',a.beschaeftigung.nettoeinkommenMonat?eur(a.beschaeftigung.nettoeinkommenMonat):'')+row('Beschäftigt seit',deDate(a.beschaeftigung.beschaeftigtSeit))+row('Gehälter / Jahr',a.beschaeftigung.gehaelterProJahr||'')+row('Arbeitgeber',a.beschaeftigung.arbeitgeber)+row('Beruf',a.beschaeftigung.beruf)+row('Nebenjob',a.beschaeftigung.nebenjob)+row('Nebenjob Einkommen/Monat',a.beschaeftigung.nebenjobEinkommenMonat?eur(a.beschaeftigung.nebenjobEinkommenMonat):'')+row('Nebenjob beschäftigt seit',deDate(a.beschaeftigung.nebenjobBeschaeftigtSeit))+'</table>';});
     if(p.kinder.vorhanden&&p.kinder.liste.length){h+=sec('Kinder ('+p.kinder.liste.length+')');p.kinder.liste.forEach((c,i)=>{h+='<table style="font:400 13.5px Arial;border-collapse:collapse;margin-bottom:6px;">'+row('Kind '+(i+1)+' — Geburtsdatum',deDate(c.geburtsdatum))+row('Lebt im Haushalt',c.imHaushalt?'Ja':'Nein')+row('Kindergeld',c.kindergeld?eur(c.kindergeldBetragMonat)+'/Monat':'')+row('Unterhaltseinnahmen',c.unterhaltseinnahmen?eur(c.unterhaltseinnahmenMonat)+'/Monat':'')+row('Unterhaltsausgaben',c.unterhaltsausgabe?eur(c.unterhaltsausgabeMonat)+'/Monat':'')+'</table>';});if(p.kinder.beschreibung)h+=`<div style="font:400 12px Arial;color:#5a5340;">${esc(p.kinder.beschreibung)}</div>`;}
     const f=p.finanzen;h+=sec('Finanzielle Situation')+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+
-      row('Vorhandenes Eigenkapital',f.vermoegenEinkommen.eigenkapital?eur(f.vermoegenEinkommen.eigenkapital):'')+row('Bank- & Sparguthaben',f.vermoegenEinkommen.bankSparguthaben?eur(f.vermoegenEinkommen.bankSparguthaben):'')+row('Wertpapiere/Aktien',f.vermoegenEinkommen.wertpapiere?eur(f.vermoegenEinkommen.wertpapiere):'')+
-      row('LV Rückkaufswert',f.vermoegenEinkommen.lebensversicherungRueckkaufswert?eur(f.vermoegenEinkommen.lebensversicherungRueckkaufswert):'')+row('LV Beitrag/Monat',f.vermoegenEinkommen.lebensversicherungBeitragMonat?eur(f.vermoegenEinkommen.lebensversicherungBeitragMonat):'')+row('Bausparen angespart',f.vermoegenEinkommen.bausparAngespart?eur(f.vermoegenEinkommen.bausparAngespart):'')+row('Bausparen Beitrag/Monat',f.vermoegenEinkommen.bausparBeitragMonat?eur(f.vermoegenEinkommen.bausparBeitragMonat):'')+
+      row('Eigenkapital / Bank- & Sparguthaben',f.vermoegenEinkommen.eigenkapitalBankSparguthaben?eur(f.vermoegenEinkommen.eigenkapitalBankSparguthaben):'')+row('Wertpapiere/Aktien',f.vermoegenEinkommen.wertpapiere?eur(f.vermoegenEinkommen.wertpapiere):'')+
+      row('LV Rückkaufswert',f.vermoegenEinkommen.lebensversicherungRueckkaufswert?eur(f.vermoegenEinkommen.lebensversicherungRueckkaufswert):'')+row('LV Beitrag/Monat',f.vermoegenEinkommen.lebensversicherungBeitragMonat?eur(f.vermoegenEinkommen.lebensversicherungBeitragMonat):'')+row('Bausparen angespart',f.vermoegenEinkommen.bausparAngespart?eur(f.vermoegenEinkommen.bausparAngespart):'')+row('Bausparen Beitrag/Monat',f.vermoegenEinkommen.bausparBeitragMonat?eur(f.vermoegenEinkommen.bausparBeitragMonat):'')+row('Sonstige Vermögenswerte (Crypto, Gold)',f.vermoegenEinkommen.sonstigeVermoegenswerte?eur(f.vermoegenEinkommen.sonstigeVermoegenswerte):'')+
       row('Sonstige Einkünfte/Monat',f.vermoegenEinkommen.sonstigeEinkuenfteMonat?eur(f.vermoegenEinkommen.sonstigeEinkuenfteMonat):'')+row('Beschreibung sonstige Einkünfte',f.vermoegenEinkommen.beschreibungEinkuenfte)+rowSum('Gesamteinnahmen/Monat',eur(f.vermoegenEinkommen.gesamteinnahmenMonat))+
       row('Warmmiete/Monat',f.ausgaben.warmmieteMonat?eur(f.ausgaben.warmmieteMonat):'')+row('Anmerkung zur Mietsituation',f.ausgaben.anmerkungMiete)+row('Unterhaltsverpflichtungen',f.ausgaben.unterhaltsverpflichtungen?('Ja'+(f.ausgaben.unterhaltsverpflichtungenMonat?' — '+eur(f.ausgaben.unterhaltsverpflichtungenMonat)+'/Monat':'')):'Nein')+
       row('Private Krankenversicherung',f.ausgaben.privateKrankenversicherung?('Ja'+(f.ausgaben.privateKrankenversicherungMonat?' — '+eur(f.ausgaben.privateKrankenversicherungMonat)+'/Monat':'')):'Nein')+row('Sonstige Ausgaben/Monat',f.ausgaben.sonstigeAusgabenMonat?eur(f.ausgaben.sonstigeAusgabenMonat):'')+row('Beschreibung sonstige Ausgaben',f.ausgaben.beschreibungAusgaben)+row('Unterhaltsausgaben Kinder/Monat',f.ausgaben.kinderUnterhaltsausgabenMonat?eur(f.ausgaben.kinderUnterhaltsausgabenMonat):'')+rowSum('Gesamtausgaben/Monat',eur(f.ausgaben.gesamtausgabenMonat))+row('Kommentar',f.kommentar)+'</table>';const b=f.bonitaet;h+=sec('Bonität &amp; weitere Verbindlichkeiten')+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+row('Rücklastschriften/Schufa (90 Tage)',b.ruecklastschriftenOderSchufa90Tage?('Ja'+(b.ruecklastschriftenInfo?' — '+b.ruecklastschriftenInfo:'')):'Nein')+row('Kreditkarten',b.kreditkarten?('Ja'+(b.kreditkartenAusgeschoepfterBetrag?' — ausgeschöpft: '+eur(b.kreditkartenAusgeschoepfterBetrag):'')):'Nein')+row('Ratenzahlungen',b.ratenzahlungen?('Ja'+(b.ratenzahlungenInfo?' — '+b.ratenzahlungenInfo:'')):'Nein')+'</table>';
@@ -965,12 +1026,16 @@ class Component extends DCLogic {
         beschOptions:['Angestellt','Arbeiter','Beamter','Selbstständig','Freiberufler'].map(v=>({label:v,active:a.beschaeftigungsart===v,pick:()=>this.setAppField(i,'beschaeftigungsart',a.beschaeftigungsart===v?'':v)})),
         famOptions:FAM.map(v=>({label:v,active:a.familienstand===v,pick:()=>this.pickFamilienstand(i,a.familienstand===v?'':v)})),
         guterOptions:GUT.map(g=>({label:g[1],active:a.guterstand===g[0],pick:()=>this.setAppField(i,'guterstand',a.guterstand===g[0]?'':g[0])}))};
-      if(i===0)this.REQ_APP.forEach(k=>{vm['err_'+k]=!!ek['app0.'+k];});
+      this.REQ_APP.forEach(k=>{vm['err_'+k]=!!ek['app'+i+'.'+k];});
+      vm.err_guterstand=!!ek['app'+i+'.guterstand'];
+      vm.err_aufenthaltstitel=!!ek['app'+i+'.aufenthaltstitel'];
       return vm;
     });
 
     const children=s.children.map((c,i)=>({...c,cIndex:i,num:String(i+1),remove:()=>this.removeChild(i),
       imHaushaltJa:c.imHaushalt===true,imHaushaltNein:c.imHaushalt===false,
+      err_name:!!ek['child'+i+'.name'],err_geburtsdatum:!!ek['child'+i+'.geburtsdatum'],
+      err_kindergeldBetrag:!!ek['child'+i+'.kindergeldBetrag'],err_unterhaltBetrag:!!ek['child'+i+'.unterhaltBetrag'],err_unterhaltAusgabeBetrag:!!ek['child'+i+'.unterhaltAusgabeBetrag'],
       setImHaushaltJa:()=>this.setChildFlag(i,'imHaushalt',true),setImHaushaltNein:()=>this.setChildFlag(i,'imHaushalt',false)}));
 
     const num=(v)=>this.parseNum(v);
@@ -999,6 +1064,10 @@ class Component extends DCLogic {
       ratenJa:s.fin.ratenAktiv===true,ratenNein:s.fin.ratenAktiv===false,
       setRatenJa:()=>this.setFinFlag('ratenAktiv',true),setRatenNein:()=>this.setFinFlag('ratenAktiv',false),
       gesamtausgabenFmt:this.eur(gesAusgaben)};
+    this.REQ_FIN_NUM.forEach(k=>{finView['err_'+k]=!!ek['fin.'+k];});
+    finView.err_unterhaltsverpfl=!!ek['fin.unterhaltsverpfl'];
+    finView.err_pkv=!!ek['fin.pkv'];
+    finView.err_kkBetrag=!!ek['fin.kkBetrag'];
 
     const properties=s.properties.map((p,i)=>{
       const typeList=this.OBJ_TYPES.map(([k,label])=>({key:k,label,checked:!!p.types[k],pIndex:i}));
@@ -1006,14 +1075,23 @@ class Component extends DCLogic {
       const sumG=p.loans.reduce((x,l)=>x+this.parseNum(l.grundschulden),0);
       const sumD=p.loans.reduce((x,l)=>x+this.parseNum(l.darlehensstand),0);
       const sumR=p.loans.reduce((x,l)=>x+this.parseNum(l.rateMonat),0);
-      return {...p,pIndex:i,num:String(i+1),canRemove:s.properties.length>1,remove:()=>this.removeProperty(i),
-        typeList,loanList,gewerbeSelected:!!p.types.gewerbe,
+      const pv={...p,pIndex:i,num:String(i+1),canRemove:s.properties.length>1,remove:()=>this.removeProperty(i),
+        typeList,loanList,gewerbeSelected:!!p.types.gewerbe,err_gewerbeart:!!ek['prop'+i+'.gewerbeart'],
         sumGrundschulden:this.eur(sumG),sumDarlehen:this.eur(sumD),sumRate:this.eur(sumR)};
+      this.REQ_PROP.forEach(k=>{pv['err_'+k]=!!ek['prop'+i+'.'+k];});
+      return pv;
     });
 
-    const errLabels={anrede:'Anrede',vorname:'Vorname',nachname:'Nachname',geburtsdatum:'Geburtsdatum',geburtsort:'Geburtsort',email:'E-Mail',strasse:'Straße',hausnummer:'Hausnummer',plz:'PLZ',ort:'Ort',familienstand:'Familienstand',nationalitaet1:'Staatsangehörigkeit',beschaeftigungsart:'Beschäftigungsart',nettoeinkommen:'Nettoeinkommen',beschaeftigtSeit:'Beschäftigt seit',arbeitgeber:'Arbeitgeber',beruf:'Beruf'};
-    const errList=Object.keys(ek).map(key=>{const[grp,k]=key.split('.');return errLabels[k]||k;});
-    const errorSummary=Array.from(new Set(errList)).join(' · ');
+    const errLabels={anrede:'Anrede',vorname:'Vorname',nachname:'Nachname',geburtsdatum:'Geburtsdatum',geburtsort:'Geburtsort',geburtsland:'Geburtsland',telefon:'Telefon',email:'E-Mail',strasse:'Straße',hausnummer:'Hausnummer',plz:'PLZ',ort:'Ort',wohnhaftSeit:'Wohnhaft seit',familienstand:'Familienstand',guterstand:'Güterstand',nationalitaet1:'Staatsangehörigkeit',aufenthaltstitel:'Aufenthaltstitel',beschaeftigungsart:'Beschäftigungsart',nettoeinkommen:'Nettoeinkommen',beschaeftigtSeit:'Beschäftigt seit',gehaelterProJahr:'Gehälter/Jahr',arbeitgeber:'Arbeitgeber',beruf:'Beruf',
+      berater:'Berater',portfolioManager:'Portfolio Manager',
+      eigenkapital:'Eigenkapital / Bank & Sparguthaben',wertpapiere:'Wertpapiere/Aktien',lvRueckkauf:'LV Rückkaufswert',lvBeitragMonat:'LV Beitrag/Monat',bausparWert:'Bausparen Wert',bausparBeitragMonat:'Bausparen Beitrag/Monat',sonstVermoegen:'Sonstige Vermögenswerte',sonstEinkommen:'Sonstige Einkünfte',miete:'Warmmiete',sonstAusgaben:'Sonstige Ausgaben',unterhaltAktiv:'Unterhaltsverpflichtungen (Ja/Nein)',unterhaltsverpfl:'Unterhaltsverpflichtungen — Betrag',pkvAktiv:'Private Krankenvers. (Ja/Nein)',pkv:'Private Krankenvers. — Betrag',ruecklastAktiv:'Rücklastschriften/SCHUFA (Ja/Nein)',kkAktiv:'Kreditkarten (Ja/Nein)',kkBetrag:'Kreditkarten — Betrag',ratenAktiv:'Ratenzahlungen (Ja/Nein)',
+      hasChildren:'Kinder vorhanden? (Ja/Nein)',name:'Name',imHaushalt:'Lebt im Haushalt (Ja/Nein)',kindergeldBetrag:'Kindergeld — Betrag',unterhaltBetrag:'Unterhaltseinnahmen — Betrag',unterhaltAusgabeBetrag:'Unterhaltsausgaben — Betrag',
+      anschrift:'Anschrift',types:'Objektart',gewerbeart:'Gewerbeart',gesamtflaeche:'Gesamtwohnfläche',vermieteteFlaeche:'Vermietete Fläche',gewerbeflaeche:'Gewerbefläche',baujahr:'Baujahr',kaufpreis:'Kaufpreis',wertHeute:'Wert heute',kaltmiete:'Kaltmiete',wohneinheiten:'Wohneinheiten'};
+    const grpTitle=(g)=>{if(g==='prot')return'Kundenprotokoll';if(g==='root')return'Kinder';if(g==='fin')return'Finanzielle Situation';const mA=/^app(\d+)$/.exec(g);if(mA)return'Antragsteller '+(+mA[1]+1);const mC=/^child(\d+)$/.exec(g);if(mC)return'Kind '+(+mC[1]+1);const mP=/^prop(\d+)$/.exec(g);if(mP)return'Immobilie '+(+mP[1]+1);return g;};
+    const grpRank=(g)=>{if(g==='prot')return 0;const mA=/^app(\d+)$/.exec(g);if(mA)return 10+(+mA[1]);if(g==='root')return 20;const mC=/^child(\d+)$/.exec(g);if(mC)return 21+(+mC[1]);if(g==='fin')return 40;const mP=/^prop(\d+)$/.exec(g);if(mP)return 50+(+mP[1]);return 99;};
+    const errGroups={};
+    Object.keys(ek).forEach(key=>{const p=key.split('.');(errGroups[p[0]]=errGroups[p[0]]||[]).push(errLabels[p[1]]||p[1]);});
+    const errorSummary=Object.keys(errGroups).sort((a,b)=>grpRank(a)-grpRank(b)).map(g=>grpTitle(g)+': '+Array.from(new Set(errGroups[g])).join(', ')).join('   |   ');
 
     return {
       steps, progressPct,
