@@ -389,13 +389,35 @@
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div><label>Vorhandenes Eigenkapital / Bank &amp; Sparguthaben</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.eigenkapital }}" aria-invalid="{{ fin.err_eigenkapital }}" inputmode="numeric" data-sec="fin" data-key="eigenkapital" data-num="cur" onChange="{{ onField }}"></div></div>
             <div><label>Wertpapiere / Aktien — Gesamtwert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.wertpapiere }}" aria-invalid="{{ fin.err_wertpapiere }}" inputmode="numeric" data-sec="fin" data-key="wertpapiere" data-num="cur" onChange="{{ onField }}"></div></div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;">
-              <div><label>Lebens-/Rentenvers. — Rückkaufswert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.lvRueckkauf }}" aria-invalid="{{ fin.err_lvRueckkauf }}" inputmode="numeric" data-sec="fin" data-key="lvRueckkauf" data-num="cur" onChange="{{ onField }}"></div></div>
-              <div><label>— Monatlicher Beitrag</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.lvBeitragMonat }}" aria-invalid="{{ fin.err_lvBeitragMonat }}" inputmode="numeric" data-sec="fin" data-key="lvBeitragMonat" data-num="cur" onChange="{{ onField }}"></div></div>
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 8px 2px;">
+                <span style="font:600 12.5px 'Inter';color:#4a4438;">Lebens-/Rentenversicherung vorhanden?</span>
+                <div style="display:flex;gap:8px;">
+                  <button data-toggle type="button" aria-pressed="{{ fin.lvJa }}" onClick="{{ fin.setLvJa }}" style="padding:7px 18px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13px 'Inter';cursor:pointer;">Ja</button>
+                  <button data-toggle type="button" aria-pressed="{{ fin.lvNein }}" onClick="{{ fin.setLvNein }}" style="padding:7px 18px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13px 'Inter';cursor:pointer;">Nicht vorhanden</button>
+                </div>
+              </div>
+              <sc-if value="{{ fin.lvJa }}" hint-placeholder-val="{{ false }}">
+                <div class="wln-reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;">
+                  <div><label>Rückkaufswert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.lvRueckkauf }}" aria-invalid="{{ fin.err_lvRueckkauf }}" inputmode="numeric" data-sec="fin" data-key="lvRueckkauf" data-num="cur" onChange="{{ onField }}"></div></div>
+                  <div><label>Monatlicher Beitrag</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.lvBeitragMonat }}" aria-invalid="{{ fin.err_lvBeitragMonat }}" inputmode="numeric" data-sec="fin" data-key="lvBeitragMonat" data-num="cur" onChange="{{ onField }}"></div></div>
+                </div>
+              </sc-if>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;">
-              <div><label>Bausparvertrag — Angesparter Wert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bausparWert }}" aria-invalid="{{ fin.err_bausparWert }}" inputmode="numeric" data-sec="fin" data-key="bausparWert" data-num="cur" onChange="{{ onField }}"></div></div>
-              <div><label>— Monatlicher Beitrag</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bausparBeitragMonat }}" aria-invalid="{{ fin.err_bausparBeitragMonat }}" inputmode="numeric" data-sec="fin" data-key="bausparBeitragMonat" data-num="cur" onChange="{{ onField }}"></div></div>
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 8px 2px;">
+                <span style="font:600 12.5px 'Inter';color:#4a4438;">Bausparvertrag vorhanden?</span>
+                <div style="display:flex;gap:8px;">
+                  <button data-toggle type="button" aria-pressed="{{ fin.bausparJa }}" onClick="{{ fin.setBausparJa }}" style="padding:7px 18px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13px 'Inter';cursor:pointer;">Ja</button>
+                  <button data-toggle type="button" aria-pressed="{{ fin.bausparNein }}" onClick="{{ fin.setBausparNein }}" style="padding:7px 18px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13px 'Inter';cursor:pointer;">Nicht vorhanden</button>
+                </div>
+              </div>
+              <sc-if value="{{ fin.bausparJa }}" hint-placeholder-val="{{ false }}">
+                <div class="wln-reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end;">
+                  <div><label>Angesparter Wert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bausparWert }}" aria-invalid="{{ fin.err_bausparWert }}" inputmode="numeric" data-sec="fin" data-key="bausparWert" data-num="cur" onChange="{{ onField }}"></div></div>
+                  <div><label>Monatlicher Beitrag</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.bausparBeitragMonat }}" aria-invalid="{{ fin.err_bausparBeitragMonat }}" inputmode="numeric" data-sec="fin" data-key="bausparBeitragMonat" data-num="cur" onChange="{{ onField }}"></div></div>
+                </div>
+              </sc-if>
             </div>
             <div><label>Sonstige Vermögenswerte (Crypto, Gold) — Gesamtwert</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ fin.sonstVermoegen }}" aria-invalid="{{ fin.err_sonstVermoegen }}" inputmode="numeric" data-sec="fin" data-key="sonstVermoegen" data-num="cur" onChange="{{ onField }}"></div></div>
             <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#161310;border-radius:14px;padding:14px 18px;margin-top:4px;">
@@ -555,6 +577,17 @@
         <div style="font:700 13px 'Inter';letter-spacing:.1em;color:#161310;background:#C9A700;padding:5px 11px;border-radius:8px;">05</div>
         <h2 style="margin:0;font:600 21px 'Inter';letter-spacing:.04em;text-transform:uppercase;color:#161310;">Immobilien</h2>
       </div>
+      <div style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.03);margin:0 0 20px;">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:16px;">
+          <div style="font:600 15px 'Inter';color:#161310;">Immobilie(n) vorhanden?</div>
+          <div style="display:flex;gap:10px;">
+            <button data-toggle type="button" aria-pressed="{{ propertiesYes }}" onClick="{{ setPropertiesYes }}" style="padding:9px 24px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Ja</button>
+            <button data-toggle type="button" aria-pressed="{{ propertiesNo }}" onClick="{{ setPropertiesNo }}" style="padding:9px 24px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Keine Immobilie vorhanden</button>
+          </div>
+        </div>
+      </div>
+
+      <sc-if value="{{ propertiesYes }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;flex-direction:column;gap:20px;">
         <sc-for list="{{ properties }}" as="p" hint-placeholder-count="1">
           <div class="wln-reveal" style="background:#fff;border:1px solid #EDE7D9;border-radius:20px;padding:26px;box-shadow:0 1px 2px rgba(0,0,0,.03);">
@@ -631,6 +664,7 @@
         </sc-for>
         <button type="button" onClick="{{ addProperty }}" style="align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #161310;font:600 13.5px 'Inter';cursor:pointer;">+ Weitere Immobilie hinzufügen</button>
       </div>
+      </sc-if>
     </section>
 
     <!-- ===== SECTION 5 · ZUSAMMENFASSUNG & ABSENDEN ===== -->
@@ -687,7 +721,7 @@ class Component extends DCLogic {
     this.LOAN_LABELS = ['Darlehen 1','Darlehen 2','Darlehen 3'];
     this.REQ_APP = ['anrede','vorname','nachname','geburtsdatum','geburtsort','geburtsland','telefon','email','strasse','hausnummer','plz','ort','wohnhaftSeit','familienstand','nationalitaet1','beschaeftigungsart','nettoeinkommen','beschaeftigtSeit','gehaelterProJahr','arbeitgeber','beruf'];
     // Weitere Pflichtfeld-Gruppen (Betragsfelder: 0 eintragen wenn nicht zutreffend). Kommentar-/Beschreibungsfelder bleiben freiwillig.
-    this.REQ_FIN_NUM = ['eigenkapital','wertpapiere','lvRueckkauf','lvBeitragMonat','bausparWert','bausparBeitragMonat','sonstVermoegen','sonstEinkommen','miete','sonstAusgaben'];
+    this.REQ_FIN_NUM = ['eigenkapital','wertpapiere','sonstVermoegen','sonstEinkommen','miete','sonstAusgaben'];
     this.REQ_FIN_TOGGLE = ['unterhaltAktiv','pkvAktiv','ruecklastAktiv','kkAktiv','ratenAktiv'];
     this.REQ_PROP = ['anschrift','gesamtflaeche','vermieteteFlaeche','gewerbeflaeche','baujahr','kaufpreis','wertHeute','kaltmiete','wohneinheiten'];
     // Meldung, wenn das monatliche Kontingent ausgeschöpft ist (leicht anpassbar)
@@ -699,6 +733,7 @@ class Component extends DCLogic {
       children:[this.emptyChild()],
       childrenInfo:'',
       fin:this.emptyFin(),
+      hasProperties:null,
       properties:[this.emptyProperty()],
       herkunft:'DE',
       errorKeys:{},
@@ -717,7 +752,7 @@ class Component extends DCLogic {
   emptyApplicant(){return{anrede:'',vorname:'',nachname:'',geburtsdatum:'',geburtsort:'',geburtsland:'Deutschland',telefon:'',email:'',strasse:'',hausnummer:'',plz:'',ort:'',wohnhaftSeit:'',familienstand:'',guterstand:'',nationalitaet1:'Deutschland',aufenthaltstitel:'',beschaeftigungsart:'',nettoeinkommen:'',beschaeftigtSeit:'',gehaelterProJahr:'12',arbeitgeber:'',beruf:'',nebenjob:'',nebenjobEinkommen:'',nebenjobSeit:''};}
   emptyChild(){return{name:'',geburtsdatum:'',imHaushalt:null,kindergeld:false,kindergeldBetrag:'',unterhalt:false,unterhaltBetrag:'',unterhaltAusgabe:false,unterhaltAusgabeBetrag:''};}
   emptyKredit(){return{name:'',kreditgeber:'',restschuld:'',darlehenshoehe:'',rate:'',gesamtlaufzeit:'',ablaufdatum:''};}
-  emptyFin(){return{eigenkapital:'',wertpapiere:'',lvRueckkauf:'',lvBeitragMonat:'',bausparWert:'',bausparBeitragMonat:'',sonstVermoegen:'',sonstEinkommen:'',infoEinkommen:'',miete:'',unterhaltAktiv:null,unterhaltsverpfl:'',pkvAktiv:null,pkv:'',sonstAusgaben:'',infoAusgaben:'',infoMiete:'',ruecklastAktiv:null,ruecklastInfo:'',kkAktiv:null,kkBetrag:'',ratenAktiv:null,ratenInfo:'',kommentar:'',krediteA:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()],mitAktiv:false,krediteM:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()]};}
+  emptyFin(){return{eigenkapital:'',wertpapiere:'',lvRueckkauf:'',lvBeitragMonat:'',lvVorhanden:null,bausparVorhanden:null,bausparWert:'',bausparBeitragMonat:'',sonstVermoegen:'',sonstEinkommen:'',infoEinkommen:'',miete:'',unterhaltAktiv:null,unterhaltsverpfl:'',pkvAktiv:null,pkv:'',sonstAusgaben:'',infoAusgaben:'',infoMiete:'',ruecklastAktiv:null,ruecklastInfo:'',kkAktiv:null,kkBetrag:'',ratenAktiv:null,ratenInfo:'',kommentar:'',krediteA:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()],mitAktiv:false,krediteM:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()]};}
   emptyLoan(){return{kreditgeber:'',kreditnehmer:'',grundschulden:'',darlehensstand:'',sollzins:'',tilgung:'',zinsbindungBis:'',gesamtlaufzeit:'',rateMonat:''};}
   emptyProperty(){return{anschrift:'',types:{},gewerbeart:'',gesamtflaeche:'',vermieteteFlaeche:'',gewerbeflaeche:'',baujahr:'',kaufpreis:'',wertHeute:'',kaltmiete:'',wohneinheiten:'',info:'',besonderheiten:'',loans:[this.emptyLoan(),this.emptyLoan(),this.emptyLoan()]};}
 
@@ -767,7 +802,7 @@ class Component extends DCLogic {
   }
 
   fmtCur(str){const digits=String(str).replace(/[^\d]/g,'');if(!digits)return'';return Number(digits).toLocaleString('de-DE');}
-  parseNum(str){if(str==null||str==='')return 0;return Number(String(str).replace(/\./g,'').replace(/,/g,'.').replace(/[^\d.-]/g,''))||0;}
+  parseNum(str){if(str==null||str==='')return 0;const n=Number(String(str).replace(/\./g,'').replace(/,/g,'.').replace(/[^\d.-]/g,''))||0;return n<0?0:n;} // negative Werte werden auf 0 gesetzt
   eur(n){const chf=this.state&&this.state.herkunft==='CH';return (Number(n)||0).toLocaleString(chf?'de-CH':'de-DE')+(chf?' CHF':' €');}
   setHerkunft=(v)=>this.setState({herkunft:v});
   setEmpfaengerEmail=(e)=>this.setState({empfaengerEmail:e.target.value});
@@ -776,6 +811,8 @@ class Component extends DCLogic {
     const t=e.target, d=t.dataset;
     let val = (t.type==='checkbox') ? t.checked : t.value;
     if(d.num==='cur' && typeof val==='string') val=this.fmtCur(val);
+    // Zahlenfelder (Flächen, Baujahr, Wohneinheiten, Gehälter, Zins/Tilgung): keine negativen Werte zulassen
+    else if(typeof val==='string' && val!=='' && (t.type==='number'||t.inputMode==='numeric'||t.inputMode==='decimal') && /-/.test(val)) val=val.replace(/-/g,'');
     const sec=d.sec;
     this.setState(prev=>{
       if(sec==='app'){const arr=prev.applicants.map((x,i)=>{if(i!=d.idx)return x;const nx={...x,[d.key]:val};if(d.key==='nationalitaet1'){const needsPermit=!!(val&&val.trim()&&!/deutsch|german|germany/i.test(val.trim()));if(!needsPermit)nx.aufenthaltstitel='';}return nx;});return{applicants:arr};}
@@ -808,7 +845,9 @@ class Component extends DCLogic {
   setChildFlag=(idx,key,val)=>this.setState(p=>({children:p.children.map((c,i)=>i==idx?{...c,[key]:val}:c)}));
   addKredit=(person)=>this.setState(p=>{const lk=person==='M'?'krediteM':'krediteA';return{fin:{...p.fin,[lk]:[...p.fin[lk],this.emptyKredit()]}};});
   toggleMit=()=>this.setState(p=>({fin:{...p.fin,mitAktiv:!p.fin.mitAktiv}}));
-  addProperty=()=>this.setState(p=>({properties:[...p.properties,this.emptyProperty()]}));
+  setPropertiesYes=()=>this.setState(p=>({hasProperties:true,properties:p.properties.length?p.properties:[this.emptyProperty()]}));
+  setPropertiesNo=()=>this.setState({hasProperties:false,properties:[this.emptyProperty()]}); // Felder zurücksetzen
+  addProperty=()=>this.setState(p=>({hasProperties:true,properties:[...p.properties,this.emptyProperty()]}));
   removeProperty=(i)=>this.setState(p=>({properties:p.properties.filter((_,j)=>j!==i)}));
   goSection=(id)=>{const el=document.getElementById(id);if(el){const y=el.getBoundingClientRect().top+window.pageYOffset-78;window.scrollTo({top:y,behavior:'smooth'});}};
 
@@ -841,17 +880,26 @@ class Component extends DCLogic {
     }
     // Finanzielle Situation – Betragsfelder
     this.REQ_FIN_NUM.forEach(k=>{if(empty(s.fin[k]))errs['fin.'+k]=true;});
+    // Lebens-/Rentenversicherung & Bausparvertrag: Ja/Nein muss beantwortet sein; bei Ja Beträge Pflicht
+    if(s.fin.lvVorhanden!==true && s.fin.lvVorhanden!==false)errs['fin.lvVorhanden']=true;
+    if(s.fin.lvVorhanden===true){if(empty(s.fin.lvRueckkauf))errs['fin.lvRueckkauf']=true;if(empty(s.fin.lvBeitragMonat))errs['fin.lvBeitragMonat']=true;}
+    if(s.fin.bausparVorhanden!==true && s.fin.bausparVorhanden!==false)errs['fin.bausparVorhanden']=true;
+    if(s.fin.bausparVorhanden===true){if(empty(s.fin.bausparWert))errs['fin.bausparWert']=true;if(empty(s.fin.bausparBeitragMonat))errs['fin.bausparBeitragMonat']=true;}
     // Ja/Nein-Angaben müssen beantwortet sein
     this.REQ_FIN_TOGGLE.forEach(k=>{if(s.fin[k]!==true && s.fin[k]!==false)errs['fin.'+k]=true;});
     if(s.fin.unterhaltAktiv===true && empty(s.fin.unterhaltsverpfl))errs['fin.unterhaltsverpfl']=true;
     if(s.fin.pkvAktiv===true && empty(s.fin.pkv))errs['fin.pkv']=true;
     if(s.fin.kkAktiv===true && empty(s.fin.kkBetrag))errs['fin.kkBetrag']=true;
-    // Immobilien (jede hinzugefügte)
-    s.properties.forEach((p,i)=>{
-      this.REQ_PROP.forEach(k=>{if(empty(p[k]))errs['prop'+i+'.'+k]=true;});
-      if(!Object.keys(p.types||{}).some(k=>p.types[k]))errs['prop'+i+'.types']=true;
-      if(p.types&&p.types.gewerbe&&empty(p.gewerbeart))errs['prop'+i+'.gewerbeart']=true;
-    });
+    // Private Kredite / Autokredite: KEINE Pflichtfelder (nachträgliche Ergänzung am PDF möglich)
+    // Immobilien: Ja/Nein muss beantwortet sein; nur bei Ja jede hinzugefügte prüfen
+    if(s.hasProperties!==true && s.hasProperties!==false)errs['immo.has']=true;
+    if(s.hasProperties===true){
+      s.properties.forEach((p,i)=>{
+        this.REQ_PROP.forEach(k=>{if(empty(p[k]))errs['prop'+i+'.'+k]=true;});
+        if(!Object.keys(p.types||{}).some(k=>p.types[k]))errs['prop'+i+'.types']=true;
+        if(p.types&&p.types.gewerbe&&empty(p.gewerbeart))errs['prop'+i+'.gewerbeart']=true;
+      });
+    }
     return errs;
   }
 
@@ -874,13 +922,14 @@ class Component extends DCLogic {
       })),
       kinder:{vorhanden:!!s.hasChildren,beschreibung:s.hasChildren?s.childrenInfo:'',anzahl:s.hasChildren?s.children.length:0,liste:s.hasChildren?s.children.map(c=>({geburtsdatum:c.geburtsdatum,imHaushalt:c.imHaushalt===true,kindergeld:c.kindergeld,kindergeldBetragMonat:c.kindergeld?num(c.kindergeldBetrag):0,unterhaltseinnahmen:c.unterhalt,unterhaltseinnahmenMonat:c.unterhalt?num(c.unterhaltBetrag):0,unterhaltsausgabe:c.unterhaltAusgabe,unterhaltsausgabeMonat:c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0})):[]},
       finanzen:{
-        vermoegenEinkommen:{eigenkapitalBankSparguthaben:num(s.fin.eigenkapital),wertpapiere:num(s.fin.wertpapiere),lebensversicherungRueckkaufswert:num(s.fin.lvRueckkauf),lebensversicherungBeitragMonat:num(s.fin.lvBeitragMonat),bausparAngespart:num(s.fin.bausparWert),bausparBeitragMonat:num(s.fin.bausparBeitragMonat),sonstigeVermoegenswerte:num(s.fin.sonstVermoegen),sonstigeEinkuenfteMonat:num(s.fin.sonstEinkommen),gesamteinnahmenMonat:s.applicants.reduce((x,a)=>x+num(a.nettoeinkommen)+num(a.nebenjobEinkommen),0)+num(s.fin.sonstEinkommen)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.kindergeld?num(c.kindergeldBetrag):0)+(c.unterhalt?num(c.unterhaltBetrag):0),0):0),beschreibungEinkuenfte:s.fin.infoEinkommen},
+        vermoegenEinkommen:{eigenkapitalBankSparguthaben:num(s.fin.eigenkapital),wertpapiere:num(s.fin.wertpapiere),lebensversicherungVorhanden:s.fin.lvVorhanden===true,lebensversicherungRueckkaufswert:s.fin.lvVorhanden===true?num(s.fin.lvRueckkauf):0,lebensversicherungBeitragMonat:s.fin.lvVorhanden===true?num(s.fin.lvBeitragMonat):0,bausparvertragVorhanden:s.fin.bausparVorhanden===true,bausparAngespart:s.fin.bausparVorhanden===true?num(s.fin.bausparWert):0,bausparBeitragMonat:s.fin.bausparVorhanden===true?num(s.fin.bausparBeitragMonat):0,sonstigeVermoegenswerte:num(s.fin.sonstVermoegen),sonstigeEinkuenfteMonat:num(s.fin.sonstEinkommen),gesamteinnahmenMonat:s.applicants.reduce((x,a)=>x+num(a.nettoeinkommen)+num(a.nebenjobEinkommen),0)+num(s.fin.sonstEinkommen)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.kindergeld?num(c.kindergeldBetrag):0)+(c.unterhalt?num(c.unterhaltBetrag):0),0):0),beschreibungEinkuenfte:s.fin.infoEinkommen},
         ausgaben:{warmmieteMonat:num(s.fin.miete),unterhaltsverpflichtungen:s.fin.unterhaltAktiv===true,unterhaltsverpflichtungenMonat:s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0,privateKrankenversicherung:s.fin.pkvAktiv===true,privateKrankenversicherungMonat:s.fin.pkvAktiv===true?num(s.fin.pkv):0,sonstigeAusgabenMonat:num(s.fin.sonstAusgaben),kinderUnterhaltsausgabenMonat:s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0,gesamtausgabenMonat:num(s.fin.miete)+(s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0)+(s.fin.pkvAktiv===true?num(s.fin.pkv):0)+num(s.fin.sonstAusgaben)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0),beschreibungAusgaben:s.fin.infoAusgaben,anmerkungMiete:s.fin.infoMiete},
         bonitaet:{ruecklastschriftenOderSchufa90Tage:s.fin.ruecklastAktiv===true,ruecklastschriftenInfo:s.fin.ruecklastAktiv===true?s.fin.ruecklastInfo:'',kreditkarten:s.fin.kkAktiv===true,kreditkartenAusgeschoepfterBetrag:s.fin.kkAktiv===true?num(s.fin.kkBetrag):0,ratenzahlungen:s.fin.ratenAktiv===true,ratenzahlungenInfo:s.fin.ratenAktiv===true?s.fin.ratenInfo:''},
         privateKredite:{antragsteller:s.fin.krediteA.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:k.ablaufdatum})),mitantragsteller:s.fin.mitAktiv?s.fin.krediteM.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:k.ablaufdatum})):[]},
         kommentar:s.fin.kommentar
       },
-      immobilien:s.properties.map(p=>({
+      immobilienVorhanden:s.hasProperties===true,
+      immobilien:s.hasProperties===true?s.properties.map(p=>({
         anschrift:p.anschrift,
         objektarten:this.OBJ_TYPES.filter(([k])=>p.types[k]).map(([,l])=>l),
         gewerbeart:p.types.gewerbe?p.gewerbeart:'',
@@ -890,7 +939,7 @@ class Component extends DCLogic {
         summeDarlehensstand:p.loans.reduce((s2,l)=>s2+num(l.darlehensstand),0),
         summeMonatlicheBelastung:p.loans.reduce((s2,l)=>s2+num(l.rateMonat),0),
         beschreibung:p.info,besonderheiten:p.besonderheiten
-      }))
+      })):[]
     };
   }
 
@@ -931,7 +980,7 @@ class Component extends DCLogic {
     if(Object.keys(errs).length){
       this.setState({errorKeys:errs,submitStatus:'validate'});
       const rank={sec0:0,sec1:1,sec2:2,sec3:3,sec4:4};
-      const secOf=(g)=>g.indexOf('app')===0?'sec1':(g.indexOf('child')===0||g==='root')?'sec2':g==='fin'?'sec3':g.indexOf('prop')===0?'sec4':'sec0';
+      const secOf=(g)=>g.indexOf('app')===0?'sec1':(g.indexOf('child')===0||g==='root')?'sec2':g==='fin'?'sec3':(g.indexOf('prop')===0||g==='immo')?'sec4':'sec0';
       let target='sec0',best=99;
       Object.keys(errs).forEach(key=>{const sc=secOf(key.split('.')[0]);if(rank[sc]<best){best=rank[sc];target=sc;}});
       this.goSection(target);
@@ -951,26 +1000,35 @@ class Component extends DCLogic {
       </div>
       <img src="https://emirduman52.github.io/walona-selbstauskunft/hero-pdf.jpg" alt="Walona Group" style="display:block;width:100%;height:auto;border-radius:10px;margin:2px 0 12px;">`;
     const kp=p.kundenprotokoll;
-    if(kp.berater||kp.portfolioManager||kp.gespraechsnotizen||kp.naechsteSchritte){
-      h+=sec('Kundenprotokoll (Vertrieb)')+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+
-        row('Berater',kp.berater)+row('Portfolio Manager',kp.portfolioManager)+
-        row('Gesprächsnotizen',kp.gespraechsnotizen)+row('Nächste Schritte',kp.naechsteSchritte)+'</table>';
-    }
-    p.applicants.forEach((a,i)=>{h+=sec('Antragsteller '+(i+1))+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+
+    h+=sec('Kundenprotokoll (Vertrieb)')+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+
+      row('Berater',kp.berater)+row('Portfolio Manager',kp.portfolioManager)+
+      row('Gesprächsnotizen',kp.gespraechsnotizen)+row('Nächste Schritte',kp.naechsteSchritte)+'</table>';
+    p.applicants.forEach((a,i)=>{
+      // Nebenjob-Zeilen nur, wenn ein Nebenjob eingetragen ist – sonst komplett weglassen
+      const nj=(a.beschaeftigung.nebenjob&&String(a.beschaeftigung.nebenjob).trim())?(row('Nebenjob',a.beschaeftigung.nebenjob)+row('Nebenjob Einkommen/Monat',a.beschaeftigung.nebenjobEinkommenMonat?eur(a.beschaeftigung.nebenjobEinkommenMonat):'')+row('Nebenjob beschäftigt seit',deDate(a.beschaeftigung.nebenjobBeschaeftigtSeit))):'';
+      h+=sec('Antragsteller '+(i+1))+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+
       row('Name',[a.anrede,a.vorname,a.nachname].filter(Boolean).join(' '))+row('Geburtsdatum',deDate(a.geburtsdatum))+row('Geburtsort/-land',[a.geburtsort,a.geburtsland].filter(Boolean).join(', '))+row('Telefon',a.telefon)+row('E-Mail',a.email)+
       row('Meldeadresse',[a.adresse.strasse,a.adresse.hausnummer].filter(Boolean).join(' ')+', '+[a.adresse.plz,a.adresse.ort].filter(Boolean).join(' '))+row('Wohnhaft seit',deDate(a.adresse.wohnhaftSeit))+
       row('Familienstand',a.familienstand+(a.guterstand?' ('+a.guterstand+')':''))+row('Staatsangehörigkeit',a.nationalitaeten.join(', '))+row('Aufenthaltstitel',a.aufenthaltstitel)+
-      row('Beschäftigung',a.beschaeftigung.art)+row('Nettoeinkommen/Monat',a.beschaeftigung.nettoeinkommenMonat?eur(a.beschaeftigung.nettoeinkommenMonat):'')+row('Beschäftigt seit',deDate(a.beschaeftigung.beschaeftigtSeit))+row('Gehälter / Jahr',a.beschaeftigung.gehaelterProJahr||'')+row('Arbeitgeber',a.beschaeftigung.arbeitgeber)+row('Beruf',a.beschaeftigung.beruf)+row('Nebenjob',a.beschaeftigung.nebenjob)+row('Nebenjob Einkommen/Monat',a.beschaeftigung.nebenjobEinkommenMonat?eur(a.beschaeftigung.nebenjobEinkommenMonat):'')+row('Nebenjob beschäftigt seit',deDate(a.beschaeftigung.nebenjobBeschaeftigtSeit))+'</table>';});
+      row('Beschäftigung',a.beschaeftigung.art)+row('Nettoeinkommen/Monat',a.beschaeftigung.nettoeinkommenMonat?eur(a.beschaeftigung.nettoeinkommenMonat):'')+row('Beschäftigt seit',deDate(a.beschaeftigung.beschaeftigtSeit))+row('Gehälter / Jahr',a.beschaeftigung.gehaelterProJahr||'')+row('Arbeitgeber',a.beschaeftigung.arbeitgeber)+row('Beruf',a.beschaeftigung.beruf)+nj+'</table>';});
+    // Weitere Einkünfte (Haushalt) – im PDF beim Antragsteller-Bereich (nicht mehr unter Finanzielle Situation)
+    h+=sec('Weitere Einkünfte (Haushalt)')+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+row('Sonstige Einkünfte/Monat',eur(p.finanzen.vermoegenEinkommen.sonstigeEinkuenfteMonat))+row('Beschreibung sonstige Einkünfte',p.finanzen.vermoegenEinkommen.beschreibungEinkuenfte)+'</table>';
     if(p.kinder.vorhanden&&p.kinder.liste.length){h+=sec('Kinder ('+p.kinder.liste.length+')');p.kinder.liste.forEach((c,i)=>{h+='<table style="font:400 13.5px Arial;border-collapse:collapse;margin-bottom:6px;">'+row('Kind '+(i+1)+' — Geburtsdatum',deDate(c.geburtsdatum))+row('Lebt im Haushalt',c.imHaushalt?'Ja':'Nein')+row('Kindergeld',c.kindergeld?eur(c.kindergeldBetragMonat)+'/Monat':'')+row('Unterhaltseinnahmen',c.unterhaltseinnahmen?eur(c.unterhaltseinnahmenMonat)+'/Monat':'')+row('Unterhaltsausgaben',c.unterhaltsausgabe?eur(c.unterhaltsausgabeMonat)+'/Monat':'')+'</table>';});if(p.kinder.beschreibung)h+=`<div style="font:400 12px Arial;color:#5a5340;">${esc(p.kinder.beschreibung)}</div>`;}
+    else{h+=sec('Kinder')+'<div style="font:400 13.5px Arial;color:#5a5340;">Keine Kinder vorhanden</div>';}
     const f=p.finanzen;h+=sec('Finanzielle Situation')+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+
       row('Eigenkapital / Bank- & Sparguthaben',f.vermoegenEinkommen.eigenkapitalBankSparguthaben?eur(f.vermoegenEinkommen.eigenkapitalBankSparguthaben):'')+row('Wertpapiere/Aktien',f.vermoegenEinkommen.wertpapiere?eur(f.vermoegenEinkommen.wertpapiere):'')+
-      row('LV Rückkaufswert',f.vermoegenEinkommen.lebensversicherungRueckkaufswert?eur(f.vermoegenEinkommen.lebensversicherungRueckkaufswert):'')+row('LV Beitrag/Monat',f.vermoegenEinkommen.lebensversicherungBeitragMonat?eur(f.vermoegenEinkommen.lebensversicherungBeitragMonat):'')+row('Bausparen angespart',f.vermoegenEinkommen.bausparAngespart?eur(f.vermoegenEinkommen.bausparAngespart):'')+row('Bausparen Beitrag/Monat',f.vermoegenEinkommen.bausparBeitragMonat?eur(f.vermoegenEinkommen.bausparBeitragMonat):'')+row('Sonstige Vermögenswerte (Crypto, Gold)',f.vermoegenEinkommen.sonstigeVermoegenswerte?eur(f.vermoegenEinkommen.sonstigeVermoegenswerte):'')+
-      row('Sonstige Einkünfte/Monat',f.vermoegenEinkommen.sonstigeEinkuenfteMonat?eur(f.vermoegenEinkommen.sonstigeEinkuenfteMonat):'')+row('Beschreibung sonstige Einkünfte',f.vermoegenEinkommen.beschreibungEinkuenfte)+rowSum('Gesamteinnahmen/Monat',eur(f.vermoegenEinkommen.gesamteinnahmenMonat))+
+      (f.vermoegenEinkommen.lebensversicherungVorhanden?(row('LV/Rente Rückkaufswert',eur(f.vermoegenEinkommen.lebensversicherungRueckkaufswert))+row('LV/Rente Beitrag/Monat',eur(f.vermoegenEinkommen.lebensversicherungBeitragMonat))):row('Lebens-/Rentenversicherung','Nicht vorhanden'))+
+      (f.vermoegenEinkommen.bausparvertragVorhanden?(row('Bausparen angespart',eur(f.vermoegenEinkommen.bausparAngespart))+row('Bausparen Beitrag/Monat',eur(f.vermoegenEinkommen.bausparBeitragMonat))):row('Bausparvertrag','Nicht vorhanden'))+
+      row('Sonstige Vermögenswerte (Crypto, Gold)',f.vermoegenEinkommen.sonstigeVermoegenswerte>0?eur(f.vermoegenEinkommen.sonstigeVermoegenswerte):'Keine sonstigen Vermögenswerte vorhanden')+
+      rowSum('Gesamteinnahmen/Monat',eur(f.vermoegenEinkommen.gesamteinnahmenMonat))+
       row('Warmmiete/Monat',f.ausgaben.warmmieteMonat?eur(f.ausgaben.warmmieteMonat):'')+row('Anmerkung zur Mietsituation',f.ausgaben.anmerkungMiete)+row('Unterhaltsverpflichtungen',f.ausgaben.unterhaltsverpflichtungen?('Ja'+(f.ausgaben.unterhaltsverpflichtungenMonat?' — '+eur(f.ausgaben.unterhaltsverpflichtungenMonat)+'/Monat':'')):'Nein')+
-      row('Private Krankenversicherung',f.ausgaben.privateKrankenversicherung?('Ja'+(f.ausgaben.privateKrankenversicherungMonat?' — '+eur(f.ausgaben.privateKrankenversicherungMonat)+'/Monat':'')):'Nein')+row('Sonstige Ausgaben/Monat',f.ausgaben.sonstigeAusgabenMonat?eur(f.ausgaben.sonstigeAusgabenMonat):'')+row('Beschreibung sonstige Ausgaben',f.ausgaben.beschreibungAusgaben)+row('Unterhaltsausgaben Kinder/Monat',f.ausgaben.kinderUnterhaltsausgabenMonat?eur(f.ausgaben.kinderUnterhaltsausgabenMonat):'')+rowSum('Gesamtausgaben/Monat',eur(f.ausgaben.gesamtausgabenMonat))+row('Kommentar',f.kommentar)+'</table>';const b=f.bonitaet;h+=sec('Bonität &amp; weitere Verbindlichkeiten')+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+row('Rücklastschriften/Schufa (90 Tage)',b.ruecklastschriftenOderSchufa90Tage?('Ja'+(b.ruecklastschriftenInfo?' — '+b.ruecklastschriftenInfo:'')):'Nein')+row('Kreditkarten',b.kreditkarten?('Ja'+(b.kreditkartenAusgeschoepfterBetrag?' — ausgeschöpft: '+eur(b.kreditkartenAusgeschoepfterBetrag):'')):'Nein')+row('Ratenzahlungen',b.ratenzahlungen?('Ja'+(b.ratenzahlungenInfo?' — '+b.ratenzahlungenInfo:'')):'Nein')+'</table>';
-    const kredTable=(title,list)=>{if(!list||!list.length)return'';let t='<div style="font:600 12px Arial;color:#161310;margin:8px 0 4px;">'+esc(title)+'</div><table style="font:400 11.5px Arial;border-collapse:collapse;width:100%;"><tr style="background:#FAF3E0;"><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kredit</th><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kreditnehmer</th><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kreditgeber</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Restschuld</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Darlehenshöhe gesamt</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Rate/M</th><th style="padding:4px 6px;border:1px solid #eadfc4;">Gesamtlaufzeit</th><th style="padding:4px 6px;border:1px solid #eadfc4;">Ablaufdatum</th></tr>';list.forEach((k,i)=>{t+='<tr><td style="padding:4px 6px;border:1px solid #eadfc4;">'+(i+1)+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.kreditnehmer||'')+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.kreditgeber||'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.restschuld?eur(k.restschuld):'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.darlehenshoeheGesamt?eur(k.darlehenshoeheGesamt):'')+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.rateMonat?eur(k.rateMonat):'')+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.gesamtlaufzeit||'')+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(deDate(k.ablaufdatum))+'</td></tr>';});return t+'</table>';};
-    if((f.privateKredite.antragsteller&&f.privateKredite.antragsteller.length)||(f.privateKredite.mitantragsteller&&f.privateKredite.mitantragsteller.length)){h+=sec('Private Kredite / Autokredite')+kredTable('Antragsteller',f.privateKredite.antragsteller)+kredTable('Mitantragsteller',f.privateKredite.mitantragsteller);}
-    p.immobilien.forEach((im,i)=>{h+=sec('Immobilie '+(i+1))+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+
+      row('Private Krankenversicherung',f.ausgaben.privateKrankenversicherung?('Ja'+(f.ausgaben.privateKrankenversicherungMonat?' — '+eur(f.ausgaben.privateKrankenversicherungMonat)+'/Monat':'')):'Nein')+row('Sonstige Ausgaben/Monat',f.ausgaben.sonstigeAusgabenMonat>0?eur(f.ausgaben.sonstigeAusgabenMonat):'Keine sonstigen Ausgaben vorhanden')+row('Beschreibung sonstige Ausgaben',f.ausgaben.beschreibungAusgaben)+row('Unterhaltsausgaben Kinder/Monat',f.ausgaben.kinderUnterhaltsausgabenMonat?eur(f.ausgaben.kinderUnterhaltsausgabenMonat):'')+rowSum('Gesamtausgaben/Monat',eur(f.ausgaben.gesamtausgabenMonat))+row('Kommentar',f.kommentar)+'</table>';const b=f.bonitaet;h+=sec('Bonität &amp; weitere Verbindlichkeiten')+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+row('Rücklastschriften/Schufa (90 Tage)',b.ruecklastschriftenOderSchufa90Tage?('Ja'+(b.ruecklastschriftenInfo?' — '+b.ruecklastschriftenInfo:'')):'Nein')+row('Kreditkarten',b.kreditkarten?('Ja'+(b.kreditkartenAusgeschoepfterBetrag?' — ausgeschöpft: '+eur(b.kreditkartenAusgeschoepfterBetrag):'')):'Nein')+row('Ratenzahlungen',b.ratenzahlungen?('Ja'+(b.ratenzahlungenInfo?' — '+b.ratenzahlungenInfo:'')):'Nein')+'</table>';
+    const kredTable=(title,list)=>{if(!list||!list.length)return'';let t='<div style="font:600 12px Arial;color:#161310;margin:8px 0 4px;">'+esc(title)+'</div><table style="font:400 11.5px Arial;border-collapse:collapse;width:100%;"><tr style="background:#FAF3E0;"><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kredit</th><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kreditnehmer</th><th style="text-align:left;padding:4px 6px;border:1px solid #eadfc4;">Kreditgeber</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Restschuld</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Darlehenshöhe gesamt</th><th style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">Rate/M</th><th style="padding:4px 6px;border:1px solid #eadfc4;">Gesamtlaufzeit</th><th style="padding:4px 6px;border:1px solid #eadfc4;">Ablaufdatum</th></tr>';const na='Nicht angegeben';list.forEach((k,i)=>{t+='<tr><td style="padding:4px 6px;border:1px solid #eadfc4;">'+(i+1)+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.kreditnehmer||na)+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.kreditgeber||na)+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.restschuld?eur(k.restschuld):na)+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.darlehenshoeheGesamt?eur(k.darlehenshoeheGesamt):na)+'</td><td style="text-align:right;padding:4px 6px;border:1px solid #eadfc4;">'+(k.rateMonat?eur(k.rateMonat):na)+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+esc(k.gesamtlaufzeit||na)+'</td><td style="padding:4px 6px;border:1px solid #eadfc4;">'+(k.ablaufdatum?esc(deDate(k.ablaufdatum)):na)+'</td></tr>';});return t+'</table>';};
+    h+=sec('Private Kredite / Autokredite');
+    if((f.privateKredite.antragsteller&&f.privateKredite.antragsteller.length)||(f.privateKredite.mitantragsteller&&f.privateKredite.mitantragsteller.length)){h+=kredTable('Antragsteller',f.privateKredite.antragsteller)+kredTable('Mitantragsteller',f.privateKredite.mitantragsteller);}
+    else{h+='<div style="font:400 13.5px Arial;color:#5a5340;">Keine privaten Kredite / Autokredite angegeben</div>';}
+    if(!(p.immobilienVorhanden&&p.immobilien.length)){h+=sec('Immobilien')+'<div style="font:400 13.5px Arial;color:#5a5340;">Keine Immobilie vorhanden</div>';}
+    else p.immobilien.forEach((im,i)=>{h+=sec('Immobilie '+(i+1))+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+
       row('Anschrift',im.anschrift)+row('Objektart',im.objektarten.join(', '))+row('Gewerbeart',im.gewerbeart)+row('Gesamt-/vermietete Fläche',(im.gesamtwohnflaecheM2||'?')+' / '+(im.vermieteteWohnflaecheM2||'?')+' m²')+row('Gewerbliche Nutzfläche',im.gewerblicheNutzflaecheM2?im.gewerblicheNutzflaecheM2+' m²':'')+row('Baujahr',im.baujahr)+
       row('Kaufpreis',im.kaufpreis?eur(im.kaufpreis):'')+row('Wert heute',im.wertHeute?eur(im.wertHeute):'')+row('Kaltmiete/Monat',im.kaltmieteMonat?eur(im.kaltmieteMonat):'')+row('Wohneinheiten',im.anzahlWohneinheiten||'')+'</table>';
       const hasLoan=im.verbindlichkeiten.some(l=>l.kreditgeber||l.aktuellerDarlehensstand);
@@ -1063,8 +1121,13 @@ class Component extends DCLogic {
       setKkJa:()=>this.setFinFlag('kkAktiv',true),setKkNein:()=>this.setFinFlag('kkAktiv',false),
       ratenJa:s.fin.ratenAktiv===true,ratenNein:s.fin.ratenAktiv===false,
       setRatenJa:()=>this.setFinFlag('ratenAktiv',true),setRatenNein:()=>this.setFinFlag('ratenAktiv',false),
+      lvJa:s.fin.lvVorhanden===true,lvNein:s.fin.lvVorhanden===false,
+      setLvJa:()=>this.setFinFlag('lvVorhanden',true),setLvNein:()=>this.setFinFlag('lvVorhanden',false),
+      bausparJa:s.fin.bausparVorhanden===true,bausparNein:s.fin.bausparVorhanden===false,
+      setBausparJa:()=>this.setFinFlag('bausparVorhanden',true),setBausparNein:()=>this.setFinFlag('bausparVorhanden',false),
       gesamtausgabenFmt:this.eur(gesAusgaben)};
     this.REQ_FIN_NUM.forEach(k=>{finView['err_'+k]=!!ek['fin.'+k];});
+    ['lvRueckkauf','lvBeitragMonat','bausparWert','bausparBeitragMonat'].forEach(k=>{finView['err_'+k]=!!ek['fin.'+k];});
     finView.err_unterhaltsverpfl=!!ek['fin.unterhaltsverpfl'];
     finView.err_pkv=!!ek['fin.pkv'];
     finView.err_kkBetrag=!!ek['fin.kkBetrag'];
@@ -1084,11 +1147,11 @@ class Component extends DCLogic {
 
     const errLabels={anrede:'Anrede',vorname:'Vorname',nachname:'Nachname',geburtsdatum:'Geburtsdatum',geburtsort:'Geburtsort',geburtsland:'Geburtsland',telefon:'Telefon',email:'E-Mail',strasse:'Straße',hausnummer:'Hausnummer',plz:'PLZ',ort:'Ort',wohnhaftSeit:'Wohnhaft seit',familienstand:'Familienstand',guterstand:'Güterstand',nationalitaet1:'Staatsangehörigkeit',aufenthaltstitel:'Aufenthaltstitel',beschaeftigungsart:'Beschäftigungsart',nettoeinkommen:'Nettoeinkommen',beschaeftigtSeit:'Beschäftigt seit',gehaelterProJahr:'Gehälter/Jahr',arbeitgeber:'Arbeitgeber',beruf:'Beruf',
       berater:'Berater',portfolioManager:'Portfolio Manager',
-      eigenkapital:'Eigenkapital / Bank & Sparguthaben',wertpapiere:'Wertpapiere/Aktien',lvRueckkauf:'LV Rückkaufswert',lvBeitragMonat:'LV Beitrag/Monat',bausparWert:'Bausparen Wert',bausparBeitragMonat:'Bausparen Beitrag/Monat',sonstVermoegen:'Sonstige Vermögenswerte',sonstEinkommen:'Sonstige Einkünfte',miete:'Warmmiete',sonstAusgaben:'Sonstige Ausgaben',unterhaltAktiv:'Unterhaltsverpflichtungen (Ja/Nein)',unterhaltsverpfl:'Unterhaltsverpflichtungen — Betrag',pkvAktiv:'Private Krankenvers. (Ja/Nein)',pkv:'Private Krankenvers. — Betrag',ruecklastAktiv:'Rücklastschriften/SCHUFA (Ja/Nein)',kkAktiv:'Kreditkarten (Ja/Nein)',kkBetrag:'Kreditkarten — Betrag',ratenAktiv:'Ratenzahlungen (Ja/Nein)',
+      eigenkapital:'Eigenkapital / Bank & Sparguthaben',wertpapiere:'Wertpapiere/Aktien',lvRueckkauf:'LV Rückkaufswert',lvBeitragMonat:'LV Beitrag/Monat',lvVorhanden:'Lebens-/Rentenversicherung (Ja/Nein)',bausparVorhanden:'Bausparvertrag (Ja/Nein)',bausparWert:'Bausparen Wert',bausparBeitragMonat:'Bausparen Beitrag/Monat',sonstVermoegen:'Sonstige Vermögenswerte',sonstEinkommen:'Sonstige Einkünfte',miete:'Warmmiete',sonstAusgaben:'Sonstige Ausgaben',unterhaltAktiv:'Unterhaltsverpflichtungen (Ja/Nein)',unterhaltsverpfl:'Unterhaltsverpflichtungen — Betrag',pkvAktiv:'Private Krankenvers. (Ja/Nein)',pkv:'Private Krankenvers. — Betrag',ruecklastAktiv:'Rücklastschriften/SCHUFA (Ja/Nein)',kkAktiv:'Kreditkarten (Ja/Nein)',kkBetrag:'Kreditkarten — Betrag',ratenAktiv:'Ratenzahlungen (Ja/Nein)',
       hasChildren:'Kinder vorhanden? (Ja/Nein)',name:'Name',imHaushalt:'Lebt im Haushalt (Ja/Nein)',kindergeldBetrag:'Kindergeld — Betrag',unterhaltBetrag:'Unterhaltseinnahmen — Betrag',unterhaltAusgabeBetrag:'Unterhaltsausgaben — Betrag',
-      anschrift:'Anschrift',types:'Objektart',gewerbeart:'Gewerbeart',gesamtflaeche:'Gesamtwohnfläche',vermieteteFlaeche:'Vermietete Fläche',gewerbeflaeche:'Gewerbefläche',baujahr:'Baujahr',kaufpreis:'Kaufpreis',wertHeute:'Wert heute',kaltmiete:'Kaltmiete',wohneinheiten:'Wohneinheiten'};
-    const grpTitle=(g)=>{if(g==='prot')return'Kundenprotokoll';if(g==='root')return'Kinder';if(g==='fin')return'Finanzielle Situation';const mA=/^app(\d+)$/.exec(g);if(mA)return'Antragsteller '+(+mA[1]+1);const mC=/^child(\d+)$/.exec(g);if(mC)return'Kind '+(+mC[1]+1);const mP=/^prop(\d+)$/.exec(g);if(mP)return'Immobilie '+(+mP[1]+1);return g;};
-    const grpRank=(g)=>{if(g==='prot')return 0;const mA=/^app(\d+)$/.exec(g);if(mA)return 10+(+mA[1]);if(g==='root')return 20;const mC=/^child(\d+)$/.exec(g);if(mC)return 21+(+mC[1]);if(g==='fin')return 40;const mP=/^prop(\d+)$/.exec(g);if(mP)return 50+(+mP[1]);return 99;};
+      anschrift:'Anschrift',types:'Objektart',gewerbeart:'Gewerbeart',gesamtflaeche:'Gesamtwohnfläche',vermieteteFlaeche:'Vermietete Fläche',gewerbeflaeche:'Gewerbefläche',baujahr:'Baujahr',kaufpreis:'Kaufpreis',wertHeute:'Wert heute',kaltmiete:'Kaltmiete',wohneinheiten:'Wohneinheiten',has:'Immobilie vorhanden? (Ja/Nein)'};
+    const grpTitle=(g)=>{if(g==='prot')return'Kundenprotokoll';if(g==='root')return'Kinder';if(g==='fin')return'Finanzielle Situation';if(g==='immo')return'Immobilien';const mA=/^app(\d+)$/.exec(g);if(mA)return'Antragsteller '+(+mA[1]+1);const mC=/^child(\d+)$/.exec(g);if(mC)return'Kind '+(+mC[1]+1);const mP=/^prop(\d+)$/.exec(g);if(mP)return'Immobilie '+(+mP[1]+1);return g;};
+    const grpRank=(g)=>{if(g==='prot')return 0;const mA=/^app(\d+)$/.exec(g);if(mA)return 10+(+mA[1]);if(g==='root')return 20;const mC=/^child(\d+)$/.exec(g);if(mC)return 21+(+mC[1]);if(g==='fin')return 40;if(g==='immo')return 49;const mP=/^prop(\d+)$/.exec(g);if(mP)return 50+(+mP[1]);return 99;};
     const errGroups={};
     Object.keys(ek).forEach(key=>{const p=key.split('.');(errGroups[p[0]]=errGroups[p[0]]||[]).push(errLabels[p[1]]||p[1]);});
     const errorSummary=Object.keys(errGroups).sort((a,b)=>grpRank(a)-grpRank(b)).map(g=>grpTitle(g)+': '+Array.from(new Set(errGroups[g])).join(', ')).join('   |   ');
@@ -1099,11 +1162,13 @@ class Component extends DCLogic {
       children, childrenInfo:s.childrenInfo, childrenYes:s.hasChildren===true, childrenNo:s.hasChildren===false,
       setChildrenYes:this.setChildrenYes, setChildrenNo:this.setChildrenNo, addChild:this.addChild, removeLastChild:this.removeLastChild, childCount:String(s.children.length),
       prot:s.prot, fin:finView, properties, addProperty:this.addProperty,
+      propertiesYes:s.hasProperties===true, propertiesNo:s.hasProperties===false,
+      setPropertiesYes:this.setPropertiesYes, setPropertiesNo:this.setPropertiesNo,
       onField:this.onField, onPropType:this.onPropType,
       herkunft:s.herkunft, curSymbol:s.herkunft==='CH'?'CHF':'€', curCode:s.herkunft==='CH'?'CHF':'EUR',
       herkunftOptions:[['Deutschland','DE'],['Österreich','AT'],['Schweiz','CH']].map(([label,value])=>({label,value,active:s.herkunft===value,pick:()=>this.setHerkunft(value)})),
       sumAppCount:String(s.applicants.length), sumChildCount:s.hasChildren?String(s.children.length):'0',
-      sumPropCount:String(s.properties.length), sumEinnahmenTotal:this.eur(gesEinnahmen), sumAusgabenTotal:this.eur(gesAusgaben),
+      sumPropCount:s.hasProperties===true?String(s.properties.length):'0', sumEinnahmenTotal:this.eur(gesEinnahmen), sumAusgabenTotal:this.eur(gesAusgaben),
       hasErrors:s.submitStatus==='validate'&&Object.keys(ek).length>0, errorSummary,
       isSuccess:s.submitStatus==='success', successDetail:s.successDetail,
       isSubmitError:s.submitStatus==='error', submitErrorMsg:s.submitErrorMsg,
