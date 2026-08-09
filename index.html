@@ -283,18 +283,13 @@
               <div><label>Arbeitgeber</label><input value="{{ a.arbeitgeber }}" aria-invalid="{{ a.err_arbeitgeber }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="arbeitgeber" onChange="{{ onField }}"></div>
               <div><label>Beruf</label><input value="{{ a.beruf }}" aria-invalid="{{ a.err_beruf }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beruf" onChange="{{ onField }}"></div>
               <div style="grid-column:1/-1;">
-                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 10px 2px;">
-                  <div style="font:600 12.5px 'Inter';color:#4a4438;">Nebenjob <span style="color:#a99a6f;font-weight:500;">(optional)</span></div>
-                  <sc-if value="{{ a.hasNebenjob }}" hint-placeholder-val="{{ false }}">
-                    <button type="button" onClick="{{ a.clearNebenjob }}" style="background:none;border:none;color:#a23b47;font:600 12px 'Inter';cursor:pointer;padding:0;">Nebenjob entfernen</button>
-                  </sc-if>
-                </div>
+                <div style="font:600 12.5px 'Inter';color:#4a4438;margin:0 0 10px 2px;">Nebentätigkeit</div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px 18px;align-items:end;">
+                  <div><label>Tätigkeit</label><input value="{{ a.nebenjob }}" aria-invalid="{{ a.err_nebenjob }}" placeholder="z. B. Aushilfe — keine? „–" eintragen" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjob" onChange="{{ onField }}"></div>
                   <div><label>Netto-Einkommen / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ a.nebenjobEinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
-                  <div><label>Tätigkeit</label><input value="{{ a.nebenjob }}" placeholder="z. B. Aushilfe" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjob" onChange="{{ onField }}"></div>
                   <div><label>Beschäftigt seit</label><input type="date" value="{{ a.nebenjobSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobSeit" onChange="{{ onField }}"></div>
                 </div>
-                <div style="margin-top:6px;font:500 12px 'Inter';color:#a99a6f;">Hinweis: Ein Nebenjob kann nur angerechnet werden, wenn er seit mindestens 6 Monaten besteht.</div>
+                <div style="margin-top:6px;font:500 12px 'Inter';color:#a99a6f;">Pflichtfeld. Keine Nebentätigkeit? „–" eintragen. Hinweis: Eine Nebentätigkeit kann nur angerechnet werden, wenn sie seit mindestens 6 Monaten besteht.</div>
               </div>
             </div>
           </div>
@@ -719,7 +714,7 @@ class Component extends DCLogic {
     super(props);
     this.OBJ_TYPES = [['grundstueck','Grundstück'],['etw','Eigentumswohnung'],['efh','Einfamilienhaus'],['zfh','Zweifamilienhaus'],['dhh','Doppelhaushälfte'],['reh','Reihenendhaus'],['rmh','Reihenmittelhaus'],['mfh','Mehrfamilienhaus'],['gewerbe','Gewerbeimmobilie']];
     this.LOAN_LABELS = ['Darlehen 1','Darlehen 2','Darlehen 3'];
-    this.REQ_APP = ['anrede','vorname','nachname','geburtsdatum','geburtsort','geburtsland','telefon','email','strasse','hausnummer','plz','ort','wohnhaftSeit','familienstand','nationalitaet1','beschaeftigungsart','nettoeinkommen','beschaeftigtSeit','gehaelterProJahr','arbeitgeber','beruf'];
+    this.REQ_APP = ['anrede','vorname','nachname','geburtsdatum','geburtsort','geburtsland','telefon','email','strasse','hausnummer','plz','ort','wohnhaftSeit','familienstand','nationalitaet1','beschaeftigungsart','nettoeinkommen','beschaeftigtSeit','gehaelterProJahr','arbeitgeber','beruf','nebenjob'];
     // Weitere Pflichtfeld-Gruppen (Betragsfelder: 0 eintragen wenn nicht zutreffend). Kommentar-/Beschreibungsfelder bleiben freiwillig.
     this.REQ_FIN_NUM = ['eigenkapital','wertpapiere','sonstVermoegen','sonstEinkommen','miete','sonstAusgaben'];
     this.REQ_FIN_TOGGLE = ['unterhaltAktiv','pkvAktiv','ruecklastAktiv','kkAktiv','ratenAktiv'];
@@ -839,7 +834,6 @@ class Component extends DCLogic {
   removeChild=(i)=>this.setState(p=>({children:p.children.filter((_,j)=>j!==i)}));
   removeLastChild=()=>this.setState(p=>({children:p.children.length>1?p.children.slice(0,-1):p.children}));
   setAppField=(i,key,val)=>this.setState(p=>({applicants:p.applicants.map((a,j)=>j===i?{...a,[key]:val}:a)}));
-  clearNebenjob=(i)=>this.setState(p=>({applicants:p.applicants.map((a,j)=>j===i?{...a,nebenjob:'',nebenjobEinkommen:'',nebenjobSeit:''}:a)}));
   pickFamilienstand=(i,val)=>this.setState(p=>({applicants:p.applicants.map((a,j)=>j===i?{...a,familienstand:val,guterstand:val==='Verheiratet'?a.guterstand:''}:a)}));
   setFinFlag=(key,val)=>this.setState(p=>({fin:{...p.fin,[key]:val}}));
   setChildFlag=(idx,key,val)=>this.setState(p=>({children:p.children.map((c,i)=>i==idx?{...c,[key]:val}:c)}));
@@ -1004,8 +998,10 @@ class Component extends DCLogic {
       row('Berater',kp.berater)+row('Portfolio Manager',kp.portfolioManager)+
       row('Gesprächsnotizen',kp.gespraechsnotizen)+row('Nächste Schritte',kp.naechsteSchritte)+'</table>';
     p.applicants.forEach((a,i)=>{
-      // Nebenjob-Zeilen nur, wenn ein Nebenjob eingetragen ist – sonst komplett weglassen
-      const nj=(a.beschaeftigung.nebenjob&&String(a.beschaeftigung.nebenjob).trim())?(row('Nebenjob',a.beschaeftigung.nebenjob)+row('Nebenjob Einkommen/Monat',a.beschaeftigung.nebenjobEinkommenMonat?eur(a.beschaeftigung.nebenjobEinkommenMonat):'')+row('Nebenjob beschäftigt seit',deDate(a.beschaeftigung.nebenjobBeschaeftigtSeit))):'';
+      // Nebentätigkeit ist Pflichtfeld: leer, „–" oder „0" => im PDF „Keine Nebentätigkeit"
+      const njRaw=String(a.beschaeftigung.nebenjob||'').trim();
+      const njNone=!njRaw||/^[-–—0\s]+$/.test(njRaw);
+      const nj=njNone?row('Nebentätigkeit','Keine Nebentätigkeit'):(row('Nebentätigkeit',a.beschaeftigung.nebenjob)+row('Nebentätigkeit Einkommen/Monat',a.beschaeftigung.nebenjobEinkommenMonat?eur(a.beschaeftigung.nebenjobEinkommenMonat):'')+row('Nebentätigkeit beschäftigt seit',deDate(a.beschaeftigung.nebenjobBeschaeftigtSeit)));
       h+=sec('Antragsteller '+(i+1))+'<table style="font:400 13.5px Arial;border-collapse:collapse;">'+
       row('Name',[a.anrede,a.vorname,a.nachname].filter(Boolean).join(' '))+row('Geburtsdatum',deDate(a.geburtsdatum))+row('Geburtsort/-land',[a.geburtsort,a.geburtsland].filter(Boolean).join(', '))+row('Telefon',a.telefon)+row('E-Mail',a.email)+
       row('Meldeadresse',[a.adresse.strasse,a.adresse.hausnummer].filter(Boolean).join(' ')+', '+[a.adresse.plz,a.adresse.ort].filter(Boolean).join(' '))+row('Wohnhaft seit',deDate(a.adresse.wohnhaftSeit))+
@@ -1079,7 +1075,6 @@ class Component extends DCLogic {
       const FAM=['Verheiratet','Ledig','Getrennt lebend','Geschieden','Eingetragene Lebenspartnerschaft','Verwitwet'];
       const GUT=[['Ohne Gütertrennung','Ohne Gütertrennung'],['Mit Gütertrennung','Mit Gütertrennung']];
       const vm={...a,aIndex:i,num:String(i+1),canRemove:s.applicants.length>1,remove:()=>this.removeApplicant(i),
-        hasNebenjob:!!((a.nebenjob&&a.nebenjob.trim())||(a.nebenjobEinkommen&&String(a.nebenjobEinkommen).trim())||(a.nebenjobSeit&&a.nebenjobSeit.trim())),clearNebenjob:()=>this.clearNebenjob(i),
         isMarried:a.familienstand==='Verheiratet',needsPermit:notDE,
         beschOptions:['Angestellt','Arbeiter','Beamter','Selbstständig','Freiberufler'].map(v=>({label:v,active:a.beschaeftigungsart===v,pick:()=>this.setAppField(i,'beschaeftigungsart',a.beschaeftigungsart===v?'':v)})),
         famOptions:FAM.map(v=>({label:v,active:a.familienstand===v,pick:()=>this.pickFamilienstand(i,a.familienstand===v?'':v)})),
@@ -1145,7 +1140,7 @@ class Component extends DCLogic {
       return pv;
     });
 
-    const errLabels={anrede:'Anrede',vorname:'Vorname',nachname:'Nachname',geburtsdatum:'Geburtsdatum',geburtsort:'Geburtsort',geburtsland:'Geburtsland',telefon:'Telefon',email:'E-Mail',strasse:'Straße',hausnummer:'Hausnummer',plz:'PLZ',ort:'Ort',wohnhaftSeit:'Wohnhaft seit',familienstand:'Familienstand',guterstand:'Güterstand',nationalitaet1:'Staatsangehörigkeit',aufenthaltstitel:'Aufenthaltstitel',beschaeftigungsart:'Beschäftigungsart',nettoeinkommen:'Nettoeinkommen',beschaeftigtSeit:'Beschäftigt seit',gehaelterProJahr:'Gehälter/Jahr',arbeitgeber:'Arbeitgeber',beruf:'Beruf',
+    const errLabels={anrede:'Anrede',vorname:'Vorname',nachname:'Nachname',geburtsdatum:'Geburtsdatum',geburtsort:'Geburtsort',geburtsland:'Geburtsland',telefon:'Telefon',email:'E-Mail',strasse:'Straße',hausnummer:'Hausnummer',plz:'PLZ',ort:'Ort',wohnhaftSeit:'Wohnhaft seit',familienstand:'Familienstand',guterstand:'Güterstand',nationalitaet1:'Staatsangehörigkeit',aufenthaltstitel:'Aufenthaltstitel',beschaeftigungsart:'Beschäftigungsart',nettoeinkommen:'Nettoeinkommen',beschaeftigtSeit:'Beschäftigt seit',gehaelterProJahr:'Gehälter/Jahr',arbeitgeber:'Arbeitgeber',beruf:'Beruf',nebenjob:'Nebentätigkeit',
       berater:'Berater',portfolioManager:'Portfolio Manager',
       eigenkapital:'Eigenkapital / Bank & Sparguthaben',wertpapiere:'Wertpapiere/Aktien',lvRueckkauf:'LV Rückkaufswert',lvBeitragMonat:'LV Beitrag/Monat',lvVorhanden:'Lebens-/Rentenversicherung (Ja/Nein)',bausparVorhanden:'Bausparvertrag (Ja/Nein)',bausparWert:'Bausparen Wert',bausparBeitragMonat:'Bausparen Beitrag/Monat',sonstVermoegen:'Sonstige Vermögenswerte',sonstEinkommen:'Sonstige Einkünfte',miete:'Warmmiete',sonstAusgaben:'Sonstige Ausgaben',unterhaltAktiv:'Unterhaltsverpflichtungen (Ja/Nein)',unterhaltsverpfl:'Unterhaltsverpflichtungen — Betrag',pkvAktiv:'Private Krankenvers. (Ja/Nein)',pkv:'Private Krankenvers. — Betrag',ruecklastAktiv:'Rücklastschriften/SCHUFA (Ja/Nein)',kkAktiv:'Kreditkarten (Ja/Nein)',kkBetrag:'Kreditkarten — Betrag',ratenAktiv:'Ratenzahlungen (Ja/Nein)',
       hasChildren:'Kinder vorhanden? (Ja/Nein)',name:'Name',imHaushalt:'Lebt im Haushalt (Ja/Nein)',kindergeldBetrag:'Kindergeld — Betrag',unterhaltBetrag:'Unterhaltseinnahmen — Betrag',unterhaltAusgabeBetrag:'Unterhaltsausgaben — Betrag',
