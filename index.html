@@ -285,7 +285,7 @@
               <div style="grid-column:1/-1;">
                 <div style="font:600 12.5px 'Inter';color:#4a4438;margin:0 0 10px 2px;">Nebentätigkeit</div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px 18px;align-items:end;">
-                  <div><label>Tätigkeit</label><input value="{{ a.nebenjob }}" aria-invalid="{{ a.err_nebenjob }}" placeholder="z. B. Aushilfe — keine? „–" eintragen" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjob" onChange="{{ onField }}"></div>
+                  <div><label>Tätigkeit</label><input value="{{ a.nebenjob }}" aria-invalid="{{ a.err_nebenjob }}" placeholder="z. B. Aushilfe" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjob" onChange="{{ onField }}"></div>
                   <div><label>Netto-Einkommen / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:36px;" value="{{ a.nebenjobEinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
                   <div><label>Beschäftigt seit</label><input type="date" value="{{ a.nebenjobSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobSeit" onChange="{{ onField }}"></div>
                 </div>
