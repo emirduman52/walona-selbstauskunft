@@ -26,6 +26,11 @@
   #wln input:focus,#wln select:focus,#wln textarea:focus{border-color:#C9A700;box-shadow:0 0 0 3px rgba(200,167,1,.20);}
   #wln [aria-invalid="true"]{border-color:#C6485B !important;box-shadow:0 0 0 3px rgba(198,72,91,.14) !important;}
   #wln input[type=checkbox]{width:19px;height:19px;accent-color:#161310;cursor:pointer;flex:none;}
+  /* Safari (macOS/iOS): nativen Date-Picker sauber ausrichten – Wert links wie bei Textfeldern,
+     Kalender-Indikator sichtbar/klickbar lassen (KEIN appearance:none auf Desktop → sonst verschwindet der Button) */
+  #wln input[type=date]{text-align:left;}
+  #wln input[type=date]::-webkit-date-and-time-value{text-align:left;margin:0;}
+  #wln input[type=date]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer;padding:0;margin-left:6px;}
   #wln button[data-step][aria-current="true"]{background:#161310 !important;color:#fff !important;border-color:#161310 !important;}
   #wln button[data-toggle][aria-pressed="true"]{background:#161310 !important;color:#fff !important;border-color:#161310 !important;}
   #wln table{border-collapse:collapse;width:100%;}
@@ -221,7 +226,7 @@
               </div>
               <div><label>Vorname</label><input value="{{ a.vorname }}" aria-invalid="{{ a.err_vorname }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="vorname" onChange="{{ onField }}"></div>
               <div><label>Nachname</label><input value="{{ a.nachname }}" aria-invalid="{{ a.err_nachname }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nachname" onChange="{{ onField }}"></div>
-              <div><label>Geburtsdatum</label><input type="date" value="{{ a.geburtsdatum }}" aria-invalid="{{ a.err_geburtsdatum }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsdatum" onChange="{{ onField }}"></div>
+              <div><label>Geburtsdatum</label><input type="date" value="{{ a.geburtsdatum }}" aria-invalid="{{ a.err_geburtsdatum }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsdatum" onBlur="{{ onField }}"></div>
               <div><label>Geburtsort</label><input value="{{ a.geburtsort }}" aria-invalid="{{ a.err_geburtsort }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsort" onChange="{{ onField }}"></div>
               <div><label>Geburtsland</label><input value="{{ a.geburtsland }}" aria-invalid="{{ a.err_geburtsland }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsland" onChange="{{ onField }}"></div>
               <div><label>Telefon</label><input type="tel" value="{{ a.telefon }}" aria-invalid="{{ a.err_telefon }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="telefon" onChange="{{ onField }}"></div>
@@ -230,7 +235,7 @@
               <div style="max-width:140px;"><label>Hausnummer</label><input value="{{ a.hausnummer }}" aria-invalid="{{ a.err_hausnummer }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="hausnummer" onChange="{{ onField }}"></div>
               <div style="max-width:150px;"><label>PLZ</label><input value="{{ a.plz }}" aria-invalid="{{ a.err_plz }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="plz" onChange="{{ onField }}"></div>
               <div><label>Ort</label><input value="{{ a.ort }}" aria-invalid="{{ a.err_ort }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="ort" onChange="{{ onField }}"></div>
-              <div><label>Wohnhaft dort seit</label><input type="date" value="{{ a.wohnhaftSeit }}" aria-invalid="{{ a.err_wohnhaftSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="wohnhaftSeit" onChange="{{ onField }}"></div>
+              <div><label>Wohnhaft dort seit</label><input type="date" value="{{ a.wohnhaftSeit }}" aria-invalid="{{ a.err_wohnhaftSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="wohnhaftSeit" onBlur="{{ onField }}"></div>
               <div style="grid-column:1/-1;">
                 <label>Familienstand</label>
                 <div style="display:flex;flex-wrap:wrap;gap:10px 22px;">
@@ -278,7 +283,7 @@
                 <label>Nettoeinkommen / Monat <span style="color:#a99a6f;font-weight:500;">(Haupttätigkeit, netto)</span></label>
                 <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:{{ curPad }};" value="{{ a.nettoeinkommen }}" aria-invalid="{{ a.err_nettoeinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nettoeinkommen" data-num="cur" onChange="{{ onField }}"></div>
               </div>
-              <div><label>Beschäftigt seit</label><input type="date" value="{{ a.beschaeftigtSeit }}" aria-invalid="{{ a.err_beschaeftigtSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beschaeftigtSeit" onChange="{{ onField }}"></div>
+              <div><label>Beschäftigt seit</label><input type="date" value="{{ a.beschaeftigtSeit }}" aria-invalid="{{ a.err_beschaeftigtSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beschaeftigtSeit" onBlur="{{ onField }}"></div>
               <div style="max-width:150px;"><label>Gehälter / Jahr</label><input type="number" min="12" max="14" value="{{ a.gehaelterProJahr }}" aria-invalid="{{ a.err_gehaelterProJahr }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="gehaelterProJahr" onChange="{{ onField }}"></div>
               <div><label>Arbeitgeber</label><input value="{{ a.arbeitgeber }}" aria-invalid="{{ a.err_arbeitgeber }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="arbeitgeber" onChange="{{ onField }}"></div>
               <div><label>Beruf</label><input value="{{ a.beruf }}" aria-invalid="{{ a.err_beruf }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beruf" onChange="{{ onField }}"></div>
@@ -295,7 +300,7 @@
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px 18px;align-items:end;">
                       <div><label>Tätigkeit</label><input value="{{ a.nebenjob }}" aria-invalid="{{ a.err_nebenjob }}" placeholder="z. B. Aushilfe" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjob" onChange="{{ onField }}"></div>
                       <div><label>Netto-Einkommen / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:{{ curPad }};" value="{{ a.nebenjobEinkommen }}" aria-invalid="{{ a.err_nebenjobEinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
-                      <div><label>Beschäftigt seit</label><input type="date" value="{{ a.nebenjobSeit }}" aria-invalid="{{ a.err_nebenjobSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobSeit" onChange="{{ onField }}"></div>
+                      <div><label>Beschäftigt seit</label><input type="date" value="{{ a.nebenjobSeit }}" aria-invalid="{{ a.err_nebenjobSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobSeit" onBlur="{{ onField }}"></div>
                     </div>
                     <div style="margin-top:6px;font:500 12px 'Inter';color:#a99a6f;">Hinweis: Eine Nebentätigkeit kann nur angerechnet werden, wenn sie seit mindestens 6 Monaten besteht.</div>
                   </div>
@@ -350,7 +355,7 @@
                   <button type="button" onClick="{{ c.remove }}" style="background:none;border:none;color:#a23b47;font:600 12.5px 'Inter';cursor:pointer;">Entfernen</button>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 16px;align-items:end;">
-                  <div><label>Geburtsdatum</label><input type="date" value="{{ c.geburtsdatum }}" aria-invalid="{{ c.err_geburtsdatum }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="geburtsdatum" onChange="{{ onField }}"></div>
+                  <div><label>Geburtsdatum</label><input type="date" value="{{ c.geburtsdatum }}" aria-invalid="{{ c.err_geburtsdatum }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="geburtsdatum" onBlur="{{ onField }}"></div>
                   <div>
                     <label>Lebt im Haushalt?</label>
                     <div style="display:flex;gap:9px;">
@@ -530,7 +535,7 @@
                   <td><input value="{{ k.darlehenshoehe }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="darlehenshoehe" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                   <td><input value="{{ k.rate }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="rate" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                   <td><input value="{{ k.gesamtlaufzeit }}" placeholder="z. B. 120 Monate" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="gesamtlaufzeit" onChange="{{ onField }}"></td>
-                  <td style="padding-right:14px;"><input type="date" value="{{ k.ablaufdatum }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="ablaufdatum" onChange="{{ onField }}"></td>
+                  <td style="padding-right:14px;"><input type="date" value="{{ k.ablaufdatum }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="ablaufdatum" onBlur="{{ onField }}"></td>
                 </tr>
               </sc-for>
             </tbody>
@@ -560,7 +565,7 @@
                       <td><input value="{{ k.darlehenshoehe }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="darlehenshoehe" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input value="{{ k.rate }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="rate" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input value="{{ k.gesamtlaufzeit }}" placeholder="z. B. 120 Monate" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="gesamtlaufzeit" onChange="{{ onField }}"></td>
-                      <td style="padding-right:14px;"><input type="date" value="{{ k.ablaufdatum }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="ablaufdatum" onChange="{{ onField }}"></td>
+                      <td style="padding-right:14px;"><input type="date" value="{{ k.ablaufdatum }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="ablaufdatum" onBlur="{{ onField }}"></td>
                     </tr>
                   </sc-for>
                 </tbody>
@@ -647,7 +652,7 @@
                       <td><input value="{{ l.darlehensstand }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="darlehensstand" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input style="min-width:80px;" value="{{ l.sollzins }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="sollzins" inputmode="decimal" onChange="{{ onField }}"></td>
                       <td><input style="min-width:80px;" value="{{ l.tilgung }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="tilgung" inputmode="decimal" onChange="{{ onField }}"></td>
-                      <td><input type="date" value="{{ l.zinsbindungBis }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="zinsbindungBis" onChange="{{ onField }}"></td>
+                      <td><input type="date" value="{{ l.zinsbindungBis }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="zinsbindungBis" onBlur="{{ onField }}"></td>
                       <td><input value="{{ l.gesamtlaufzeit }}" placeholder="z. B. 30 Jahre" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="gesamtlaufzeit" onChange="{{ onField }}"></td>
                       <td style="padding-right:14px;"><input value="{{ l.rateMonat }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="rateMonat" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                     </tr>
@@ -1000,7 +1005,7 @@ class Component extends DCLogic {
     }
     this.setState({errorKeys:{},submitStatus:'idle'});
     const p=this.buildPayload(); const eur=(n)=>this.eur(n); const esc=(s)=>String(s==null?'':s).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
-    const deDate=(s)=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(s||'').trim());return m?m[3]+'.'+m[2]+'.'+m[1]:(s||'');};
+    const deDate=(s)=>{const str=String(s||'').trim();const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(str);if(m){const y=+m[1],mo=+m[2],da=+m[3];if(mo>=1&&mo<=12&&da>=1&&da<=31&&y>=1900)return m[3]+'.'+m[2]+'.'+m[1];return'';}const de=/^(\d{2})\.(\d{2})\.(\d{4})$/.exec(str);return de?str:'';}; // nur vollständige, plausible Datumswerte; unvollständige/rohe Eingaben (z. B. Safari-Fragmente) werden verworfen
     const row=(k,v)=>v?`<tr><td style="color:#8a8168;padding:3px 12px 3px 0;white-space:nowrap;vertical-align:top;">${esc(k)}</td><td style="padding:3px 0;font-weight:500;">${esc(v)}</td></tr>`:'';
     const rowSum=(k,v)=>v?`<tr><td style="color:#161310;font-weight:700;padding:5px 12px 5px 0;white-space:nowrap;vertical-align:top;">${esc(k)}</td><td style="padding:5px 0;font-weight:700;font-size:14.5px;color:#161310;">${esc(v)}</td></tr>`:'';
     const sec=(t)=>`<h2 style="font:600 15px Arial;text-transform:uppercase;letter-spacing:.06em;color:#161310;margin:22px 0 8px;border-bottom:2px solid #C9A700;padding-bottom:4px;">${t}</h2>`;
