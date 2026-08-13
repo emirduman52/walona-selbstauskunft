@@ -26,11 +26,6 @@
   #wln input:focus,#wln select:focus,#wln textarea:focus{border-color:#C9A700;box-shadow:0 0 0 3px rgba(200,167,1,.20);}
   #wln [aria-invalid="true"]{border-color:#C6485B !important;box-shadow:0 0 0 3px rgba(198,72,91,.14) !important;}
   #wln input[type=checkbox]{width:19px;height:19px;accent-color:#161310;cursor:pointer;flex:none;}
-  /* Safari (macOS/iOS): nativen Date-Picker sauber ausrichten – Wert links wie bei Textfeldern,
-     Kalender-Indikator sichtbar/klickbar lassen (KEIN appearance:none auf Desktop → sonst verschwindet der Button) */
-  #wln input[type=date]{text-align:left;}
-  #wln input[type=date]::-webkit-date-and-time-value{text-align:left;margin:0;}
-  #wln input[type=date]::-webkit-calendar-picker-indicator{opacity:.6;cursor:pointer;padding:0;margin-left:6px;}
   #wln button[data-step][aria-current="true"]{background:#161310 !important;color:#fff !important;border-color:#161310 !important;}
   #wln button[data-toggle][aria-pressed="true"]{background:#161310 !important;color:#fff !important;border-color:#161310 !important;}
   #wln table{border-collapse:collapse;width:100%;}
@@ -38,6 +33,7 @@
   #wln td{padding:5px 6px;vertical-align:middle;}
   #wln td input{padding:9px 10px;font-size:13.5px;min-width:120px;}
   #wln ::placeholder{color:#b3ab98;}
+  #wln input[data-date]::placeholder{font-size:13px;} /* TT.MM.JJJJ-Platzhalter etwas kleiner */
   @keyframes wln-in{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:none;}}
   .wln-reveal{animation:wln-in .24s ease both;}
   @keyframes wln-marquee{from{transform:translateX(0);}to{transform:translateX(calc(-50% - 9px));}}
@@ -59,10 +55,6 @@
     /* 16px verhindert Auto-Zoom beim Fokussieren auf iOS */
     #wln input:not([type=checkbox]),#wln select,#wln textarea{font-size:16px;}
     #wln td input{font-size:16px;min-width:118px;}
-    /* Date-Inputs (Geburtsdatum, Wohnhaft/Beschäftigt seit, Zinsbindung bis) ignorieren auf iOS
-       sonst die Breite und laufen über / überlappen → zwingen, sich an den Container zu halten */
-    #wln input[type=date]{-webkit-appearance:none;appearance:none;min-width:0;max-width:100%;}
-    #wln td input[type=date]{min-width:118px;width:100%;}
     /* Weiße Karten schmaler bepolstern (Live-DOM normalisiert Styles → Leerzeichen nach Doppelpunkt) */
     #wln [style*="border-radius: 20px"]{padding-left:16px !important;padding-right:16px !important;}
     #wln [style*="border-radius: 22px"]{padding:22px 16px !important;}
@@ -226,7 +218,7 @@
               </div>
               <div><label>Vorname</label><input value="{{ a.vorname }}" aria-invalid="{{ a.err_vorname }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="vorname" onChange="{{ onField }}"></div>
               <div><label>Nachname</label><input value="{{ a.nachname }}" aria-invalid="{{ a.err_nachname }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nachname" onChange="{{ onField }}"></div>
-              <div><label>Geburtsdatum</label><input type="date" value="{{ a.geburtsdatum }}" aria-invalid="{{ a.err_geburtsdatum }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsdatum" onBlur="{{ onField }}"></div>
+              <div><label>Geburtsdatum</label><input inputmode="numeric" placeholder="TT.MM.JJJJ" maxlength="10" data-date="1" value="{{ a.geburtsdatum }}" aria-invalid="{{ a.err_geburtsdatum }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsdatum" onChange="{{ onField }}"></div>
               <div><label>Geburtsort</label><input value="{{ a.geburtsort }}" aria-invalid="{{ a.err_geburtsort }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsort" onChange="{{ onField }}"></div>
               <div><label>Geburtsland</label><input value="{{ a.geburtsland }}" aria-invalid="{{ a.err_geburtsland }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="geburtsland" onChange="{{ onField }}"></div>
               <div><label>Telefon</label><input type="tel" value="{{ a.telefon }}" aria-invalid="{{ a.err_telefon }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="telefon" onChange="{{ onField }}"></div>
@@ -235,7 +227,7 @@
               <div style="max-width:140px;"><label>Hausnummer</label><input value="{{ a.hausnummer }}" aria-invalid="{{ a.err_hausnummer }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="hausnummer" onChange="{{ onField }}"></div>
               <div style="max-width:150px;"><label>PLZ</label><input value="{{ a.plz }}" aria-invalid="{{ a.err_plz }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="plz" onChange="{{ onField }}"></div>
               <div><label>Ort</label><input value="{{ a.ort }}" aria-invalid="{{ a.err_ort }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="ort" onChange="{{ onField }}"></div>
-              <div><label>Wohnhaft dort seit</label><input type="date" value="{{ a.wohnhaftSeit }}" aria-invalid="{{ a.err_wohnhaftSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="wohnhaftSeit" onBlur="{{ onField }}"></div>
+              <div><label>Wohnhaft dort seit</label><input inputmode="numeric" placeholder="TT.MM.JJJJ" maxlength="10" data-date="1" value="{{ a.wohnhaftSeit }}" aria-invalid="{{ a.err_wohnhaftSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="wohnhaftSeit" onChange="{{ onField }}"></div>
               <div style="grid-column:1/-1;">
                 <label>Familienstand</label>
                 <div style="display:flex;flex-wrap:wrap;gap:10px 22px;">
@@ -283,7 +275,7 @@
                 <label>Nettoeinkommen / Monat <span style="color:#a99a6f;font-weight:500;">(Haupttätigkeit, netto)</span></label>
                 <div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:{{ curPad }};" value="{{ a.nettoeinkommen }}" aria-invalid="{{ a.err_nettoeinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nettoeinkommen" data-num="cur" onChange="{{ onField }}"></div>
               </div>
-              <div><label>Beschäftigt seit</label><input type="date" value="{{ a.beschaeftigtSeit }}" aria-invalid="{{ a.err_beschaeftigtSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beschaeftigtSeit" onBlur="{{ onField }}"></div>
+              <div><label>Beschäftigt seit</label><input inputmode="numeric" placeholder="TT.MM.JJJJ" maxlength="10" data-date="1" value="{{ a.beschaeftigtSeit }}" aria-invalid="{{ a.err_beschaeftigtSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beschaeftigtSeit" onChange="{{ onField }}"></div>
               <div style="max-width:150px;"><label>Gehälter / Jahr</label><input type="number" min="12" max="14" value="{{ a.gehaelterProJahr }}" aria-invalid="{{ a.err_gehaelterProJahr }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="gehaelterProJahr" onChange="{{ onField }}"></div>
               <div><label>Arbeitgeber</label><input value="{{ a.arbeitgeber }}" aria-invalid="{{ a.err_arbeitgeber }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="arbeitgeber" onChange="{{ onField }}"></div>
               <div><label>Beruf</label><input value="{{ a.beruf }}" aria-invalid="{{ a.err_beruf }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="beruf" onChange="{{ onField }}"></div>
@@ -300,7 +292,7 @@
                     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px 18px;align-items:end;">
                       <div><label>Tätigkeit</label><input value="{{ a.nebenjob }}" aria-invalid="{{ a.err_nebenjob }}" placeholder="z. B. Aushilfe" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjob" onChange="{{ onField }}"></div>
                       <div><label>Netto-Einkommen / Monat</label><div style="position:relative;"><span style="position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#9a9078;font-size:12.5px;">{{ curSymbol }}</span><input style="padding-left:{{ curPad }};" value="{{ a.nebenjobEinkommen }}" aria-invalid="{{ a.err_nebenjobEinkommen }}" inputmode="numeric" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobEinkommen" data-num="cur" onChange="{{ onField }}"></div></div>
-                      <div><label>Beschäftigt seit</label><input type="date" value="{{ a.nebenjobSeit }}" aria-invalid="{{ a.err_nebenjobSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobSeit" onBlur="{{ onField }}"></div>
+                      <div><label>Beschäftigt seit</label><input inputmode="numeric" placeholder="TT.MM.JJJJ" maxlength="10" data-date="1" value="{{ a.nebenjobSeit }}" aria-invalid="{{ a.err_nebenjobSeit }}" data-sec="app" data-idx="{{ a.aIndex }}" data-key="nebenjobSeit" onChange="{{ onField }}"></div>
                     </div>
                     <div style="margin-top:6px;font:500 12px 'Inter';color:#a99a6f;">Hinweis: Eine Nebentätigkeit kann nur angerechnet werden, wenn sie seit mindestens 6 Monaten besteht.</div>
                   </div>
@@ -355,7 +347,7 @@
                   <button type="button" onClick="{{ c.remove }}" style="background:none;border:none;color:#a23b47;font:600 12.5px 'Inter';cursor:pointer;">Entfernen</button>
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px 16px;align-items:end;">
-                  <div><label>Geburtsdatum</label><input type="date" value="{{ c.geburtsdatum }}" aria-invalid="{{ c.err_geburtsdatum }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="geburtsdatum" onBlur="{{ onField }}"></div>
+                  <div><label>Geburtsdatum</label><input inputmode="numeric" placeholder="TT.MM.JJJJ" maxlength="10" data-date="1" value="{{ c.geburtsdatum }}" aria-invalid="{{ c.err_geburtsdatum }}" data-sec="child" data-idx="{{ c.cIndex }}" data-key="geburtsdatum" onChange="{{ onField }}"></div>
                   <div>
                     <label>Lebt im Haushalt?</label>
                     <div style="display:flex;gap:9px;">
@@ -535,7 +527,7 @@
                   <td><input value="{{ k.darlehenshoehe }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="darlehenshoehe" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                   <td><input value="{{ k.rate }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="rate" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                   <td><input value="{{ k.gesamtlaufzeit }}" placeholder="z. B. 120 Monate" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="gesamtlaufzeit" onChange="{{ onField }}"></td>
-                  <td style="padding-right:14px;"><input type="date" value="{{ k.ablaufdatum }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="ablaufdatum" onBlur="{{ onField }}"></td>
+                  <td style="padding-right:14px;"><input inputmode="numeric" placeholder="TT.MM.JJJJ" maxlength="10" data-date="1" value="{{ k.ablaufdatum }}" data-sec="kredit" data-person="A" data-ridx="{{ k.ridx }}" data-key="ablaufdatum" onChange="{{ onField }}"></td>
                 </tr>
               </sc-for>
             </tbody>
@@ -565,7 +557,7 @@
                       <td><input value="{{ k.darlehenshoehe }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="darlehenshoehe" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input value="{{ k.rate }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="rate" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input value="{{ k.gesamtlaufzeit }}" placeholder="z. B. 120 Monate" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="gesamtlaufzeit" onChange="{{ onField }}"></td>
-                      <td style="padding-right:14px;"><input type="date" value="{{ k.ablaufdatum }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="ablaufdatum" onBlur="{{ onField }}"></td>
+                      <td style="padding-right:14px;"><input inputmode="numeric" placeholder="TT.MM.JJJJ" maxlength="10" data-date="1" value="{{ k.ablaufdatum }}" data-sec="kredit" data-person="M" data-ridx="{{ k.ridx }}" data-key="ablaufdatum" onChange="{{ onField }}"></td>
                     </tr>
                   </sc-for>
                 </tbody>
@@ -652,7 +644,7 @@
                       <td><input value="{{ l.darlehensstand }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="darlehensstand" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                       <td><input style="min-width:80px;" value="{{ l.sollzins }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="sollzins" inputmode="decimal" onChange="{{ onField }}"></td>
                       <td><input style="min-width:80px;" value="{{ l.tilgung }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="tilgung" inputmode="decimal" onChange="{{ onField }}"></td>
-                      <td><input type="date" value="{{ l.zinsbindungBis }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="zinsbindungBis" onBlur="{{ onField }}"></td>
+                      <td><input inputmode="numeric" placeholder="TT.MM.JJJJ" maxlength="10" data-date="1" value="{{ l.zinsbindungBis }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="zinsbindungBis" onChange="{{ onField }}"></td>
                       <td><input value="{{ l.gesamtlaufzeit }}" placeholder="z. B. 30 Jahre" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="gesamtlaufzeit" onChange="{{ onField }}"></td>
                       <td style="padding-right:14px;"><input value="{{ l.rateMonat }}" data-sec="loan" data-pidx="{{ l.pIndex }}" data-lidx="{{ l.lIndex }}" data-key="rateMonat" data-num="cur" inputmode="numeric" onChange="{{ onField }}"></td>
                     </tr>
@@ -812,6 +804,10 @@ class Component extends DCLogic {
   }
 
   fmtCur(str){const digits=String(str).replace(/[^\d]/g,'');if(!digits)return'';return Number(digits).toLocaleString('de-DE');}
+  fmtDate(str){const dg=String(str==null?'':str).replace(/\D/g,'').slice(0,8);if(dg.length<=2)return dg;if(dg.length<=4)return dg.slice(0,2)+'.'+dg.slice(2);return dg.slice(0,2)+'.'+dg.slice(2,4)+'.'+dg.slice(4);} // TT.MM.JJJJ-Maske aus reinen Ziffern
+  isFullDate(v){const m=/^(\d{2})\.(\d{2})\.(\d{4})$/.exec(String(v||'').trim());if(!m)return false;const da=+m[1],mo=+m[2],y=+m[3];return da>=1&&da<=31&&mo>=1&&mo<=12&&y>=1900&&y<=2100;}
+  isFutureDate(v){const m=/^(\d{2})\.(\d{2})\.(\d{4})$/.exec(String(v||'').trim());if(!m)return false;const d=new Date(+m[3],+m[2]-1,+m[1]);const t=new Date();t.setHours(0,0,0,0);return d.getTime()>t.getTime();} // Datum liegt nach heute?
+  deToISO(v){const m=/^(\d{2})\.(\d{2})\.(\d{4})$/.exec(String(v||'').trim());return m?m[3]+'-'+m[2]+'-'+m[1]:'';} // TT.MM.JJJJ → ISO für Payload
   parseNum(str){if(str==null||str==='')return 0;const n=Number(String(str).replace(/\./g,'').replace(/,/g,'.').replace(/[^\d.-]/g,''))||0;return n<0?0:n;} // negative Werte werden auf 0 gesetzt
   eur(n){const chf=this.state&&this.state.herkunft==='CH';return (Number(n)||0).toLocaleString(chf?'de-CH':'de-DE')+(chf?' CHF':' €');}
   setHerkunft=(v)=>this.setState({herkunft:v});
@@ -820,7 +816,8 @@ class Component extends DCLogic {
   onField=(e)=>{
     const t=e.target, d=t.dataset;
     let val = (t.type==='checkbox') ? t.checked : t.value;
-    if(d.num==='cur' && typeof val==='string') val=this.fmtCur(val);
+    if(d.date){ val=this.fmtDate(val); } // Datumsfeld: Ziffern → TT.MM.JJJJ (Löschen greift durch, da aus Ziffern neu aufgebaut)
+    else if(d.num==='cur' && typeof val==='string') val=this.fmtCur(val);
     // Zahlenfelder (Flächen, Baujahr, Wohneinheiten, Gehälter, Zins/Tilgung): keine negativen Werte zulassen
     else if(typeof val==='string' && val!=='' && (t.type==='number'||t.inputMode==='numeric'||t.inputMode==='decimal') && /-/.test(val)) val=val.replace(/-/g,'');
     const sec=d.sec;
@@ -869,6 +866,10 @@ class Component extends DCLogic {
     // Antragsteller (jeder hinzugefügte)
     s.applicants.forEach((a,i)=>{
       this.REQ_APP.forEach(k=>{if(empty(a[k]))errs['app'+i+'.'+k]=true;});
+      // Datumsfelder: unvollständig (z. B. "14.08.") → ungültig
+      ['geburtsdatum','wohnhaftSeit','beschaeftigtSeit'].forEach(k=>{if(!empty(a[k]) && !this.isFullDate(a[k]))errs['app'+i+'.'+k]=true;});
+      // "Wohnhaft seit" / "Beschäftigt seit" dürfen nicht in der Zukunft liegen
+      ['wohnhaftSeit','beschaeftigtSeit'].forEach(k=>{if(this.isFullDate(a[k]) && this.isFutureDate(a[k]))errs['app'+i+'.'+k]=true;});
       const email=String(a.email||'');
       if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))errs['app'+i+'.email']=true;
       if(a.familienstand==='Verheiratet' && empty(a.guterstand))errs['app'+i+'.guterstand']=true;
@@ -879,7 +880,7 @@ class Component extends DCLogic {
       if(a.nebenjobVorhanden===true){
         if(empty(a.nebenjob))errs['app'+i+'.nebenjob']=true;
         if(empty(a.nebenjobEinkommen))errs['app'+i+'.nebenjobEinkommen']=true;
-        if(empty(a.nebenjobSeit))errs['app'+i+'.nebenjobSeit']=true;
+        if(empty(a.nebenjobSeit)||!this.isFullDate(a.nebenjobSeit))errs['app'+i+'.nebenjobSeit']=true;
       }
     });
     // Weitere Einkünfte (Haushalt) – Betrag
@@ -888,7 +889,7 @@ class Component extends DCLogic {
     if(s.hasChildren!==true && s.hasChildren!==false)errs['root.hasChildren']=true;
     if(s.hasChildren===true){
       s.children.forEach((c,i)=>{
-        if(empty(c.geburtsdatum))errs['child'+i+'.geburtsdatum']=true;
+        if(empty(c.geburtsdatum)||!this.isFullDate(c.geburtsdatum))errs['child'+i+'.geburtsdatum']=true;
         if(c.imHaushalt!==true && c.imHaushalt!==false)errs['child'+i+'.imHaushalt']=true;
         if(c.kindergeld && empty(c.kindergeldBetrag))errs['child'+i+'.kindergeldBetrag']=true;
         if(c.unterhalt && empty(c.unterhaltBetrag))errs['child'+i+'.unterhaltBetrag']=true;
@@ -923,6 +924,7 @@ class Component extends DCLogic {
   buildPayload(){
     const s=this.state;
     const num=(v)=>this.parseNum(v);
+    const iso=(v)=>this.deToISO(v); // Datum TT.MM.JJJJ → ISO (YYYY-MM-DD) für den Payload
     return {
       meta:{formVersion:'1.0',submittedAt:new Date().toISOString(),brand:'Walona Group'},
       versand:{empfaengerEmail:(this.state.empfaengerEmail||'').trim()},
@@ -930,19 +932,19 @@ class Component extends DCLogic {
       waehrung:s.herkunft==='CH'?'CHF':'EUR',
       kundenprotokoll:{berater:s.prot.berater,portfolioManager:s.prot.portfolioManager,gespraechsnotizen:s.prot.gespraechsnotizen,naechsteSchritte:s.prot.naechsteSchritte},
       applicants:s.applicants.map(a=>({
-        anrede:a.anrede,vorname:a.vorname,nachname:a.nachname,geburtsdatum:a.geburtsdatum,geburtsort:a.geburtsort,geburtsland:a.geburtsland,telefon:a.telefon,email:a.email,
-        adresse:{strasse:a.strasse,hausnummer:a.hausnummer,plz:a.plz,ort:a.ort,wohnhaftSeit:a.wohnhaftSeit},
+        anrede:a.anrede,vorname:a.vorname,nachname:a.nachname,geburtsdatum:iso(a.geburtsdatum),geburtsort:a.geburtsort,geburtsland:a.geburtsland,telefon:a.telefon,email:a.email,
+        adresse:{strasse:a.strasse,hausnummer:a.hausnummer,plz:a.plz,ort:a.ort,wohnhaftSeit:iso(a.wohnhaftSeit)},
         familienstand:a.familienstand,guterstand:a.familienstand==='Verheiratet'?a.guterstand:'',
         nationalitaeten:[a.nationalitaet1].filter(Boolean),
         aufenthaltstitel:a.aufenthaltstitel,
-        beschaeftigung:{art:a.beschaeftigungsart,nettoeinkommenMonat:num(a.nettoeinkommen),beschaeftigtSeit:a.beschaeftigtSeit,gehaelterProJahr:num(a.gehaelterProJahr),arbeitgeber:a.arbeitgeber,beruf:a.beruf,nebentaetigkeitVorhanden:a.nebenjobVorhanden===true,nebenjob:a.nebenjobVorhanden===true?a.nebenjob:'',nebenjobEinkommenMonat:a.nebenjobVorhanden===true?num(a.nebenjobEinkommen):0,nebenjobBeschaeftigtSeit:a.nebenjobVorhanden===true?a.nebenjobSeit:''}
+        beschaeftigung:{art:a.beschaeftigungsart,nettoeinkommenMonat:num(a.nettoeinkommen),beschaeftigtSeit:iso(a.beschaeftigtSeit),gehaelterProJahr:num(a.gehaelterProJahr),arbeitgeber:a.arbeitgeber,beruf:a.beruf,nebentaetigkeitVorhanden:a.nebenjobVorhanden===true,nebenjob:a.nebenjobVorhanden===true?a.nebenjob:'',nebenjobEinkommenMonat:a.nebenjobVorhanden===true?num(a.nebenjobEinkommen):0,nebenjobBeschaeftigtSeit:a.nebenjobVorhanden===true?iso(a.nebenjobSeit):''}
       })),
-      kinder:{vorhanden:!!s.hasChildren,beschreibung:s.hasChildren?s.childrenInfo:'',anzahl:s.hasChildren?s.children.length:0,liste:s.hasChildren?s.children.map(c=>({geburtsdatum:c.geburtsdatum,imHaushalt:c.imHaushalt===true,kindergeld:c.kindergeld,kindergeldBetragMonat:c.kindergeld?num(c.kindergeldBetrag):0,unterhaltseinnahmen:c.unterhalt,unterhaltseinnahmenMonat:c.unterhalt?num(c.unterhaltBetrag):0,unterhaltsausgabe:c.unterhaltAusgabe,unterhaltsausgabeMonat:c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0})):[]},
+      kinder:{vorhanden:!!s.hasChildren,beschreibung:s.hasChildren?s.childrenInfo:'',anzahl:s.hasChildren?s.children.length:0,liste:s.hasChildren?s.children.map(c=>({geburtsdatum:iso(c.geburtsdatum),imHaushalt:c.imHaushalt===true,kindergeld:c.kindergeld,kindergeldBetragMonat:c.kindergeld?num(c.kindergeldBetrag):0,unterhaltseinnahmen:c.unterhalt,unterhaltseinnahmenMonat:c.unterhalt?num(c.unterhaltBetrag):0,unterhaltsausgabe:c.unterhaltAusgabe,unterhaltsausgabeMonat:c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0})):[]},
       finanzen:{
         vermoegenEinkommen:{eigenkapitalBankSparguthaben:num(s.fin.eigenkapital),wertpapiere:num(s.fin.wertpapiere),lebensversicherungVorhanden:s.fin.lvVorhanden===true,lebensversicherungRueckkaufswert:s.fin.lvVorhanden===true?num(s.fin.lvRueckkauf):0,lebensversicherungBeitragMonat:s.fin.lvVorhanden===true?num(s.fin.lvBeitragMonat):0,bausparvertragVorhanden:s.fin.bausparVorhanden===true,bausparAngespart:s.fin.bausparVorhanden===true?num(s.fin.bausparWert):0,bausparBeitragMonat:s.fin.bausparVorhanden===true?num(s.fin.bausparBeitragMonat):0,sonstigeVermoegenswerte:num(s.fin.sonstVermoegen),sonstigeEinkuenfteMonat:num(s.fin.sonstEinkommen),gesamteinnahmenMonat:s.applicants.reduce((x,a)=>x+num(a.nettoeinkommen)+num(a.nebenjobEinkommen),0)+num(s.fin.sonstEinkommen)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.kindergeld?num(c.kindergeldBetrag):0)+(c.unterhalt?num(c.unterhaltBetrag):0),0):0),beschreibungEinkuenfte:s.fin.infoEinkommen},
         ausgaben:{warmmieteMonat:num(s.fin.miete),unterhaltsverpflichtungen:s.fin.unterhaltAktiv===true,unterhaltsverpflichtungenMonat:s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0,privateKrankenversicherung:s.fin.pkvAktiv===true,privateKrankenversicherungMonat:s.fin.pkvAktiv===true?num(s.fin.pkv):0,sonstigeAusgabenMonat:num(s.fin.sonstAusgaben),kinderUnterhaltsausgabenMonat:s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0,gesamtausgabenMonat:num(s.fin.miete)+(s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0)+(s.fin.pkvAktiv===true?num(s.fin.pkv):0)+num(s.fin.sonstAusgaben)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0),beschreibungAusgaben:s.fin.infoAusgaben,anmerkungMiete:s.fin.infoMiete},
         bonitaet:{ruecklastschriftenOderSchufa90Tage:s.fin.ruecklastAktiv===true,ruecklastschriftenInfo:s.fin.ruecklastAktiv===true?s.fin.ruecklastInfo:'',kreditkarten:s.fin.kkAktiv===true,kreditkartenAusgeschoepfterBetrag:s.fin.kkAktiv===true?num(s.fin.kkBetrag):0,ratenzahlungen:s.fin.ratenAktiv===true,ratenzahlungenInfo:s.fin.ratenAktiv===true?s.fin.ratenInfo:''},
-        privateKredite:{antragsteller:s.fin.krediteA.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:k.ablaufdatum})),mitantragsteller:s.fin.mitAktiv?s.fin.krediteM.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:k.ablaufdatum})):[]},
+        privateKredite:{antragsteller:s.fin.krediteA.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:iso(k.ablaufdatum)})),mitantragsteller:s.fin.mitAktiv?s.fin.krediteM.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:iso(k.ablaufdatum)})):[]},
         kommentar:s.fin.kommentar
       },
       immobilienVorhanden:s.hasProperties===true,
@@ -952,7 +954,7 @@ class Component extends DCLogic {
         gewerbeart:p.types.gewerbe?p.gewerbeart:'',
         gesamtwohnflaecheM2:num(p.gesamtflaeche),vermieteteWohnflaecheM2:num(p.vermieteteFlaeche),gewerblicheNutzflaecheM2:num(p.gewerbeflaeche),baujahr:p.baujahr,
         kaufpreis:num(p.kaufpreis),wertHeute:num(p.wertHeute),kaltmieteMonat:num(p.kaltmiete),anzahlWohneinheiten:num(p.wohneinheiten),
-        verbindlichkeiten:p.loans.map((l,i)=>({darlehen:i+1,kreditgeber:l.kreditgeber,kreditnehmer:l.kreditnehmer,eingetrageneGrundschulden:num(l.grundschulden),aktuellerDarlehensstand:num(l.darlehensstand),sollzinsProzent:this.parseNum(l.sollzins),tilgungProzent:this.parseNum(l.tilgung),zinsbindungBis:l.zinsbindungBis,gesamtlaufzeit:l.gesamtlaufzeit,monatlicheRate:num(l.rateMonat)})),
+        verbindlichkeiten:p.loans.map((l,i)=>({darlehen:i+1,kreditgeber:l.kreditgeber,kreditnehmer:l.kreditnehmer,eingetrageneGrundschulden:num(l.grundschulden),aktuellerDarlehensstand:num(l.darlehensstand),sollzinsProzent:this.parseNum(l.sollzins),tilgungProzent:this.parseNum(l.tilgung),zinsbindungBis:iso(l.zinsbindungBis),gesamtlaufzeit:l.gesamtlaufzeit,monatlicheRate:num(l.rateMonat)})),
         summeDarlehensstand:p.loans.reduce((s2,l)=>s2+num(l.darlehensstand),0),
         summeMonatlicheBelastung:p.loans.reduce((s2,l)=>s2+num(l.rateMonat),0),
         beschreibung:p.info,besonderheiten:p.besonderheiten
