@@ -1064,19 +1064,27 @@ class Component extends DCLogic {
     const name='Selbstauskunft'+(kunde?'_'+kunde:'');
     // Robuste, offline-fähige Ausgabe über den nativen Druck-Dialog (kein html2canvas —
     // dieser erzeugte je nach Umgebung/Datenmenge eine leere weiße Seite).
-    const win=window.open('','_blank');
-    if(!win){alert('Bitte erlauben Sie Pop-ups fuer diese Seite, damit das PDF erstellt werden kann.');return;}
-    // Ausgabe ueber den nativen Druck-Dialog. Aufbau ausschliesslich per DOM-API — es
-    // duerfen keine Dokument-Struktur-Tags (doctype/html/head/body) als Textliteral im
-    // Quelltext stehen, da die Vorschau-Umgebung diese sonst als echtes Tag interpretiert.
+    // Ausgabe ueber ein verstecktes iframe im aktuellen Dokument (statt window.open) —
+    // so zeigt die Druck-Fusszeile die echte Seiten-URL statt "about:blank".
+    // Aufbau ausschliesslich per DOM-API — es duerfen keine Dokument-Struktur-Tags
+    // (doctype/html/head/body) als Textliteral im Quelltext stehen, da die Vorschau-
+    // Umgebung diese sonst als echtes Tag interpretiert.
     const css='@page{size:A4;margin:12mm;}*{box-sizing:border-box;}html,body{margin:0;padding:0;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}tr,td,th,img{break-inside:avoid;page-break-inside:avoid;}table{break-inside:auto;}h2{break-inside:avoid;break-after:avoid;page-break-after:avoid;}';
-    const d=win.document;
-    try{d.title=name;}catch(e){}
+    const prevTitle=document.title;
+    const frame=document.createElement('iframe');
+    frame.setAttribute('aria-hidden','true');
+    frame.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden;';
+    document.body.appendChild(frame);
+    const cleanup=()=>{try{document.title=prevTitle;}catch(e){}try{frame.remove();}catch(e){}};
+    const d=frame.contentWindow.document;
+    d.open();d.write('<!DOCTYPE html>');d.close();
     const st=d.createElement('style');st.textContent=css;(d.head||d.documentElement).appendChild(st);
     if(!d.body){d.documentElement.appendChild(d.createElement('body'));}
     d.body.innerHTML=h;
-    win.onafterprint=function(){try{win.close();}catch(e){}};
-    const doPrint=()=>{try{if(win&&!win.closed){win.focus();win.print();}}catch(e){}};
+    // Der Titel-Teil der Fusszeile folgt dem Dokumenttitel; kurz auf den Dateinamen setzen.
+    try{document.title=name;}catch(e){}
+    let printed=false;
+    const doPrint=()=>{if(printed)return;printed=true;try{const w=frame.contentWindow;w.focus();w.onafterprint=cleanup;w.print();}catch(e){cleanup();}setTimeout(cleanup,60000);};
     const imgs=Array.prototype.slice.call(d.images||[]);
     let pending=imgs.filter(im=>!im.complete).length;
     if(!pending){setTimeout(doPrint,350);}
