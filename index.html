@@ -511,6 +511,16 @@
         <div style="font:700 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#a99a6f;margin:0 0 6px;">Private Kredite / Autokredite</div>
         <p style="margin:0 0 18px;font:500 13px 'Inter';color:#8a8168;">Bestehende Konsumenten- oder Autokredite (ohne Immobiliendarlehen).</p>
 
+        <div>
+          <label>Private Kredite / Autokredite vorhanden?</label>
+          <div style="display:flex;gap:9px;">
+            <button data-toggle type="button" aria-pressed="{{ fin.krediteJa }}" onClick="{{ fin.setKrediteJa }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Ja</button>
+            <button data-toggle type="button" aria-pressed="{{ fin.krediteNein }}" onClick="{{ fin.setKrediteNein }}" style="padding:9px 22px;border-radius:999px;border:1.5px solid #Dcd4c2;background:#fff;color:#4a4438;font:600 13.5px 'Inter';cursor:pointer;">Nein</button>
+          </div>
+        </div>
+
+        <sc-if value="{{ fin.krediteJa }}" hint-placeholder-val="{{ false }}">
+        <div class="wln-reveal" style="margin-top:20px;">
         <div style="font:600 13.5px 'Inter';color:#161310;margin:0 0 10px;">Antragsteller</div>
         <div style="overflow-x:auto;border:1px solid #EDE7D9;border-radius:14px;">
           <table style="min-width:640px;">
@@ -565,6 +575,8 @@
             </div>
             <button type="button" onClick="{{ fin.addKreditM }}" style="margin-top:12px;padding:9px 18px;border-radius:999px;background:#fff;color:#161310;border:1.5px solid #Dcd4c2;font:600 13px 'Inter';cursor:pointer;">+ Weitere Zeile</button>
           </div>
+        </sc-if>
+        </div>
         </sc-if>
       </div>
 
@@ -754,7 +766,7 @@ class Component extends DCLogic {
   emptyApplicant(){return{anrede:'',vorname:'',nachname:'',geburtsdatum:'',geburtsort:'',geburtsland:'Deutschland',telefon:'',email:'',strasse:'',hausnummer:'',plz:'',ort:'',wohnhaftSeit:'',familienstand:'',guterstand:'',nationalitaet1:'Deutschland',aufenthaltstitel:'',beschaeftigungsart:'',nettoeinkommen:'',beschaeftigtSeit:'',gehaelterProJahr:'12',arbeitgeber:'',beruf:'',nebenjobVorhanden:null,nebenjob:'',nebenjobEinkommen:'',nebenjobSeit:''};}
   emptyChild(){return{name:'',geburtsdatum:'',imHaushalt:null,kindergeld:false,kindergeldBetrag:'',unterhalt:false,unterhaltBetrag:'',unterhaltAusgabe:false,unterhaltAusgabeBetrag:''};}
   emptyKredit(){return{name:'',kreditgeber:'',restschuld:'',darlehenshoehe:'',rate:'',gesamtlaufzeit:'',ablaufdatum:''};}
-  emptyFin(){return{eigenkapital:'',wertpapiere:'',lvRueckkauf:'',lvBeitragMonat:'',lvVorhanden:null,bausparVorhanden:null,bausparWert:'',bausparBeitragMonat:'',sonstVermoegen:'',sonstEinkommen:'',infoEinkommen:'',miete:'',unterhaltAktiv:null,unterhaltsverpfl:'',pkvAktiv:null,pkv:'',sonstAusgaben:'',infoAusgaben:'',infoMiete:'',ruecklastAktiv:null,ruecklastInfo:'',kkAktiv:null,kkBetrag:'',ratenAktiv:null,ratenInfo:'',kommentar:'',krediteA:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()],mitAktiv:false,krediteM:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()]};}
+  emptyFin(){return{eigenkapital:'',wertpapiere:'',lvRueckkauf:'',lvBeitragMonat:'',lvVorhanden:null,bausparVorhanden:null,bausparWert:'',bausparBeitragMonat:'',sonstVermoegen:'',sonstEinkommen:'',infoEinkommen:'',miete:'',unterhaltAktiv:null,unterhaltsverpfl:'',pkvAktiv:null,pkv:'',sonstAusgaben:'',infoAusgaben:'',infoMiete:'',ruecklastAktiv:null,ruecklastInfo:'',kkAktiv:null,kkBetrag:'',ratenAktiv:null,ratenInfo:'',kommentar:'',krediteAktiv:null,krediteA:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()],mitAktiv:false,krediteM:[this.emptyKredit(),this.emptyKredit(),this.emptyKredit()]};}
   emptyLoan(){return{kreditgeber:'',kreditnehmer:'',grundschulden:'',darlehensstand:'',sollzins:'',tilgung:'',zinsbindungBis:'',gesamtlaufzeit:'',rateMonat:''};}
   emptyProperty(){return{anschrift:'',types:{},gewerbeart:'',gesamtflaeche:'',vermieteteFlaeche:'',gewerbeflaeche:'',baujahr:'',kaufpreis:'',wertHeute:'',kaltmiete:'',wohneinheiten:'',info:'',besonderheiten:'',loans:[this.emptyLoan(),this.emptyLoan(),this.emptyLoan()]};}
 
@@ -944,7 +956,7 @@ class Component extends DCLogic {
         vermoegenEinkommen:{eigenkapitalBankSparguthaben:num(s.fin.eigenkapital),wertpapiere:num(s.fin.wertpapiere),lebensversicherungVorhanden:s.fin.lvVorhanden===true,lebensversicherungRueckkaufswert:s.fin.lvVorhanden===true?num(s.fin.lvRueckkauf):0,lebensversicherungBeitragMonat:s.fin.lvVorhanden===true?num(s.fin.lvBeitragMonat):0,bausparvertragVorhanden:s.fin.bausparVorhanden===true,bausparAngespart:s.fin.bausparVorhanden===true?num(s.fin.bausparWert):0,bausparBeitragMonat:s.fin.bausparVorhanden===true?num(s.fin.bausparBeitragMonat):0,sonstigeVermoegenswerte:num(s.fin.sonstVermoegen),sonstigeEinkuenfteMonat:num(s.fin.sonstEinkommen),gesamteinnahmenMonat:s.applicants.reduce((x,a)=>x+num(a.nettoeinkommen)+num(a.nebenjobEinkommen),0)+num(s.fin.sonstEinkommen)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.kindergeld?num(c.kindergeldBetrag):0)+(c.unterhalt?num(c.unterhaltBetrag):0),0):0),beschreibungEinkuenfte:s.fin.infoEinkommen},
         ausgaben:{warmmieteMonat:num(s.fin.miete),unterhaltsverpflichtungen:s.fin.unterhaltAktiv===true,unterhaltsverpflichtungenMonat:s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0,privateKrankenversicherung:s.fin.pkvAktiv===true,privateKrankenversicherungMonat:s.fin.pkvAktiv===true?num(s.fin.pkv):0,sonstigeAusgabenMonat:num(s.fin.sonstAusgaben),kinderUnterhaltsausgabenMonat:s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0,gesamtausgabenMonat:num(s.fin.miete)+(s.fin.unterhaltAktiv===true?num(s.fin.unterhaltsverpfl):0)+(s.fin.pkvAktiv===true?num(s.fin.pkv):0)+num(s.fin.sonstAusgaben)+(s.hasChildren?s.children.reduce((x,c)=>x+(c.unterhaltAusgabe?num(c.unterhaltAusgabeBetrag):0),0):0),beschreibungAusgaben:s.fin.infoAusgaben,anmerkungMiete:s.fin.infoMiete},
         bonitaet:{ruecklastschriftenOderSchufa90Tage:s.fin.ruecklastAktiv===true,ruecklastschriftenInfo:s.fin.ruecklastAktiv===true?s.fin.ruecklastInfo:'',kreditkarten:s.fin.kkAktiv===true,kreditkartenAusgeschoepfterBetrag:s.fin.kkAktiv===true?num(s.fin.kkBetrag):0,ratenzahlungen:s.fin.ratenAktiv===true,ratenzahlungenInfo:s.fin.ratenAktiv===true?s.fin.ratenInfo:''},
-        privateKredite:{antragsteller:s.fin.krediteA.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:iso(k.ablaufdatum)})),mitantragsteller:s.fin.mitAktiv?s.fin.krediteM.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:iso(k.ablaufdatum)})):[]},
+        privateKredite:{antragsteller:s.fin.krediteAktiv===true?s.fin.krediteA.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:iso(k.ablaufdatum)})):[],mitantragsteller:(s.fin.krediteAktiv===true&&s.fin.mitAktiv)?s.fin.krediteM.filter(k=>k.restschuld||k.darlehenshoehe||k.rate||k.gesamtlaufzeit||k.ablaufdatum).map(k=>({kreditnehmer:k.name,kreditgeber:k.kreditgeber,restschuld:num(k.restschuld),darlehenshoeheGesamt:num(k.darlehenshoehe),rateMonat:num(k.rate),gesamtlaufzeit:k.gesamtlaufzeit,ablaufdatum:iso(k.ablaufdatum)})):[]},
         kommentar:s.fin.kommentar
       },
       immobilienVorhanden:s.hasProperties===true,
@@ -1138,6 +1150,8 @@ class Component extends DCLogic {
     const mapKredit=(person)=>(r,j)=>({...r,ridx:String(j),person,num:String(j+1)});
     const finView={...s.fin,
       gesamteinnahmenFmt:this.eur(gesEinnahmen),
+      krediteJa:s.fin.krediteAktiv===true,krediteNein:s.fin.krediteAktiv===false,
+      setKrediteJa:()=>this.setFinFlag('krediteAktiv',true),setKrediteNein:()=>this.setFinFlag('krediteAktiv',false),
       krediteA:s.fin.krediteA.map(mapKredit('A')),
       krediteM:s.fin.krediteM.map(mapKredit('M')),
       mitAktiv:s.fin.mitAktiv,
